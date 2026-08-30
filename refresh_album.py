@@ -1,5 +1,10 @@
 import os, io, json, base64, subprocess, sys
 from datetime import datetime, timezone, timedelta
+try:
+    from zoneinfo import ZoneInfo
+    _TZ = ZoneInfo("America/Chicago")
+except Exception:
+    _TZ = timezone(timedelta(hours=-5))
 
 from google.oauth2 import service_account
 from googleapiclient.discovery import build
@@ -152,7 +157,7 @@ def reverse_geocode(lat, lon, cache):
     time.sleep(1.1)
     return result
 
-def build_html(photos_by_day, reactions):
+def build_html(photos_by_day, reactions, build_time_str):
     import html as htmlmod
     def esc(s): return htmlmod.escape(s or "")
     rail, mobile, days_out = [], [], []
@@ -214,7 +219,8 @@ def build_html(photos_by_day, reactions):
 </head><body>
 <div class="hero"><div class="eyebrow">A Conrad family journey</div><h1>Blessed With This Time Together</h1>
 <p>Eleven days chasing golf balls across Scotland, celebrating Kealey turning 25 in London, and watching ASU play Kansas at Wembley &mdash; because apparently that's a thing that happens now. Every photo below came from someone's actual camera roll.</p>
-<div class="divider"></div><div class="dates">Sept 10 &ndash; 21, 2026</div></div>
+<div class="divider"></div><div class="dates">Sept 10 &ndash; 21, 2026</div>
+<div class="updated-stamp">Updated {build_time_str}</div></div>
 {trophies_html}
 <div class="mobile-nav">{"".join(mobile)}</div>
 <div class="layout"><div class="rail">{"".join(rail)}</div><div class="thread"></div><div class="days">{"".join(days_out)}</div></div>
@@ -296,7 +302,9 @@ def main():
 
     json.dump(cache, open(CACHE_PATH, "w"))
     reactions = fetch_reactions()
-    html_out = build_html(photos_by_day, reactions)
+    now = datetime.now(_TZ)
+    build_time_str = now.strftime("%b %-d, %Y \u00b7 %-I:%M %p") + " CT"
+    html_out = build_html(photos_by_day, reactions, build_time_str)
     with open("index.html", "w") as f:
         f.write(html_out)
     total = sum(len(v) for v in photos_by_day.values())

@@ -172,6 +172,7 @@ def build_html(photos_by_day, reactions, build_time_str):
 
     top_heart, heart_count = top_photo("heart")
     top_laugh, laugh_count = top_photo("laugh")
+    top_down, down_count = top_photo("thumbsdown")
 
     def trophy_html(label, photo, count):
         if not photo:
@@ -180,7 +181,7 @@ def build_html(photos_by_day, reactions, build_time_str):
 <img src="data:image/jpeg;base64,{photo['b64']}" alt="">
 <div class="trophy-count">{count} vote{'s' if count != 1 else ''}</div></div>'''
 
-    trophies_html = f'''<div class="trophies">{trophy_html("Most loved", top_heart, heart_count)}{trophy_html("Funniest", top_laugh, laugh_count)}</div>'''
+    trophies_html = f'''<div class="trophies">{trophy_html("Most loved", top_heart, heart_count)}{trophy_html("Funniest", top_laugh, laugh_count)}{trophy_html("Yikes", top_down, down_count)}</div>'''
 
     for d in DAYS:
         key = d["key"]

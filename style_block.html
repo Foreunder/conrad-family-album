@@ -29,16 +29,14 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:'Inter',sans-ser
 
 /* ===== Layout: rail + thread + days ===== */
 .layout{display:flex;max-width:1200px;margin:0 auto;align-items:flex-start;}
-.rail{width:170px;flex-shrink:0;position:sticky;top:0;height:100vh;padding:60px 0 60px 24px;display:flex;flex-direction:column;gap:1px;overflow-y:auto;}
-.rail-item{display:flex;align-items:flex-start;gap:9px;padding:8px 10px 8px 0;cursor:pointer;color:var(--ink-faint);font-size:12px;text-decoration:none;transition:color .15s;}
-.rail-item .num{font-family:'Fraunces',serif;font-size:14px;color:var(--ink-faint);flex-shrink:0;line-height:1.3;}
+.rail{width:230px;flex-shrink:0;position:sticky;top:0;height:100vh;padding:60px 16px 60px 24px;display:flex;flex-direction:column;gap:2px;overflow-y:auto;}
+.rail-item{display:flex;align-items:flex-start;gap:12px;padding:12px 12px;cursor:pointer;color:var(--ink-faint);font-size:12.5px;text-decoration:none;border-radius:5px;border-left:2px solid transparent;transition:background .15s,border-color .15s;}
+.rail-item .num{font-family:'Fraunces',serif;font-size:16px;color:var(--ink-faint);flex-shrink:0;line-height:1.4;width:20px;}
 .rail-item .stack{min-width:0;flex:1;}
-.rail-item .lbl{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-.rail-item .rdate{font-size:10px;color:var(--ink-faint);opacity:.75;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-top:2px;}
-.rail-item .cnt{margin-left:auto;flex-shrink:0;font-size:10.5px;color:var(--ink-faint);align-self:center;}
-.rail-item:hover{color:var(--ink);}
-.rail-item:hover .num{color:var(--gold);}
-.rail-item.active{color:var(--ink);}
+.rail-item .lbl{color:var(--ink-soft);line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.rail-item .rdate{font-size:10.5px;color:var(--ink-faint);margin-top:4px;}
+.rail-item:hover{background:var(--panel);}
+.rail-item.active{background:var(--panel);border-left-color:var(--gold);}
 .rail-item.active .num{color:var(--gold);}
 .rail-item.active .lbl{color:var(--ink);font-weight:500;}
 
@@ -98,7 +96,7 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:'Inter',sans-ser
   .rail{display:none;}
   .thread{display:none;}
   .mobile-nav{display:flex;overflow-x:auto;gap:6px;padding:14px 16px;position:sticky;top:0;background:var(--bg);border-bottom:1px solid var(--line);z-index:50;-webkit-overflow-scrolling:touch;}
-  .mobile-nav a{flex-shrink:0;font-size:12px;color:var(--ink-faint);text-decoration:none;padding:6px 12px;border:1px solid var(--line);border-radius:14px;white-space:nowrap;}
+  .mobile-nav a{flex-shrink:0;font-size:13px;color:var(--ink-soft);text-decoration:none;padding:7px 14px;border:1px solid var(--line);border-radius:14px;white-space:nowrap;}
   .mobile-nav a.active{color:var(--bg);background:var(--gold);border-color:var(--gold);}
   .days{padding:40px 20px;max-width:none;}
   .lightbox-close{top:10px;right:14px;font-size:26px;}

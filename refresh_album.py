@@ -34,7 +34,7 @@ DAYS = [
 ]
 TAGS = {
   "PRE":"Compression cubes, a Garmin charger, and mounting anticipation.",
-  "01":"Two cities, one flight, and by morning we're all in the same country again.",
+  "01":"Omaha meets Phoenix at the gate, and by morning all four of us are stepping off the same plane in London.",
   "02":"Twenty-five years old, spent bending an entire city around her.",
   "03":"History old enough to make our problems feel small.",
   "04":"Hickory clubs are humbling, and Musselburgh doesn't care how good you think you are.",

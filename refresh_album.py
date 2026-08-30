@@ -54,6 +54,18 @@ for d in DAYS:
 
 pillow_heif.register_heif_opener()
 
+REACTIONS_ENDPOINT = os.environ.get("REACTIONS_ENDPOINT", "")
+
+def fetch_reactions():
+    if not REACTIONS_ENDPOINT:
+        return {}
+    try:
+        req = urllib.request.Request(REACTIONS_ENDPOINT, headers={"User-Agent": "conrad-family-album/1.0"})
+        with urllib.request.urlopen(req, timeout=10) as resp:
+            return json.loads(resp.read())
+    except Exception:
+        return {}
+
 def get_drive_service():
     creds = service_account.Credentials.from_service_account_file(KEY_PATH, scopes=SCOPES)
     return build("drive", "v3", credentials=creds)
@@ -140,10 +152,31 @@ def reverse_geocode(lat, lon, cache):
     time.sleep(1.1)
     return result
 
-def build_html(photos_by_day):
+def build_html(photos_by_day, reactions):
     import html as htmlmod
     def esc(s): return htmlmod.escape(s or "")
     rail, mobile, days_out = [], [], []
+
+    all_photos = [p for photos in photos_by_day.values() for p in photos]
+    def top_photo(kind):
+        candidates = [(p, reactions.get(p["id"], {}).get(kind, 0)) for p in all_photos]
+        candidates = [c for c in candidates if c[1] > 0]
+        if not candidates:
+            return None, 0
+        return max(candidates, key=lambda c: c[1])
+
+    top_heart, heart_count = top_photo("heart")
+    top_laugh, laugh_count = top_photo("laugh")
+
+    def trophy_html(label, photo, count):
+        if not photo:
+            return f'<div class="trophy-card"><div class="trophy-label">{label}</div><div class="trophy-empty">No votes yet</div></div>'
+        return f'''<div class="trophy-card"><div class="trophy-label">{label}</div>
+<img src="data:image/jpeg;base64,{photo['b64']}" alt="">
+<div class="trophy-count">{count} vote{'s' if count != 1 else ''}</div></div>'''
+
+    trophies_html = f'''<div class="trophies">{trophy_html("Most loved", top_heart, heart_count)}{trophy_html("Funniest", top_laugh, laugh_count)}</div>'''
+
     for d in DAYS:
         key = d["key"]
         photos = photos_by_day.get(key, [])
@@ -152,7 +185,14 @@ def build_html(photos_by_day):
         for p in photos:
             needs = " needs-sort" if key == "00" else ""
             flag = '<div class="unsorted-flag">Needs sorting</div>' if key == "00" else ""
-            cards.append(f'''<div class="photo{needs}">{flag}<img src="data:image/jpeg;base64,{p['b64']}" alt="">
+            r = reactions.get(p["id"], {})
+            heart_n, laugh_n, down_n = r.get("heart", 0), r.get("laugh", 0), r.get("thumbsdown", 0)
+            cards.append(f'''<div class="photo{needs}" data-photo-id="{esc(p['id'])}">{flag}<img src="data:image/jpeg;base64,{p['b64']}" alt="">
+<div class="reactions">
+<button class="react-btn" data-reaction="heart">&#10084;&#65039; <span class="rc">{heart_n}</span></button>
+<button class="react-btn" data-reaction="laugh">&#128514; <span class="rc">{laugh_n}</span></button>
+<button class="react-btn" data-reaction="thumbsdown">&#128078; <span class="rc">{down_n}</span></button>
+</div>
 <div class="cap"><div class="loc">{esc(p['loc'])}</div><div class="time">{esc(p['when'])}</div></div></div>''')
         empty = '<div class="day-empty">Nobody\'s added a photo here yet &mdash; get on that.</div>' if not photos else ""
         days_out.append(f'''<div id="day-{key}" class="day" data-key="{key}">
@@ -175,6 +215,7 @@ def build_html(photos_by_day):
 <div class="hero"><div class="eyebrow">A Conrad family journey</div><h1>Blessed With This Time Together</h1>
 <p>Eleven days chasing golf balls across Scotland, celebrating Kealey turning 25 in London, and watching ASU play Kansas at Wembley &mdash; because apparently that's a thing that happens now. Every photo below came from someone's actual camera roll.</p>
 <div class="divider"></div><div class="dates">Sept 10 &ndash; 21, 2026</div></div>
+{trophies_html}
 <div class="mobile-nav">{"".join(mobile)}</div>
 <div class="layout"><div class="rail">{"".join(rail)}</div><div class="thread"></div><div class="days">{"".join(days_out)}</div></div>
 <div class="lightbox-overlay" id="lightbox"><button class="lightbox-close" id="lightboxClose" aria-label="Close">&times;</button>
@@ -203,6 +244,24 @@ document.getElementById('lightboxPrev').addEventListener('click', () => navigate
 document.getElementById('lightboxNext').addEventListener('click', () => navigateLightbox(1));
 lightbox.addEventListener('click', e => {{ if (e.target === lightbox) closeLightbox(); }});
 document.addEventListener('keydown', e => {{ if (!lightbox.classList.contains('open')) return; if (e.key==='Escape') closeLightbox(); else if (e.key==='ArrowLeft') navigateLightbox(-1); else if (e.key==='ArrowRight') navigateLightbox(1); }});
+
+const REACTIONS_ENDPOINT = "{REACTIONS_ENDPOINT}";
+document.querySelectorAll('.react-btn').forEach(btn => {{
+  btn.addEventListener('click', (e) => {{
+    e.stopPropagation();
+    if (!REACTIONS_ENDPOINT) return;
+    const card = btn.closest('.photo');
+    const photoId = card.getAttribute('data-photo-id');
+    const reaction = btn.getAttribute('data-reaction');
+    const countEl = btn.querySelector('.rc');
+    countEl.textContent = parseInt(countEl.textContent, 10) + 1;
+    btn.classList.add('voted');
+    fetch(REACTIONS_ENDPOINT, {{
+      method: 'POST',
+      body: JSON.stringify({{ photoId, reaction }})
+    }}).catch(() => {{}});
+  }});
+}});
 </script></body></html>'''
 
 def main():
@@ -230,13 +289,14 @@ def main():
         elif day_key != "00":
             loc = "Location unknown"
         when = date_obj.strftime("%a, %-I:%M %p") if date_obj else "Date unknown"
-        photos_by_day[day_key].append({"b64": b64, "loc": loc, "when": when, "date": date_obj.isoformat() if date_obj else ""})
+        photos_by_day[day_key].append({"id": f["id"], "b64": b64, "loc": loc, "when": when, "date": date_obj.isoformat() if date_obj else ""})
 
     for k in photos_by_day:
         photos_by_day[k].sort(key=lambda p: p["date"] or "9999")
 
     json.dump(cache, open(CACHE_PATH, "w"))
-    html_out = build_html(photos_by_day)
+    reactions = fetch_reactions()
+    html_out = build_html(photos_by_day, reactions)
     with open("index.html", "w") as f:
         f.write(html_out)
     total = sum(len(v) for v in photos_by_day.values())

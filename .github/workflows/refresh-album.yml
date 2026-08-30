@@ -29,6 +29,8 @@ jobs:
 
       - name: Build the album
         run: python refresh_album.py
+        env:
+          REACTIONS_ENDPOINT: ${{ secrets.REACTIONS_ENDPOINT }}
 
       - name: Clean up key file
         run: rm -f sa_key.json

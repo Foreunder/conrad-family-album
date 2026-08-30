@@ -1,0 +1,42 @@
+name: Refresh photo album
+
+on:
+  schedule:
+    - cron: "0 * * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          pip install google-auth google-api-python-client pillow-heif exifread pillow
+
+      - name: Write service account key
+        run: echo "$SERVICE_ACCOUNT_KEY" > sa_key.json
+        env:
+          SERVICE_ACCOUNT_KEY: ${{ secrets.DRIVE_SERVICE_ACCOUNT_KEY }}
+
+      - name: Build the album
+        run: python refresh_album.py
+
+      - name: Clean up key file
+        run: rm -f sa_key.json
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name "album-bot"
+          git config user.email "album-bot@users.noreply.github.com"
+          git add index.html geocode_cache.json
+          git diff --cached --quiet || git commit -m "Auto-refresh album $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          git push

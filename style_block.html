@@ -33,7 +33,7 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:'Inter',sans-ser
 .rail-item{display:flex;align-items:flex-start;gap:12px;padding:12px 12px;cursor:pointer;color:var(--ink-faint);font-size:12.5px;text-decoration:none;border-radius:5px;border-left:2px solid transparent;transition:background .15s,border-color .15s;}
 .rail-item .num{font-family:'Fraunces',serif;font-size:16px;color:var(--ink-faint);flex-shrink:0;line-height:1.4;width:20px;}
 .rail-item .stack{min-width:0;flex:1;}
-.rail-item .lbl{color:var(--ink-soft);line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.rail-item .lbl{color:var(--ink-soft);line-height:1.35;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .rail-item .rdate{font-size:10.5px;color:var(--ink-faint);margin-top:4px;}
 .rail-item:hover{background:var(--panel);}
 .rail-item.active{background:var(--panel);border-left-color:var(--gold);}

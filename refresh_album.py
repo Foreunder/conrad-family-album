@@ -18,19 +18,19 @@ TRIP_START = "2026-09-10"
 PRE_TRIP_WINDOW_START = "2026-08-11"
 
 DAYS = [
-  {"key":"PRE","roman":"\u2014","title":"Before We Go: Packing & Planning","date":"Aug 11\u2013Sept 9, 2026","short":"Aug 11\u2013Sept 9","dates":[]},
-  {"key":"01","roman":"I","title":"The Distance Between Here and There","date":"Thu\u2013Fri, Sept 10\u201311, 2026","short":"Sept 10\u201311","dates":["2026-09-10","2026-09-11"]},
-  {"key":"02","roman":"II","title":"Kealey's Birthday in London","date":"Saturday, Sept 12, 2026","short":"Sept 12","dates":["2026-09-12"]},
-  {"key":"03","roman":"III","title":"Westminster and the Thames","date":"Sunday, Sept 13, 2026","short":"Sept 13","dates":["2026-09-13"]},
-  {"key":"04","roman":"IV","title":"North to Scotland","date":"Monday, Sept 14, 2026","short":"Sept 14","dates":["2026-09-14"]},
-  {"key":"05","roman":"V","title":"Gullane and the Road to St Andrews","date":"Tuesday, Sept 15, 2026","short":"Sept 15","dates":["2026-09-15"]},
-  {"key":"06","roman":"VI","title":"St Andrews and Edinburgh","date":"Wednesday, Sept 16, 2026","short":"Sept 16","dates":["2026-09-16"]},
-  {"key":"07","roman":"VII","title":"London's South Bank","date":"Thursday, Sept 17, 2026","short":"Sept 17","dates":["2026-09-17"]},
-  {"key":"08","roman":"VIII","title":"On to Wembley","date":"Friday, Sept 18, 2026","short":"Sept 18","dates":["2026-09-18"]},
-  {"key":"09","roman":"IX","title":"Game Day at Wembley","date":"Saturday, Sept 19, 2026","short":"Sept 19","dates":["2026-09-19"]},
-  {"key":"10","roman":"X","title":"London to Phoenix","date":"Sunday, Sept 20, 2026","short":"Sept 20","dates":["2026-09-20"]},
-  {"key":"11","roman":"XI","title":"The Road Home","date":"Monday, Sept 21, 2026","short":"Sept 21","dates":["2026-09-21"]},
-  {"key":"00","roman":"?","title":"Unsorted","date":"No date or GPS data found","short":"\u2014","dates":[]},
+  {"key":"PRE","roman":"\u2014","title":"Before We Go: Packing & Planning","railTitle":"Before we go","date":"Aug 11\u2013Sept 9, 2026","short":"Aug 11\u2013Sept 9","dates":[]},
+  {"key":"01","roman":"I","title":"The Distance Between Here and There","railTitle":"The distance here to there","date":"Thu\u2013Fri, Sept 10\u201311, 2026","short":"Sept 10\u201311","dates":["2026-09-10","2026-09-11"]},
+  {"key":"02","roman":"II","title":"Kealey's Birthday in London","railTitle":"Kealey's birthday","date":"Saturday, Sept 12, 2026","short":"Sept 12","dates":["2026-09-12"]},
+  {"key":"03","roman":"III","title":"Westminster and the Thames","railTitle":"Westminster & the Thames","date":"Sunday, Sept 13, 2026","short":"Sept 13","dates":["2026-09-13"]},
+  {"key":"04","roman":"IV","title":"North to Scotland","railTitle":"North to Scotland","date":"Monday, Sept 14, 2026","short":"Sept 14","dates":["2026-09-14"]},
+  {"key":"05","roman":"V","title":"Gullane and the Road to St Andrews","railTitle":"Gullane to St Andrews","date":"Tuesday, Sept 15, 2026","short":"Sept 15","dates":["2026-09-15"]},
+  {"key":"06","roman":"VI","title":"St Andrews and Edinburgh","railTitle":"St Andrews & Edinburgh","date":"Wednesday, Sept 16, 2026","short":"Sept 16","dates":["2026-09-16"]},
+  {"key":"07","roman":"VII","title":"London's South Bank","railTitle":"South Bank","date":"Thursday, Sept 17, 2026","short":"Sept 17","dates":["2026-09-17"]},
+  {"key":"08","roman":"VIII","title":"On to Wembley","railTitle":"On to Wembley","date":"Friday, Sept 18, 2026","short":"Sept 18","dates":["2026-09-18"]},
+  {"key":"09","roman":"IX","title":"Game Day at Wembley","railTitle":"Game day","date":"Saturday, Sept 19, 2026","short":"Sept 19","dates":["2026-09-19"]},
+  {"key":"10","roman":"X","title":"London to Phoenix","railTitle":"London to Phoenix","date":"Sunday, Sept 20, 2026","short":"Sept 20","dates":["2026-09-20"]},
+  {"key":"11","roman":"XI","title":"The Road Home","railTitle":"The road home","date":"Monday, Sept 21, 2026","short":"Sept 21","dates":["2026-09-21"]},
+  {"key":"00","roman":"?","title":"Unsorted","railTitle":"Unsorted","date":"No date or GPS data found","short":"\u2014","dates":[]},
 ]
 TAGS = {
   "PRE":"Compression cubes, a Garmin charger, and mounting anticipation.",
@@ -160,7 +160,7 @@ def build_html(photos_by_day):
 <h2 class="day-title">{esc(d['title'])}</h2>
 <p class="day-tag">{esc(TAGS.get(key,''))}</p>
 <div class="photo-grid">{"".join(cards)}</div>{empty}</div>''')
-        rail.append(f'''<a class="rail-item" data-key="{key}" href="#day-{key}"><span class="num">{esc(d['roman'])}</span><div class="stack"><div class="lbl">{esc(d['title'])}</div><div class="rdate">{esc(d['short'])}</div></div></a>''')
+        rail.append(f'''<a class="rail-item" data-key="{key}" href="#day-{key}"><span class="num">{esc(d['roman'])}</span><div class="stack"><div class="lbl">{esc(d['railTitle'])}</div><div class="rdate">{esc(d['short'])}</div></div></a>''')
         mobile.append(f'<a data-key="{key}" href="#day-{key}">{esc(d["roman"])}</a>')
 
     style = open("style_block.html").read()

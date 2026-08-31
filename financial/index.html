@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Trip Finances">
+<meta name="theme-color" content="#11365d">
+<title>Conrad Trip — Financial Breakdown</title>
+<style>
+  :root{--navy:#11365d;--gold:#a97d27;--card:#fffaf0;--ink:#2a1f10;--line:#d8c69a;}
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Karla,sans-serif;background:#f3ead7;color:var(--ink);padding-bottom:60px;}
+  header{background:var(--navy);color:#fff;padding:22px 20px 18px;text-align:center;position:sticky;top:0;z-index:10;box-shadow:0 4px 10px rgba(0,0,0,.15);}
+  header h1{margin:0;font-size:20px;letter-spacing:.03em;}
+  header p{margin:4px 0 0;font-size:12px;opacity:.85;}
+  main{max-width:760px;margin:0 auto;padding:16px;}
+  .section{margin-bottom:24px;}
+  .section h2{font-size:14px;text-transform:uppercase;letter-spacing:.08em;color:var(--gold);border-bottom:2px solid var(--gold);padding-bottom:6px;margin:0 0 10px;}
+  .note{background:#fff5da;border:1px solid var(--line);border-radius:6px;padding:10px 14px;font-size:13px;line-height:1.5;margin-bottom:10px;}
+  ul.rules{margin:0 0 10px;padding-left:20px;font-size:14px;line-height:1.5;}
+  table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:6px;overflow:hidden;font-size:13px;margin-bottom:8px;}
+  th{background:var(--navy);color:#fff;text-align:left;padding:8px 10px;font-size:11px;text-transform:uppercase;letter-spacing:.05em;}
+  td{padding:8px 10px;border-top:1px solid var(--line);}
+  tr:last-child td{font-weight:700;background:#f5ead0;}
+  .totalrow td{font-weight:700;background:#f5ead0;}
+  footer{text-align:center;font-size:11px;color:#8a7550;padding:20px;}
+  .scrollwrap{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+</style>
+</head>
+<body>
+<header>
+  <h1>Conrad Family Trip — Financial Breakdown</h1>
+  <p>London &amp; Scotland · September 2026</p>
+</header>
+<main>
+
+  <div class="section">
+    <h2>Split Rule</h2>
+    <div class="note">Default: everything splits evenly, four ways — each of Jamey, Kayla, Jayden, and Kealey owes 1/4 of every shared cost.</div>
+    <ul class="rules">
+      <li><b>Flights</b> — Jayden &amp; Kealey already paid their own, in full, separately. Not part of this ledger.</li>
+      <li><b>Old Course Hotel</b> — Jayden &amp; Kealey pay a fixed rate equal to their share of the original, cancelled Apex Waterloo Place booking (£303.20 combined). Jamey covers the rest as the cost of his decision to upgrade.</li>
+      <li><b>LNER trains</b> — Jamey intends to cover the Standard-to-First-Class upgrade difference, but no real Standard Class quote exists yet. Shown below at the straight even split until a real quote is confirmed.</li>
+      <li><b>Wembley tickets</b> — 100% Jamey's treat. Jayden &amp; Kealey owe $0 regardless of cost.</li>
+      <li><b>All dining</b> — everyone buys their own. Not part of this ledger at all.</li>
+    </ul>
+    <div class="note">Golf and other per-participant costs split only among the people who actually took part. Car rental and Heathrow Express (whole family) follow the default even split. GBP converted at approx. £1 = $1.30.</div>
+  </div>
+
+  <div class="section">
+    <h2>Hotels</h2>
+    <div class="scrollwrap"><table>
+      <tr><th>Property</th><th>Total</th><th>Jamey &amp; Kayla</th><th>Jayden &amp; Kealey</th></tr>
+      <tr><td>Novotel Paddington, Sept 11–14</td><td>$1,876.65</td><td>$938.33</td><td>$938.33</td></tr>
+      <tr><td>Novotel Paddington, Sept 16–18</td><td>$1,549.75</td><td>$774.88</td><td>$774.88</td></tr>
+      <tr><td>Novotel Wembley, Sept 18–20</td><td>$1,932.35</td><td>$966.18</td><td>$966.18</td></tr>
+      <tr><td>Bonnie Badger, Sept 14</td><td>$699.66</td><td>$349.83</td><td>$349.83</td></tr>
+      <tr><td>Old Course Hotel, Sept 15 (Apex-equiv. exception)</td><td>$1,739.40</td><td>$1,345.24</td><td>$394.16</td></tr>
+      <tr class="totalrow"><td>Hotels Total</td><td>$7,797.81</td><td>$4,374.46</td><td>$3,423.35</td></tr>
+    </table></div>
+  </div>
+
+  <div class="section">
+    <h2>Trains</h2>
+    <div class="scrollwrap"><table>
+      <tr><th>Journey</th><th>Total</th><th>Jamey &amp; Kayla</th><th>Jayden &amp; Kealey</th></tr>
+      <tr><td>Sept 14, London → Edinburgh</td><td>$521.04</td><td>$260.52</td><td>$260.52</td></tr>
+      <tr><td>Sept 16, Edinburgh → London</td><td>$697.32</td><td>$348.66</td><td>$348.66</td></tr>
+      <tr class="totalrow"><td>Trains Total</td><td>$1,218.36</td><td>$609.18</td><td>$609.18</td></tr>
+    </table></div>
+    <div class="note">Straight even split — no real Standard Class fare exists yet to calculate Jamey's intended upgrade exception.</div>
+  </div>
+
+  <div class="section">
+    <h2>Hotels + Trains — Combined</h2>
+    <div class="scrollwrap"><table>
+      <tr><th>Category</th><th>Total</th><th>Jamey &amp; Kayla</th><th>Jayden &amp; Kealey</th></tr>
+      <tr><td>Hotels</td><td>$7,797.81</td><td>$4,374.46</td><td>$3,423.35</td></tr>
+      <tr><td>Trains</td><td>$1,218.36</td><td>$609.18</td><td>$609.18</td></tr>
+      <tr class="totalrow"><td>Combined Total</td><td>$9,016.17</td><td>$4,983.64</td><td>$4,032.53</td></tr>
+    </table></div>
+  </div>
+
+  <div class="section">
+    <h2>Golf</h2>
+    <div class="scrollwrap"><table>
+      <tr><th>Item</th><th>Total</th><th>Status</th><th>Split</th></tr>
+      <tr><td>Musselburgh green fees (4 players)</td><td>£88 → $114.40</td><td>Booked — not yet paid</td><td>Even 4-way: $28.60 each</td></tr>
+      <tr><td>Gullane No. 2 green fees (3 players)</td><td>£300 → $390.00</td><td>Paid</td><td>3-way: $130.00 each</td></tr>
+      <tr><td>Gullane No. 2 club hire (3 sets)</td><td>£180 → $234.00</td><td>NOT paid — due to pro shop on arrival</td><td>3-way: $78.00 each</td></tr>
+      <tr><td>Gullane No. 2 trolley rental (3, push rate)</td><td>£27 → $35.10</td><td>NOT paid — due to pro shop on arrival</td><td>3-way: $11.70 each</td></tr>
+    </table></div>
+    <div class="note">Flag: trolley price is for a push trolley. A later conversation noted an upgrade to electric trolleys — confirm actual rate with Gullane before treating $35.10 as final.</div>
+  </div>
+
+  <div class="section">
+    <h2>Car Rental &amp; Heathrow Express</h2>
+    <div class="scrollwrap"><table>
+      <tr><th>Item</th><th>Total</th><th>Each of 4</th></tr>
+      <tr><td>Alamo Volvo XC90, Sept 14–16</td><td>$237.08</td><td>$59.27</td></tr>
+      <tr><td>Heathrow Express, Sept 11 (4 adults)</td><td>$114.40</td><td>$28.60</td></tr>
+    </table></div>
+  </div>
+
+  <div class="section">
+    <h2>Jamey's Treat / Not Applicable</h2>
+    <div class="scrollwrap"><table>
+      <tr><th>Item</th><th>Status</th><th>Notes</th></tr>
+      <tr><td>Wembley game tickets</td><td>Purchased by Jamey</td><td>100% Jamey's treat</td></tr>
+      <tr><td>Southwest fees ($22.00)</td><td>Paid</td><td>Jamey &amp; Kayla legs only — kids not applicable</td></tr>
+    </table></div>
+  </div>
+
+  <div class="section">
+    <h2>Still Unpriced</h2>
+    <div class="scrollwrap"><table>
+      <tr><th>Item</th><th>Status</th><th>Notes</th></tr>
+      <tr><td>Sixes Wembley, Sept 18</td><td>Confirmed (Ref 69B7TH4GXHBD)</td><td>Activity cost, not dining — still needs a real charge</td></tr>
+    </table></div>
+    <div class="note">All dining costs (Bonnie Badger, Road Hole, Tom Morris, White Horse, Feed the Yak, Duck &amp; Waffle, Aqua Shard) are excluded from this ledger entirely — everyone buys their own.</div>
+  </div>
+
+</main>
+<footer>Conrad Family Trip · London &amp; Scotland 2026<br>Add to Home Screen for quick access</footer>
+</body>
+</html>

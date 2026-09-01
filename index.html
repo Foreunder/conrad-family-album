@@ -86,7 +86,9 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:'Inter',sans-ser
 
 .trophies{max-width:960px;margin:0 auto 20px;padding:0 24px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;}
 .trophy-card{background:var(--panel);border:1px solid var(--gold);border-radius:6px;overflow:hidden;}
-.trophy-label{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);padding:10px 12px 0;}
+.trophy-label{font-size:16px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);padding:10px 12px 0;text-align:center;}
+.trophy-label::before{content:"🏆 ";}
+.trophy-label::after{content:" 🏆";}
 .trophy-card img{width:100%;aspect-ratio:4/3;object-fit:cover;object-position:center 20%;display:block;margin-top:8px;}
 .trophy-count{font-size:12px;color:var(--ink-soft);padding:8px 12px 12px;}
 .trophy-empty{font-size:12px;color:var(--ink-faint);font-style:italic;padding:20px 12px;text-align:center;}

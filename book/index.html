@@ -576,6 +576,9 @@ body{background:#d8c89d;}
 .photo-feature img{object-fit:contain!important;background:#efe3c2;}
 @media(max-width:700px){.verified-plan li{grid-template-columns:1fr;gap:2px}.family-thread{padding:20px}.approved-map{padding:8px}.chapter-frame{padding-left:16px!important;padding-right:16px!important}}
 @media print{body{background:white}.approved-map,.verified-plan,.family-thread{box-shadow:none;break-inside:avoid}}
+.floating-toc{position:fixed;bottom:22px;right:16px;z-index:999;width:52px;height:52px;border-radius:50%;background:#11365d;color:#f3e9d2;display:flex;align-items:center;justify-content:center;font-size:22px;text-decoration:none;box-shadow:0 4px 14px rgba(0,0,0,0.35);border:2px solid #a97d27;opacity:.92;}
+.floating-toc:active{opacity:1;transform:scale(0.95);}
+@media print{.floating-toc{display:none;}}
 </style></head>
 <body>
 <a name="top"></a>
@@ -3345,4 +3348,5 @@ body{background:#d8c89d;}
 <div class="chapter-nav"><a href="#toc-wrap">&uarr; Back to Table of Contents</a><span class="center">Chapter 11 of 11</span></div>
 </section>
 </div>
+<a href="#toc-wrap" class="floating-toc" aria-label="Back to Table of Contents">&uarr;</a>
 </body></html>

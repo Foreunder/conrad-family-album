@@ -214,14 +214,16 @@ def build_html(photos_by_day, reactions, build_time_str):
     top_laugh, laugh_count = top_photo("laugh")
     top_down, down_count = top_photo("thumbsdown")
 
-    def trophy_html(label, photo, count):
+    def trophy_html(label, header_img, photo, count):
+        header = f'<img class="trophy-header" src="{header_img}" alt="{label}">'
         if not photo:
-            return f'<div class="trophy-card"><div class="trophy-label">{label}</div><div class="trophy-empty">No votes yet</div></div>'
-        return f'''<div class="trophy-card"><div class="trophy-label">{label}</div>
-<img src="data:image/jpeg;base64,{photo.get('b64_thumb') or photo['b64']}" data-full="data:image/jpeg;base64,{photo['b64']}" alt="">
+            return f'<div class="trophy-card">{header}<div class="trophy-empty">No votes yet</div></div>'
+        return f'''<div class="trophy-card">{header}
+<img class="photo-img" src="data:image/jpeg;base64,{photo.get('b64_thumb') or photo['b64']}" data-full="data:image/jpeg;base64,{photo['b64']}" alt="">
 <div class="trophy-count">{count} vote{'s' if count != 1 else ''}</div></div>'''
 
-    trophies_html = f'''<div class="trophies">{trophy_html("Most loved", top_heart, heart_count)}{trophy_html("Funniest", top_laugh, laugh_count)}{trophy_html("Yikes", top_down, down_count)}</div>'''
+    IMG_BASE = "https://foreunder.github.io/conrad-family-album/book-images"
+    trophies_html = f'''<div class="trophies">{trophy_html("Most loved", IMG_BASE + "/category_most_loved.png", top_heart, heart_count)}{trophy_html("Funniest", IMG_BASE + "/category_funniest.png", top_laugh, laugh_count)}{trophy_html("Yikes", IMG_BASE + "/category_yikes.png", top_down, down_count)}</div>'''
 
     for d in DAYS:
         key = d["key"]
@@ -288,7 +290,7 @@ function openLightbox(card){{ currentCard = card; const img = card.querySelector
 function closeLightbox(){{ lightbox.classList.remove('open'); currentCard = null; document.body.style.overflow = ''; lbImg.style.transform=''; lbImg.style.opacity=''; }}
 function navigateLightbox(dir){{ if (!currentCard) return; const sib = Array.from(currentCard.parentElement.querySelectorAll('.photo')); const idx = sib.indexOf(currentCard); if (idx===-1) return; openLightbox(sib[(idx+dir+sib.length)%sib.length]); }}
 document.querySelectorAll('.photo img').forEach(img => img.addEventListener('click', () => openLightbox(img.closest('.photo'))));
-document.querySelectorAll('.trophy-card img').forEach(img => {{ img.style.cursor = 'pointer'; img.addEventListener('click', () => {{ lbImg.src = img.dataset.full || img.src; lbLoc.textContent = ''; lbTime.textContent = ''; lightbox.classList.add('open'); document.body.style.overflow = 'hidden'; }}); }});
+document.querySelectorAll('.trophy-card .photo-img').forEach(img => {{ img.style.cursor = 'pointer'; img.addEventListener('click', () => {{ lbImg.src = img.dataset.full || img.src; lbLoc.textContent = ''; lbTime.textContent = ''; lightbox.classList.add('open'); document.body.style.overflow = 'hidden'; }}); }});
 document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
 document.getElementById('lightboxImg').addEventListener('click', closeLightbox);
 document.getElementById('lightboxPrev').addEventListener('click', () => navigateLightbox(-1));

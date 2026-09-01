@@ -159,12 +159,23 @@ def to_web_image(raw_bytes, filename):
         img = Image.open(io.BytesIO(raw_bytes))
         img = ImageOps.exif_transpose(img)
         img = img.convert("RGB")
-        img.thumbnail((1600, 1600))
-        out = io.BytesIO()
-        img.save(out, format="JPEG", quality=82)
-        return base64.b64encode(out.getvalue()).decode("ascii")
+
+        full = img.copy()
+        full.thumbnail((1600, 1600))
+        out_full = io.BytesIO()
+        full.save(out_full, format="JPEG", quality=82)
+
+        thumb = img.copy()
+        thumb.thumbnail((600, 600))
+        out_thumb = io.BytesIO()
+        thumb.save(out_thumb, format="JPEG", quality=82)
+
+        return (
+            base64.b64encode(out_full.getvalue()).decode("ascii"),
+            base64.b64encode(out_thumb.getvalue()).decode("ascii"),
+        )
     except Exception:
-        return None
+        return None, None
 
 def reverse_geocode(lat, lon, cache):
     key = f"{lat:.3f},{lon:.3f}"
@@ -207,7 +218,7 @@ def build_html(photos_by_day, reactions, build_time_str):
         if not photo:
             return f'<div class="trophy-card"><div class="trophy-label">{label}</div><div class="trophy-empty">No votes yet</div></div>'
         return f'''<div class="trophy-card"><div class="trophy-label">{label}</div>
-<img src="data:image/jpeg;base64,{photo['b64']}" alt="">
+<img src="data:image/jpeg;base64,{photo.get('b64_thumb') or photo['b64']}" data-full="data:image/jpeg;base64,{photo['b64']}" alt="">
 <div class="trophy-count">{count} vote{'s' if count != 1 else ''}</div></div>'''
 
     trophies_html = f'''<div class="trophies">{trophy_html("Most loved", top_heart, heart_count)}{trophy_html("Funniest", top_laugh, laugh_count)}{trophy_html("Yikes", top_down, down_count)}</div>'''
@@ -222,7 +233,7 @@ def build_html(photos_by_day, reactions, build_time_str):
             flag = '<div class="unsorted-flag">Needs sorting</div>' if key == "00" else ""
             r = reactions.get(p["id"], {})
             heart_n, laugh_n, down_n = r.get("heart", 0), r.get("laugh", 0), r.get("thumbsdown", 0)
-            cards.append(f'''<div class="photo{needs}" data-photo-id="{esc(p['id'])}">{flag}<img src="data:image/jpeg;base64,{p['b64']}" alt="">
+            cards.append(f'''<div class="photo{needs}" data-photo-id="{esc(p['id'])}">{flag}<img src="data:image/jpeg;base64,{p.get('b64_thumb') or p['b64']}" data-full="data:image/jpeg;base64,{p['b64']}" alt="">
 <div class="reactions">
 <button class="react-btn" data-reaction="heart">&#10084;&#65039; <span class="rc">{heart_n}</span></button>
 <button class="react-btn" data-reaction="laugh">&#128514; <span class="rc">{laugh_n}</span></button>
@@ -271,11 +282,11 @@ document.querySelectorAll('.day').forEach(el => observer.observe(el));
 const lightbox = document.getElementById('lightbox'), lbImg = document.getElementById('lightboxImg'), lbLoc = document.getElementById('lightboxLoc'), lbTime = document.getElementById('lightboxTime');
 let currentCard = null;
 function openLightbox(card){{ currentCard = card; const img = card.querySelector('img'), loc = card.querySelector('.cap .loc'), tm = card.querySelector('.cap .time');
-  lbImg.src = img.src; lbLoc.textContent = loc ? loc.textContent : ''; lbTime.textContent = tm ? tm.textContent : ''; lightbox.classList.add('open'); document.body.style.overflow = 'hidden'; }}
+  lbImg.src = img.dataset.full || img.src; lbLoc.textContent = loc ? loc.textContent : ''; lbTime.textContent = tm ? tm.textContent : ''; lightbox.classList.add('open'); document.body.style.overflow = 'hidden'; }}
 function closeLightbox(){{ lightbox.classList.remove('open'); currentCard = null; document.body.style.overflow = ''; lbImg.style.transform=''; lbImg.style.opacity=''; }}
 function navigateLightbox(dir){{ if (!currentCard) return; const sib = Array.from(currentCard.parentElement.querySelectorAll('.photo')); const idx = sib.indexOf(currentCard); if (idx===-1) return; openLightbox(sib[(idx+dir+sib.length)%sib.length]); }}
 document.querySelectorAll('.photo img').forEach(img => img.addEventListener('click', () => openLightbox(img.closest('.photo'))));
-document.querySelectorAll('.trophy-card img').forEach(img => {{ img.style.cursor = 'pointer'; img.addEventListener('click', () => {{ lbImg.src = img.src; lbLoc.textContent = ''; lbTime.textContent = ''; lightbox.classList.add('open'); document.body.style.overflow = 'hidden'; }}); }});
+document.querySelectorAll('.trophy-card img').forEach(img => {{ img.style.cursor = 'pointer'; img.addEventListener('click', () => {{ lbImg.src = img.dataset.full || img.src; lbLoc.textContent = ''; lbTime.textContent = ''; lightbox.classList.add('open'); document.body.style.overflow = 'hidden'; }}); }});
 document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
 document.getElementById('lightboxImg').addEventListener('click', closeLightbox);
 document.getElementById('lightboxPrev').addEventListener('click', () => navigateLightbox(-1));
@@ -327,7 +338,7 @@ def main():
     for f in files:
         raw = download_file(service, f["id"])
         date_obj, lat, lon, date_is_upload_only = extract_exif(raw, f["name"], drive_file=f)
-        b64 = to_web_image(raw, f["name"])
+        b64, b64_thumb = to_web_image(raw, f["name"])
         if b64 is None:
             continue
         day_key = "00"
@@ -348,7 +359,7 @@ def main():
             when = date_obj.strftime("Added %a, %b %-d")
         else:
             when = date_obj.strftime("%a, %-I:%M %p")
-        photos_by_day[day_key].append({"id": f["id"], "b64": b64, "loc": loc, "when": when, "date": date_obj.isoformat() if date_obj else ""})
+        photos_by_day[day_key].append({"id": f["id"], "b64": b64, "b64_thumb": b64_thumb, "loc": loc, "when": when, "date": date_obj.isoformat() if date_obj else ""})
 
     for k in photos_by_day:
         photos_by_day[k].sort(key=lambda p: p["date"] or "9999")

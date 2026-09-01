@@ -242,15 +242,32 @@ document.querySelectorAll('.day').forEach(el => observer.observe(el));
 const lightbox = document.getElementById('lightbox'), lbImg = document.getElementById('lightboxImg'), lbLoc = document.getElementById('lightboxLoc'), lbTime = document.getElementById('lightboxTime');
 let currentCard = null;
 function openLightbox(card){{ currentCard = card; const img = card.querySelector('img'), loc = card.querySelector('.cap .loc'), tm = card.querySelector('.cap .time');
-  lbImg.src = img.src; lbLoc.textContent = loc ? loc.textContent : ''; lbTime.textContent = tm ? tm.textContent : ''; lightbox.classList.add('open'); }}
-function closeLightbox(){{ lightbox.classList.remove('open'); currentCard = null; }}
+  lbImg.src = img.src; lbLoc.textContent = loc ? loc.textContent : ''; lbTime.textContent = tm ? tm.textContent : ''; lightbox.classList.add('open'); document.body.style.overflow = 'hidden'; }}
+function closeLightbox(){{ lightbox.classList.remove('open'); currentCard = null; document.body.style.overflow = ''; lbImg.style.transform=''; lbImg.style.opacity=''; }}
 function navigateLightbox(dir){{ if (!currentCard) return; const sib = Array.from(currentCard.parentElement.querySelectorAll('.photo')); const idx = sib.indexOf(currentCard); if (idx===-1) return; openLightbox(sib[(idx+dir+sib.length)%sib.length]); }}
 document.querySelectorAll('.photo img').forEach(img => img.addEventListener('click', () => openLightbox(img.closest('.photo'))));
+document.querySelectorAll('.trophy-card img').forEach(img => {{ img.style.cursor = 'pointer'; img.addEventListener('click', () => {{ lbImg.src = img.src; lbLoc.textContent = ''; lbTime.textContent = ''; lightbox.classList.add('open'); document.body.style.overflow = 'hidden'; }}); }});
 document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
 document.getElementById('lightboxPrev').addEventListener('click', () => navigateLightbox(-1));
 document.getElementById('lightboxNext').addEventListener('click', () => navigateLightbox(1));
 lightbox.addEventListener('click', e => {{ if (e.target === lightbox) closeLightbox(); }});
 document.addEventListener('keydown', e => {{ if (!lightbox.classList.contains('open')) return; if (e.key==='Escape') closeLightbox(); else if (e.key==='ArrowLeft') navigateLightbox(-1); else if (e.key==='ArrowRight') navigateLightbox(1); }});
+let touchStartY = 0, touchDeltaY = 0, touching = false;
+lightbox.addEventListener('touchstart', e => {{ touching = true; touchStartY = e.touches[0].clientY; }}, {{passive:true}});
+lightbox.addEventListener('touchmove', e => {{
+  if (!touching) return;
+  touchDeltaY = e.touches[0].clientY - touchStartY;
+  if (touchDeltaY > 0) {{
+    e.preventDefault();
+    lbImg.style.transform = 'translateY(' + touchDeltaY + 'px)';
+    lbImg.style.opacity = Math.max(1 - touchDeltaY / 300, 0.2);
+  }}
+}}, {{passive:false}});
+lightbox.addEventListener('touchend', () => {{
+  if (touching && touchDeltaY > 80) {{ closeLightbox(); }}
+  else {{ lbImg.style.transform=''; lbImg.style.opacity=''; }}
+  touching = false; touchDeltaY = 0;
+}});
 
 const REACTIONS_ENDPOINT = "{REACTIONS_ENDPOINT}";
 document.querySelectorAll('.react-btn').forEach(btn => {{

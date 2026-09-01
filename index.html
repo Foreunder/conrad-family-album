@@ -86,8 +86,10 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:'Inter',sans-ser
 
 .trophies{max-width:960px;margin:0 auto 20px;padding:0 24px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;}
 .trophy-card{background:var(--panel);border:1px solid var(--gold);border-radius:6px;overflow:hidden;}
-.trophy-label{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);padding:10px 12px 0;}
-.trophy-card img{width:100%;aspect-ratio:4/3;object-fit:cover;object-position:center 20%;display:block;margin-top:8px;}
+.trophy-label{font-size:16px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);padding:10px 12px 0;text-align:center;}
+.trophy-label::before{content:"🏆 ";}
+.trophy-label::after{content:" 🏆";}
+.trophy-card img{width:100%;aspect-ratio:4/3;object-fit:cover;object-position:center 20%;display:block;margin-top:8px;cursor:pointer;}
 .trophy-count{font-size:12px;color:var(--ink-soft);padding:8px 12px 12px;}
 .trophy-empty{font-size:12px;color:var(--ink-faint);font-style:italic;padding:20px 12px;text-align:center;}
 @media (max-width:760px){.trophies{grid-template-columns:1fr;}}
@@ -392,15 +394,32 @@ document.querySelectorAll('.day').forEach(el => observer.observe(el));
 const lightbox = document.getElementById('lightbox'), lbImg = document.getElementById('lightboxImg'), lbLoc = document.getElementById('lightboxLoc'), lbTime = document.getElementById('lightboxTime');
 let currentCard = null;
 function openLightbox(card){ currentCard = card; const img = card.querySelector('img'), loc = card.querySelector('.cap .loc'), tm = card.querySelector('.cap .time');
-  lbImg.src = img.src; lbLoc.textContent = loc ? loc.textContent : ''; lbTime.textContent = tm ? tm.textContent : ''; lightbox.classList.add('open'); }
-function closeLightbox(){ lightbox.classList.remove('open'); currentCard = null; }
+  lbImg.src = img.src; lbLoc.textContent = loc ? loc.textContent : ''; lbTime.textContent = tm ? tm.textContent : ''; lightbox.classList.add('open'); document.body.style.overflow = 'hidden'; }
+function closeLightbox(){ lightbox.classList.remove('open'); currentCard = null; document.body.style.overflow = ''; lbImg.style.transform=''; lbImg.style.opacity=''; }
 function navigateLightbox(dir){ if (!currentCard) return; const sib = Array.from(currentCard.parentElement.querySelectorAll('.photo')); const idx = sib.indexOf(currentCard); if (idx===-1) return; openLightbox(sib[(idx+dir+sib.length)%sib.length]); }
 document.querySelectorAll('.photo img').forEach(img => img.addEventListener('click', () => openLightbox(img.closest('.photo'))));
+document.querySelectorAll('.trophy-card img').forEach(img => { img.style.cursor = 'pointer'; img.addEventListener('click', () => { lbImg.src = img.src; lbLoc.textContent = ''; lbTime.textContent = ''; lightbox.classList.add('open'); document.body.style.overflow = 'hidden'; }); });
 document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
 document.getElementById('lightboxPrev').addEventListener('click', () => navigateLightbox(-1));
 document.getElementById('lightboxNext').addEventListener('click', () => navigateLightbox(1));
 lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
 document.addEventListener('keydown', e => { if (!lightbox.classList.contains('open')) return; if (e.key==='Escape') closeLightbox(); else if (e.key==='ArrowLeft') navigateLightbox(-1); else if (e.key==='ArrowRight') navigateLightbox(1); });
+let touchStartY = 0, touchDeltaY = 0, touching = false;
+lightbox.addEventListener('touchstart', e => { touching = true; touchStartY = e.touches[0].clientY; }, {passive:true});
+lightbox.addEventListener('touchmove', e => {
+  if (!touching) return;
+  touchDeltaY = e.touches[0].clientY - touchStartY;
+  if (touchDeltaY > 0) {
+    e.preventDefault();
+    lbImg.style.transform = 'translateY(' + touchDeltaY + 'px)';
+    lbImg.style.opacity = Math.max(1 - touchDeltaY / 300, 0.2);
+  }
+}, {passive:false});
+lightbox.addEventListener('touchend', () => {
+  if (touching && touchDeltaY > 80) { closeLightbox(); }
+  else { lbImg.style.transform=''; lbImg.style.opacity=''; }
+  touching = false; touchDeltaY = 0;
+});
 
 const REACTIONS_ENDPOINT = "https://script.google.com/macros/s/AKfycbwyXl06Qpkm56FsfqFw4t_bFpTJRNSWVKEQ05LElJ6XqsxDFQ6F-ZsbrCWEj_uc-h-v9Q/exec";
 document.querySelectorAll('.react-btn').forEach(btn => {

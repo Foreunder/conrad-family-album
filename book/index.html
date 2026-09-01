@@ -589,7 +589,7 @@ body{background:#d8c89d;}
 .chapter img{cursor:zoom-in;}
 .book-lightbox{display:none;position:fixed;inset:0;z-index:9999;background:rgba(8,14,24,0.94);align-items:center;justify-content:center;padding:24px;}
 .book-lightbox.open{display:flex;}
-.book-lightbox img{max-width:100%;max-height:100%;object-fit:contain;border:2px solid #a97d27;border-radius:2px;}
+.book-lightbox img{max-width:100%;max-height:100%;object-fit:contain;border:2px solid #a97d27;border-radius:2px;cursor:zoom-out;}
 .book-lightbox-close{position:absolute;top:18px;right:18px;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,0.12);color:#f3e9d2;font-size:20px;display:flex;align-items:center;justify-content:center;cursor:pointer;}
 @media print{.book-lightbox{display:none !important;}}
 .front-cover{max-width:920px;margin:0 auto;background:#0c1a2b;}
@@ -3419,6 +3419,7 @@ body{background:#d8c89d;}
     img.addEventListener('click', function(){ openLb(img.src, img.alt); });
   });
   document.getElementById('bookLightboxClose').addEventListener('click', closeLb);
+  lbImg.addEventListener('click', closeLb);
   var touchStartY = 0, touchDeltaY = 0, touching = false;
   lb.addEventListener('touchstart', function(e){ touching = true; touchStartY = e.touches[0].clientY; }, {passive:true});
   lb.addEventListener('touchmove', function(e){

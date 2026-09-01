@@ -277,6 +277,7 @@ function navigateLightbox(dir){{ if (!currentCard) return; const sib = Array.fro
 document.querySelectorAll('.photo img').forEach(img => img.addEventListener('click', () => openLightbox(img.closest('.photo'))));
 document.querySelectorAll('.trophy-card img').forEach(img => {{ img.style.cursor = 'pointer'; img.addEventListener('click', () => {{ lbImg.src = img.src; lbLoc.textContent = ''; lbTime.textContent = ''; lightbox.classList.add('open'); document.body.style.overflow = 'hidden'; }}); }});
 document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+document.getElementById('lightboxImg').addEventListener('click', closeLightbox);
 document.getElementById('lightboxPrev').addEventListener('click', () => navigateLightbox(-1));
 document.getElementById('lightboxNext').addEventListener('click', () => navigateLightbox(1));
 lightbox.addEventListener('click', e => {{ if (e.target === lightbox) closeLightbox(); }});

@@ -167,6 +167,12 @@ a{color:inherit;}
 .item-history img{width:100%;height:140px;object-fit:cover;border-radius:3px;filter:sepia(8%);}
 .item-history .ih-credit{font-family:'Karla',sans-serif;font-size:8.5px;color:var(--ink-soft);margin-top:4px;display:block;}
 .item-history .cat-badge{margin-bottom:6px;}
+.essay-toggle summary{cursor:pointer;font-family:'Karla',sans-serif;font-size:12.5px;font-weight:700;letter-spacing:.3px;color:var(--accent);list-style:none;padding:2px 0 4px;margin-top:2px;}
+.essay-toggle summary::-webkit-details-marker{display:none;}
+.essay-toggle summary::before{content:"+ ";}
+.essay-toggle[open] summary::before{content:"\2013 ";}
+.essay-toggle[open] summary{margin-bottom:8px;}
+@media print{.essay-toggle{display:block;}.essay-toggle summary{display:none;}.essay-toggle p,.essay-toggle table{display:block!important;}}
 .item-history h4{font-family:'Playfair Display',serif;font-size:16px;margin:0 0 6px;color:var(--accent);display:block;}
 .item-history p{margin:0;font-size:14px;line-height:1.55;}
 @media (max-width:600px){ .item-history{grid-template-columns:1fr;} .item-history img{height:180px;} }
@@ -432,6 +438,12 @@ a{color:inherit;}
 .item-history img{width:100%;height:140px;object-fit:cover;border-radius:3px;filter:sepia(8%);}
 .item-history .ih-credit{font-family:'Karla',sans-serif;font-size:8.5px;color:var(--ink-soft);margin-top:4px;display:block;}
 .item-history .cat-badge{margin-bottom:6px;}
+.essay-toggle summary{cursor:pointer;font-family:'Karla',sans-serif;font-size:12.5px;font-weight:700;letter-spacing:.3px;color:var(--accent);list-style:none;padding:2px 0 4px;margin-top:2px;}
+.essay-toggle summary::-webkit-details-marker{display:none;}
+.essay-toggle summary::before{content:"+ ";}
+.essay-toggle[open] summary::before{content:"\2013 ";}
+.essay-toggle[open] summary{margin-bottom:8px;}
+@media print{.essay-toggle{display:block;}.essay-toggle summary{display:none;}.essay-toggle p,.essay-toggle table{display:block!important;}}
 .item-history h4{font-family:'Playfair Display',serif;font-size:16px;margin:0 0 6px;color:var(--accent);display:block;}
 .item-history p{margin:0;font-size:14px;line-height:1.55;}
 @media (max-width:600px){ .item-history{grid-template-columns:1fr;} .item-history img{height:180px;} }
@@ -780,6 +792,7 @@ html{scroll-behavior:smooth;}
       </div>
       <div class="ih-wide-body">
         <span class="cat-badge" style="background:#dcead9;color:#2f4a2c;">TRAVEL</span><h4>Eppley Airfield</h4>
+        <details class="essay-toggle"><summary>Read the full story</summary>
         <p>The land was acquired by the City of Omaha in 1925 as an addition to Levi Carter Park, and pilots
        were using the field almost as soon as it was cleared — the earliest images show a grass strip with
        a single windsock. A 1934 terminal at what was then called the American Legion Municipal Airport
@@ -796,6 +809,7 @@ html{scroll-behavior:smooth;}
        it reopened. Southwest, American, and Delta remain the three biggest carriers moving passengers
        through Eppley today.</p>
         
+        </details>
       </div>
     </div>
 <div class="item-history wide" style="border-left:4px solid #3d5c3a;">
@@ -805,6 +819,7 @@ html{scroll-behavior:smooth;}
       </div>
       <div class="ih-wide-body">
         <span class="cat-badge" style="background:#dcead9;color:#2f4a2c;">TRAVEL</span><h4>Southwest Airlines</h4>
+        <details class="essay-toggle"><summary>Read the full story</summary>
         <p>Southwest started in 1971 with three Boeing 737s flying triangle routes between Dallas, Houston,
        and San Antonio — a scrappy, no-frills challenger that spent its first years fighting off lawsuits
        from bigger Texas carriers just to get off the ground. It became the model for the modern low-cost
@@ -820,6 +835,7 @@ html{scroll-behavior:smooth;}
        being only a "focus city" for Southwest rather than a true hub — a reflection of just how deeply
        the airline is woven into how the Southwest (the region) actually travels.</p>
         
+        </details>
       </div>
     </div>
 <div class="item-history wide" style="border-left:4px solid #3d5c3a;">
@@ -829,6 +845,7 @@ html{scroll-behavior:smooth;}
       </div>
       <div class="ih-wide-body">
         <span class="cat-badge" style="background:#dcead9;color:#2f4a2c;">TRAVEL</span><h4>Phoenix Sky Harbor</h4>
+        <details class="essay-toggle"><summary>Read the full story</summary>
         <p>Sky Harbor's story starts in 1928, when Scenic Airways owner J. Parker Van Zandt built what was
        at the time Phoenix's fourth airfield. Scenic didn't survive the 1929 stock market crash, and the
        airfield passed to the Acme Investment Company before the City of Phoenix bought it outright in
@@ -846,6 +863,7 @@ html{scroll-behavior:smooth;}
        the runway, a detail that makes today's family reunion feel like it's happening in the middle of
        the city rather than on its outskirts.</p>
         
+        </details>
       </div>
     </div>
 <div class="item-history wide" style="border-left:4px solid #3d5c3a;">
@@ -855,6 +873,7 @@ html{scroll-behavior:smooth;}
       </div>
       <div class="ih-wide-body">
         <span class="cat-badge" style="background:#dcead9;color:#2f4a2c;">TRAVEL</span><h4>American Airlines &amp; the 777-200ER</h4>
+        <details class="essay-toggle"><summary>Read the full story</summary>
         <p>American Airlines traces its roots to a 1926 mail-carrying operation and became one of the "Big
        Four" U.S. carriers by the 1930s, eventually growing into the largest airline in the world by
        fleet size. The Boeing 777-200ER — the aircraft flying tonight's route — entered service in 1997 as
@@ -871,6 +890,7 @@ html{scroll-behavior:smooth;}
        nothing else shaped quite like it — the largest twinjet ever built when it launched, and still
        instantly recognizable by its distinctive round fuselage and six-wheel main landing gear bogies.</p>
         
+        </details>
       </div>
     </div>
 <div class="item-history wide" style="border-left:4px solid #3d5c3a;">
@@ -880,6 +900,7 @@ html{scroll-behavior:smooth;}
       </div>
       <div class="ih-wide-body">
         <span class="cat-badge" style="background:#dcead9;color:#2f4a2c;">TRAVEL</span><h4>Heathrow, eighty years on</h4>
+        <details class="essay-toggle"><summary>Read the full story</summary>
         <p>Heathrow began as a small private airfield in the 1930s, was requisitioned for military use during
        the Second World War, and opened as London's civil airport in 1946 — its first passenger
        facilities were converted military tents along Bath Road, with travelers crossing wooden walkways
@@ -896,6 +917,7 @@ html{scroll-behavior:smooth;}
        politically contested infrastructure debates in modern British history, argued over for decades
        without resolution.</p>
         
+        </details>
       </div>
     </div>
 <div class="item-history wide" style="border-left:4px solid #3d5c3a;">
@@ -905,6 +927,7 @@ html{scroll-behavior:smooth;}
       </div>
       <div class="ih-wide-body">
         <span class="cat-badge" style="background:#dcead9;color:#2f4a2c;">TRAVEL</span><h4>The Heathrow Express</h4>
+        <details class="essay-toggle"><summary>Read the full story</summary>
         <p>The Heathrow Express opened in 1998 on a dedicated stretch of track built specifically to get
        passengers between the airport and central London without competing with ordinary commuter
        traffic — part of why the 15–20 minute run to Paddington still feels almost suspiciously fast for a
@@ -920,6 +943,7 @@ html{scroll-behavior:smooth;}
        London infrastructure built more than a century after Brunel's original railway, on a corridor the
        city had been trying to build for the better part of two decades.</p>
         
+        </details>
       </div>
     </div>
 <div class="item-history wide" style="border-left:4px solid #7B2730;">
@@ -929,6 +953,7 @@ html{scroll-behavior:smooth;}
       </div>
       <div class="ih-wide-body">
         <span class="cat-badge" style="background:#7B2730;color:#f0dfa8;">ATTRACTION</span><h4>Hyde Park &amp; Kensington Gardens</h4>
+        <details class="essay-toggle"><summary>Read the full story</summary>
         <p>Hyde Park began as Henry VIII's private hunting ground after he seized the land from Westminster
        Abbey in 1536; Charles I opened it to the public a century later, in 1637, making it one of the
        oldest public parks in the world by royal decree rather than public campaign. Queen Caroline
@@ -945,6 +970,7 @@ html{scroll-behavior:smooth;}
        site's earlier, darker history as the location of the Tyburn gallows, where condemned prisoners
        were historically allowed a final public speech before execution.</p>
         
+        </details>
       </div>
     </div>
 <div class="item-history wide" style="border-left:4px solid #7B2730;">
@@ -954,6 +980,7 @@ html{scroll-behavior:smooth;}
       </div>
       <div class="ih-wide-body">
         <span class="cat-badge" style="background:#7B2730;color:#f0dfa8;">ATTRACTION</span><h4>Sky Garden</h4>
+        <details class="essay-toggle"><summary>Read the full story</summary>
         <p>Sky Garden occupies the top three floors of 20 Fenchurch Street, the tower Londoners nicknamed the
        "Walkie-Talkie" for the way it widens as it rises — an unusual shape architect Rafael Viñoly
        designed specifically to maximize the rentable floor area on the upper stories, since higher floors
@@ -974,6 +1001,7 @@ html{scroll-behavior:smooth;}
        clear evening it gives an unbroken view across the Thames, the City's older domes and spires, and
        the newer glass skyline crowding in around them.</p>
         
+        </details>
       </div>
     </div>
         <div class="hotel-dossier">
@@ -1183,6 +1211,7 @@ html{scroll-behavior:smooth;}
       </div>
       <div class="ih-wide-body">
         <span class="cat-badge" style="background:#f0dfa8;color:#7B2730;">RESTAURANT</span><h4>Duck &amp; Waffle</h4>
+        <details class="essay-toggle"><summary>Read the full story</summary>
         <p>Duck &amp; Waffle sits on the 40th floor of 110 Bishopsgate — a tower better known simply as Heron
       Tower, 230 meters up London's fastest scenic lift — and has run 24 hours a day, 365 days a year,
       since it opened, one of the only restaurants in London that never locks its doors. It shares the
@@ -1198,6 +1227,7 @@ html{scroll-behavior:smooth;}
       than reserve them for private executive offices, the more traditional choice for a skyscraper's
       crown.</p>
         
+        </details>
       </div>
     </div>
 <div class="item-history wide" style="border-left:4px solid #7B2730;">
@@ -1207,6 +1237,7 @@ html{scroll-behavior:smooth;}
       </div>
       <div class="ih-wide-body">
         <span class="cat-badge" style="background:#7B2730;color:#f0dfa8;">ATTRACTION</span><h4>Prince of Wales Theatre</h4>
+        <details class="essay-toggle"><summary>Read the full story</summary>
         <p>The first theatre on this site opened in January 1884, built by architect C. J. Phipps for
       actor-manager Edgar Bruce as the Prince's Theatre — a traditional three-tier house seating just over
       a thousand people. It was renamed the Prince of Wales Theatre in 1886, honoring the future King
@@ -1221,6 +1252,7 @@ html{scroll-behavior:smooth;}
       2010s despite — or because of — its willingness to satirize religion, missionary work, and Broadway
       convention all at once; it's won multiple Olivier and Tony Awards since its 2011 debut.</p>
         
+        </details>
       </div>
     </div>
 <div class="item-history wide" style="border-left:4px solid #7B2730;">
@@ -1230,6 +1262,7 @@ html{scroll-behavior:smooth;}
       </div>
       <div class="ih-wide-body">
         <span class="cat-badge" style="background:#7B2730;color:#f0dfa8;">ATTRACTION</span><h4>Trafalgar Square &amp; Nelson's Column</h4>
+        <details class="essay-toggle"><summary>Read the full story</summary>
         <p>Trafalgar Square was built in the 1840s on the site of the old Royal Mews, specifically to
       commemorate the Battle of Trafalgar and hold Nelson's Column — not the other way around. Architect
       William Railton won a public competition to design the column, which was built between 1840 and
@@ -1243,6 +1276,7 @@ html{scroll-behavior:smooth;}
       contemporary art commissions rather than a permanent statue, which makes it worth a glance every
       time you pass through — it's never quite the same square twice.</p>
         
+        </details>
       </div>
     </div>
 <div class="item-history wide" style="border-left:4px solid #7B2730;">
@@ -1252,6 +1286,7 @@ html{scroll-behavior:smooth;}
       </div>
       <div class="ih-wide-body">
         <span class="cat-badge" style="background:#7B2730;color:#f0dfa8;">ATTRACTION</span><h4>Liberty London</h4>
+        <details class="essay-toggle"><summary>Read the full story</summary>
         <p>Liberty was founded in 1875 by Arthur Lasenby Liberty, who started by importing ornamental silks
       and objects from Japan and the East at a moment when "Orientalist" design was suddenly fashionable
       across London. The store became so associated with a particular decorative style that "Liberty
@@ -1267,6 +1302,7 @@ html{scroll-behavior:smooth;}
       design across Britain — in Italy, Art Nouveau is still sometimes called "stile Liberty" after the
       London store that helped spread it.</p>
         
+        </details>
       </div>
     </div>
 <div class="item-history wide" style="border-left:4px solid #C9A24B;">
@@ -1276,6 +1312,7 @@ html{scroll-behavior:smooth;}
       </div>
       <div class="ih-wide-body">
         <span class="cat-badge" style="background:#f0dfa8;color:#7B2730;">RESTAURANT</span><h4>Yauatcha Soho</h4>
+        <details class="essay-toggle"><summary>Read the full story</summary>
         <p>Yauatcha opened in 2004, founded by restaurateur Alan Yau — the same person behind Wagamama and
       Hakkasan — as a more casual, all-day dim sum teahouse built around a ground-floor patisserie case
       and a moodier basement dining room with tropical fish tanks and a view into the working kitchen.
@@ -1304,6 +1341,7 @@ html{scroll-behavior:smooth;}
       Chinese restaurant in the UK to earn a Michelin star, a full three years before Yauatcha followed
       suit.</p>
         
+        </details>
       </div>
     </div>
         
@@ -1519,6 +1557,7 @@ html{scroll-behavior:smooth;}
       </div>
       <div class="ih-wide-body">
         <span class="cat-badge" style="background:#7B2730;color:#f0dfa8;">ATTRACTION</span><h4>Westminster Abbey: A Thousand Years of Coronations</h4>
+        <details class="essay-toggle"><summary>Read the full story</summary>
         <p>The site's religious history goes back further than most people assume — legend holds that a
       Saxon king converted to Christianity and built a church here sometime between 500 and 600 AD, and a
       small Benedictine community was documented on this ground, then called Thorney Island, by around
@@ -1561,6 +1600,7 @@ html{scroll-behavior:smooth;}
       older building, though Hawksmoor matched the Gothic style closely enough that almost no visitor
       ever notices the seam.</p>
         
+        </details>
       </div>
     </div>
 <div class="item-history wide" style="border-left:4px solid #7B2730;">
@@ -1570,6 +1610,7 @@ html{scroll-behavior:smooth;}
       </div>
       <div class="ih-wide-body">
         <span class="cat-badge" style="background:#7B2730;color:#f0dfa8;">ATTRACTION</span><h4>Churchill War Rooms</h4>
+        <details class="essay-toggle"><summary>Read the full story</summary>
         <p>Construction on the Cabinet War Rooms began in 1938, as war with Germany looked increasingly
       inevitable, and the complex became fully operational on 27 August 1939 — literally a week before
       Britain declared war. Built beneath the Treasury building in Whitehall, the rooms housed Churchill's
@@ -1586,6 +1627,7 @@ html{scroll-behavior:smooth;}
       over its administration in the early 1980s and opened it to the public. Walking through today,
       you're seeing rooms genuinely frozen at the moment the war ended, not a later recreation.</p>
         
+        </details>
       </div>
     </div>
 <div class="item-history wide" style="border-left:4px solid #7B2730;">
@@ -1595,6 +1637,7 @@ html{scroll-behavior:smooth;}
       </div>
       <div class="ih-wide-body">
         <span class="cat-badge" style="background:#7B2730;color:#f0dfa8;">ATTRACTION</span><h4>Tower Bridge</h4>
+        <details class="essay-toggle"><summary>Read the full story</summary>
         <p>Tower Bridge opened in 1894 after eight years of construction, built to solve a genuine civic
       problem: London Bridge, the only crossing downstream at the time, was overwhelmed with traffic, but
       any new bridge close to the Tower of London had to allow tall sailing ships to keep reaching the
@@ -1613,6 +1656,7 @@ html{scroll-behavior:smooth;}
       already begun opening beneath him, successfully jumping the bus to the other bascule before it rose
       too high to clear.</p>
         
+        </details>
       </div>
     </div>
         
@@ -1779,6 +1823,7 @@ html{scroll-behavior:smooth;}
       </div>
       <div class="ih-wide-body">
         <span class="cat-badge" style="background:#dcead9;color:#2f4a2c;">TRAVEL</span><h4>King's Cross, the East Coast Main Line, and Waverley</h4>
+        <details class="essay-toggle"><summary>Read the full story</summary>
         <p>King's Cross station opened in 1852, designed by Lewis Cubitt with a deliberately plain brick
       facade meant to let the two great train-shed arches behind it do the talking — a striking contrast
       to the ornate Gothic pile that its rival St Pancras built right next door a couple of decades later.
@@ -1798,6 +1843,7 @@ html{scroll-behavior:smooth;}
       largest single-span station roof in Europe, a sweeping lattice canopy built over the same Victorian
       brick facade Cubitt designed more than 160 years earlier.</p>
         
+        </details>
       </div>
     </div>
 <div class="item-history wide" style="border-left:4px solid #7B2730;">
@@ -1807,6 +1853,7 @@ html{scroll-behavior:smooth;}
       </div>
       <div class="ih-wide-body">
         <span class="cat-badge" style="background:#7B2730;color:#f0dfa8;">ATTRACTION</span><h4>Musselburgh Old Links: Playing Inside History</h4>
+        <details class="essay-toggle"><summary>Read the full story</summary>
         <p>Today the four of you play Musselburgh together with hickory clubs — the same basic
       implements golfers here used more than a century ago, on ground where the earliest confirmed
       record of golf being played anywhere in the world was written down. The entry appears in the
@@ -1858,6 +1905,7 @@ html{scroll-behavior:smooth;}
                   <thead><tr><th>Year</th><th>Champion</th><th>Notes</th></tr></thead>
                   <tbody><tr><td>1874</td><td>Mungo Park</td><td>14th Open Championship</td></tr><tr><td>1877</td><td>Jamie Anderson</td><td>17th Open Championship</td></tr><tr><td>1880</td><td>Bob Ferguson</td><td>20th Open Championship</td></tr><tr><td>1883</td><td>Willie Fernie</td><td>23rd Open Championship</td></tr><tr><td>1886</td><td>David Brown</td><td>26th Open Championship</td></tr><tr><td>1889</td><td>Willie Park Jr.</td><td>29th Open Championship, his 2nd win</td></tr></tbody>
                 </table>
+        </details>
       </div>
     </div>
         <div class="hotel-dossier">
@@ -2049,6 +2097,7 @@ html{scroll-behavior:smooth;}
       </div>
       <div class="ih-wide-body">
         <span class="cat-badge" style="background:#7B2730;color:#f0dfa8;">ATTRACTION</span><h4>Gullane No. 2: The Course You're Playing Today</h4>
+        <details class="essay-toggle"><summary>Read the full story</summary>
         <p>Golf has been played on the ground around Gullane since at least 1650, but the course the
       family tees off on this morning — Gullane No. 2 — is a much more deliberate piece of design work.
       It was laid out in 1898 by Willie Park Jr., the same architect whose family shaped Musselburgh a
@@ -2085,6 +2134,7 @@ html{scroll-behavior:smooth;}
       played Open golf on the ground you played yesterday now plays it a five-minute drive from the ground
       you're playing today.</p>
         
+        </details>
       </div>
     </div>
 <div class="item-history" style="border-left:4px solid #7B2730;">
@@ -2097,6 +2147,7 @@ html{scroll-behavior:smooth;}
       </div>
       <div class="ih-wide-body">
         <span class="cat-badge" style="background:#7B2730;color:#f0dfa8;">ATTRACTION</span><h4>The Courses Surrounding the Old Course</h4>
+        <details class="essay-toggle"><summary>Read the full story</summary>
         <p>The Old Course is only one of seven courses the St Andrews Links Trust operates on this
       same stretch of ground — a public, non-profit trust that has run the whole complex since the town
       council reacquired the links in 1894, specifically to keep them open to everyone rather than a
@@ -2126,6 +2177,7 @@ html{scroll-behavior:smooth;}
       the flat linksland shared by the other six — it sits on clifftops on the far side of town, with
       views many golfers rate as the best of any course here, the Old Course included.</p>
         
+        </details>
       </div>
     </div>
         <div class="hotel-dossier">
@@ -2303,6 +2355,7 @@ html{scroll-behavior:smooth;}
       </div>
       <div class="ih-wide-body">
         <span class="cat-badge" style="background:#7B2730;color:#f0dfa8;">ATTRACTION</span><h4>The Old Course: How the World's Most Famous Golf Course Got That Way</h4>
+        <details class="essay-toggle"><summary>Read the full story</summary>
         <p>You played it, or at least walked it, yesterday afternoon. Before this final St Andrews
       morning ends, it's worth understanding exactly what you were standing on — because nearly every
       convention modern golf takes for granted was set, more or less by accident, on this specific piece
@@ -2338,6 +2391,7 @@ html{scroll-behavior:smooth;}
       Senior Open, and the Dunhill Cup, St Andrews carries more championship golf history than
       anywhere else in the world.</p>
         
+        </details>
       </div>
     </div>
 <div class="item-history wide" style="border-left:4px solid #7B2730;">
@@ -2347,6 +2401,7 @@ html{scroll-behavior:smooth;}
       </div>
       <div class="ih-wide-body">
         <span class="cat-badge" style="background:#7B2730;color:#f0dfa8;">ATTRACTION</span><h4>Edinburgh Castle</h4>
+        <details class="essay-toggle"><summary>Read the full story</summary>
         <p>Edinburgh Castle sits atop Castle Rock, an extinct volcanic plug that's been fortified for
       roughly 3,000 years, making it one of the oldest continuously fortified sites in Europe — human
       occupation on the rock likely goes back even further than the fortifications themselves. The castle
@@ -2361,6 +2416,7 @@ html{scroll-behavior:smooth;}
       dramatic contrast between the medieval Old Town clustered below the castle and the planned Georgian
       New Town built deliberately to escape its overcrowding.</p>
         
+        </details>
       </div>
     </div>
 <figure class="approved-map"><img src="https://foreunder.github.io/conrad-family-album/book-images/chatgpt-package/CH06-03_Edinburgh-Castle-Rock-Old-New-Town.png" alt="Edinburgh's Castle Rock and the Old and New Town"><figcaption>Castle Rock and the two towns built around it — medieval below, Georgian planned above.</figcaption></figure>
@@ -2371,6 +2427,7 @@ html{scroll-behavior:smooth;}
       </div>
       <div class="ih-wide-body">
         <span class="cat-badge" style="background:#7B2730;color:#f0dfa8;">ATTRACTION</span><h4>The Royal Mile</h4>
+        <details class="essay-toggle"><summary>Read the full story</summary>
         <p>The Royal Mile runs almost exactly the length of a Scots mile — slightly longer than an English
       mile — connecting the Castle at one end to the Palace of Holyroodhouse at the other, the working
       royal residence in Scotland still used by the monarch today. The street actually changes names four
@@ -2383,6 +2440,7 @@ html{scroll-behavior:smooth;}
       17th and 18th centuries and survives largely intact underground, now open for tours beneath the
       modern street level.</p>
         
+        </details>
       </div>
     </div>
         
@@ -2542,6 +2600,7 @@ html{scroll-behavior:smooth;}
       </div>
       <div class="ih-wide-body">
         <span class="cat-badge" style="background:#7B2730;color:#f0dfa8;">ATTRACTION</span><h4>Borough Market</h4>
+        <details class="essay-toggle"><summary>Read the full story</summary>
         <p>Borough Market has traded on roughly this site since at least the 12th century, and the market
       itself claims origins as far back as 1014, making it one of London's oldest continuously operating
       markets — trading long before anyone called food shopping an experience. For most of its history it
@@ -2558,6 +2617,7 @@ html{scroll-behavior:smooth;}
       wartime bombing as one of the disruptions it has had to recover from over roughly a thousand years
       of continuous trading.</p>
         
+        </details>
       </div>
     </div>
 <div class="item-history wide" style="border-left:4px solid #7B2730;">
@@ -2567,6 +2627,7 @@ html{scroll-behavior:smooth;}
       </div>
       <div class="ih-wide-body">
         <span class="cat-badge" style="background:#7B2730;color:#f0dfa8;">ATTRACTION</span><h4>Tate Modern</h4>
+        <details class="essay-toggle"><summary>Read the full story</summary>
         <p>Tate Modern occupies the former Bankside Power Station, a mid-century industrial building
       designed by Giles Gilbert Scott — the same architect behind the classic red British telephone box
       — and originally built to generate electricity for London between 1947 and 1963, then decommissioned
@@ -2584,6 +2645,7 @@ html{scroll-behavior:smooth;}
       space built from perforated brick designed to echo the original power station's industrial brick
       shell.</p>
         
+        </details>
       </div>
     </div>
 <div class="item-history wide" style="border-left:4px solid #7B2730;">
@@ -2593,6 +2655,7 @@ html{scroll-behavior:smooth;}
       </div>
       <div class="ih-wide-body">
         <span class="cat-badge" style="background:#7B2730;color:#f0dfa8;">ATTRACTION</span><h4>The Millennium Bridge</h4>
+        <details class="essay-toggle"><summary>Read the full story</summary>
         <p>The Millennium Bridge opened in June 2000 as London's first new Thames crossing in over a century,
       designed by architect Norman Foster, engineer Arup, and sculptor Anthony Caro as a deliberately
       minimal "blade of light" — a flat steel span with no visible towers or high cables, unlike almost
@@ -2608,6 +2671,7 @@ html{scroll-behavior:smooth;}
       of a structure's early embarrassment becoming part of its permanent identity rather than something
       anyone bothered trying to live down.</p>
         
+        </details>
       </div>
     </div>
 <div class="item-history wide" style="border-left:4px solid #7B2730;">
@@ -2616,6 +2680,7 @@ html{scroll-behavior:smooth;}
       </div>
       <div class="ih-wide-body">
         <span class="cat-badge" style="background:#7B2730;color:#f0dfa8;">ATTRACTION</span><h4>The London Eye</h4>
+        <details class="essay-toggle"><summary>Read the full story</summary>
         <p>The London Eye opened on New Year's Eve 1999 (to the public in March 2000) as one of several
       millennium landmark projects funded to mark the year 2000, and was, for over a decade, the tallest
       Ferris wheel in the world at 135 meters — a title eventually taken by wheels in Singapore and Las
@@ -2630,6 +2695,7 @@ html{scroll-behavior:smooth;}
       operational detail that surprises most first-time riders and one of the small design choices that
       makes the Eye feel more like a piece of moving architecture than a traditional fairground ride.</p>
         
+        </details>
       </div>
     </div>
         
@@ -2803,6 +2869,7 @@ html{scroll-behavior:smooth;}
       </div>
       <div class="ih-wide-body">
         <span class="cat-badge" style="background:#7B2730;color:#f0dfa8;">ATTRACTION</span><h4>Harrods: From Tea Shop to Qatari Landmark</h4>
+        <details class="essay-toggle"><summary>Read the full story</summary>
         <p>Harrods began in 1834 when Charles Henry Harrod opened a small grocery and tea-trading shop in
       London's East End, moving to the current Knightsbridge site in 1849. It survived a catastrophic fire
       in 1883 that destroyed the entire store just before Christmas — the story goes that Harrod honored
@@ -2824,6 +2891,7 @@ html{scroll-behavior:smooth;}
       the same showmanship that's defined Harrods since Charles Harrod first decided a grocery shop could
       also be a destination.</p>
         
+        </details>
       </div>
     </div>
 <figure class="approved-map"><img src="https://foreunder.github.io/conrad-family-album/book-images/chatgpt-package/CH08-02_Old-Wembley-to-New-Wembley.png" alt="Old Wembley Stadium (1923) transforming into New Wembley (2007)"><figcaption>From the original Empire Stadium (1923) to the new Wembley (2007).</figcaption></figure><div class="item-history wide" style="border-left:4px solid #7B2730;">
@@ -2833,6 +2901,7 @@ html{scroll-behavior:smooth;}
       </div>
       <div class="ih-wide-body">
         <span class="cat-badge" style="background:#7B2730;color:#f0dfa8;">ATTRACTION</span><h4>Wembley Stadium</h4>
+        <details class="essay-toggle"><summary>Read the full story</summary>
         <p>The original Wembley Stadium — officially the Empire Stadium — opened in 1923 for the British
       Empire Exhibition, built on the site of an abandoned Victorian folly called Watkin's Tower. Its
       famous twin white towers, 126 feet tall and built of ferro-concrete, became instantly recognizable
@@ -2852,6 +2921,7 @@ html{scroll-behavior:smooth;}
       annual fixture going forward — meaning this particular first is one that won't be repeated the same
       way twice.</p>
         
+        </details>
       </div>
     </div>
         <div class="hotel-dossier">
@@ -3018,6 +3088,7 @@ html{scroll-behavior:smooth;}
       </div>
       <div class="ih-wide-body">
         <span class="cat-badge" style="background:#7B2730;color:#f0dfa8;">ATTRACTION</span><h4>The Union Jack Classic</h4>
+        <details class="essay-toggle"><summary>Read the full story</summary>
         <p>This is the first FBS college football game ever played at Wembley Stadium — a genuinely new
       kind of event for a venue that has hosted NFL regular-season games since 2007, but never a college
       matchup. The Big 12 built the Union Jack Classic as part of a broader push toward international
@@ -3042,6 +3113,7 @@ html{scroll-behavior:smooth;}
       Jack Classic, played under a flag built from three older unions, is a fitting name for a week that
       moved through the actual history that flag represents.</p>
         
+        </details>
       </div>
     </div>
         
@@ -3186,6 +3258,7 @@ html{scroll-behavior:smooth;}
       </div>
       <div class="ih-wide-body">
         <span class="cat-badge" style="background:#dcead9;color:#2f4a2c;">TRAVEL</span><h4>AA195 — Heathrow to Phoenix</h4>
+        <details class="essay-toggle"><summary>Read the full story</summary>
         <p>American Airlines' Phoenix-London route is one of the longer scheduled nonstops the airline
       flies from the UK — nearly the same great-circle distance as the outbound leg, but scheduled longer
       in the timetable because westbound transatlantic flights fight a headwind the whole way across, the
@@ -3201,6 +3274,7 @@ html{scroll-behavior:smooth;}
       a bigger connection point like Dallas or Chicago. Routes like this only work at all because of the
       same twin-engine efficiency that made the outbound 777-200ER flight possible in the first place.</p>
         
+        </details>
       </div>
     </div>
         
@@ -3325,6 +3399,7 @@ html{scroll-behavior:smooth;}
       </div>
       <div class="ih-wide-body">
         <span class="cat-badge" style="background:#dcead9;color:#2f4a2c;">TRAVEL</span><h4>The Last Leg Home</h4>
+        <details class="essay-toggle"><summary>Read the full story</summary>
         <p>Omaha and Phoenix sit almost exactly 1,100 miles apart — a distance this family has now covered
       in both directions, bookending eleven days that started with a 6:20 AM departure from Eppley. It's
       a short enough hop that Southwest can fly it comfortably with the same 737s that fly its shortest
@@ -3342,6 +3417,7 @@ html{scroll-behavior:smooth;}
       confirmation numbers into eleven days nobody in this family is going to stop talking about anytime
       soon.</p>
         
+        </details>
       </div>
     </div>
         

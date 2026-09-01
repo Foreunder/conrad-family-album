@@ -11,7 +11,7 @@ from googleapiclient.discovery import build
 from googleapiclient.http import MediaIoBaseDownload
 import exifread
 import pillow_heif
-from PIL import Image
+from PIL import Image, ImageOps
 import urllib.request, urllib.parse, time
 
 DRIVE_FOLDER_ID = "1idR48mqlXyY1Jjh8E0ZxpnG2N5fqUhUN"
@@ -100,7 +100,7 @@ def download_file(service, file_id):
     buf.seek(0)
     return buf.read()
 
-def extract_exif(raw_bytes, filename):
+def extract_exif(raw_bytes, filename, drive_file=None):
     date_obj, lat, lon = None, None, None
     try:
         tags = exifread.process_file(io.BytesIO(raw_bytes), details=False)
@@ -124,11 +124,40 @@ def extract_exif(raw_bytes, filename):
             lon = to_deg(gps_lon, str(gps_lon_ref))
     except Exception:
         pass
-    return date_obj, lat, lon
+
+    # Fallback 1: Drive's own parsed image metadata (more reliable for HEIC/iPhone photos)
+    if drive_file:
+        imm = drive_file.get("imageMediaMetadata", {}) or {}
+        if date_obj is None:
+            drive_time = imm.get("time")
+            if drive_time:
+                try:
+                    date_obj = datetime.strptime(drive_time, "%Y:%m:%d %H:%M:%S")
+                except Exception:
+                    pass
+        if lat is None:
+            loc_meta = imm.get("location")
+            if loc_meta and "latitude" in loc_meta and "longitude" in loc_meta:
+                lat = loc_meta["latitude"]
+                lon = loc_meta["longitude"]
+
+    # Fallback 2: when the photo was uploaded to Drive (last resort, not the capture date)
+    date_is_upload_only = False
+    if date_obj is None and drive_file:
+        modified = drive_file.get("modifiedTime")
+        if modified:
+            try:
+                date_obj = datetime.strptime(modified[:19], "%Y-%m-%dT%H:%M:%S")
+                date_is_upload_only = True
+            except Exception:
+                pass
+
+    return date_obj, lat, lon, date_is_upload_only
 
 def to_web_image(raw_bytes, filename):
     try:
         img = Image.open(io.BytesIO(raw_bytes))
+        img = ImageOps.exif_transpose(img)
         img = img.convert("RGB")
         img.thumbnail((1600, 1600))
         out = io.BytesIO()
@@ -296,12 +325,12 @@ def main():
 
     for f in files:
         raw = download_file(service, f["id"])
-        date_obj, lat, lon = extract_exif(raw, f["name"])
+        date_obj, lat, lon, date_is_upload_only = extract_exif(raw, f["name"], drive_file=f)
         b64 = to_web_image(raw, f["name"])
         if b64 is None:
             continue
         day_key = "00"
-        if date_obj:
+        if date_obj and not date_is_upload_only:
             iso = date_obj.strftime("%Y-%m-%d")
             if iso in date_to_day:
                 day_key = date_to_day[iso]
@@ -312,7 +341,12 @@ def main():
             loc = reverse_geocode(lat, lon, cache)
         elif day_key != "00":
             loc = "Location unknown"
-        when = date_obj.strftime("%a, %-I:%M %p") if date_obj else "Date unknown"
+        if date_obj is None:
+            when = "Date unknown"
+        elif date_is_upload_only:
+            when = date_obj.strftime("Added %a, %b %-d")
+        else:
+            when = date_obj.strftime("%a, %-I:%M %p")
         photos_by_day[day_key].append({"id": f["id"], "b64": b64, "loc": loc, "when": when, "date": date_obj.isoformat() if date_obj else ""})
 
     for k in photos_by_day:

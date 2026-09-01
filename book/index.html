@@ -579,6 +579,13 @@ body{background:#d8c89d;}
 .floating-toc{position:fixed;bottom:22px;right:16px;z-index:999;width:52px;height:52px;border-radius:50%;background:#11365d;color:#f3e9d2;display:flex;align-items:center;justify-content:center;font-size:22px;text-decoration:none;box-shadow:0 4px 14px rgba(0,0,0,0.35);border:2px solid #a97d27;opacity:.92;}
 .floating-toc:active{opacity:1;transform:scale(0.95);}
 @media print{.floating-toc{display:none;}}
+.chapter-nav a{font-size:12.5px;max-width:42%;}
+.chapter-nav .center-link{font-weight:400;color:var(--ink-soft);max-width:none;}
+@media (max-width:600px){.chapter-nav{gap:6px;} .chapter-nav a{font-size:11.5px;max-width:38%;}}
+.chapter-progress{position:fixed;top:0;left:0;right:0;z-index:997;background:rgba(17,54,93,0.96);color:#f3e9d2;text-align:center;padding:9px 14px;font-family:'Karla',sans-serif;font-size:12.5px;letter-spacing:.5px;transform:translateY(-100%);transition:transform .25s ease;box-shadow:0 3px 10px rgba(0,0,0,0.25);}
+.chapter-progress.show{transform:translateY(0);}
+.chapter-progress a{color:#f3e9d2;text-decoration:none;}
+@media print{.chapter-progress{display:none;}}
 </style></head>
 <body>
 <a name="top"></a>
@@ -989,7 +996,7 @@ body{background:#d8c89d;}
 
     <div class="footer-strip"><span>BLESSED WITH THIS TIME TOGETHER</span><span>LONDON &amp; SCOTLAND · SEPTEMBER 2026</span></div>
   </div>
-<div class="chapter-nav"><a href="#toc-wrap">&uarr; Back to Table of Contents</a><span class="center">Chapter 1 of 11</span></div>
+<div class="chapter-nav"><span></span><a href="#toc-wrap" class="center-link">&uarr; Table of Contents</a><a href="#chapter-02">Next: Kealey's Birthday in London &rarr;</a></div><div class="chapter-nav" style="padding-top:0;justify-content:center;"><span class="center">Chapter 1 of 11</span></div>
 </section>
 </div>
 <hr class="combined-divider">
@@ -1353,7 +1360,7 @@ body{background:#d8c89d;}
 
     <div class="footer-strip"><span>BLESSED WITH THIS TIME TOGETHER</span><span>LONDON &amp; SCOTLAND · SEPTEMBER 2026</span></div>
   </div>
-<div class="chapter-nav"><a href="#toc-wrap">&uarr; Back to Table of Contents</a><span class="center">Chapter 2 of 11</span></div>
+<div class="chapter-nav"><a href="#chapter-01">&larr; Prev: The Distance Between Here and There</a><a href="#toc-wrap" class="center-link">&uarr; Table of Contents</a><a href="#chapter-03">Next: Westminster and the Thames &rarr;</a></div><div class="chapter-nav" style="padding-top:0;justify-content:center;"><span class="center">Chapter 2 of 11</span></div>
 </section>
 </div>
 <hr class="combined-divider">
@@ -1636,7 +1643,7 @@ body{background:#d8c89d;}
 
     <div class="footer-strip"><span>BLESSED WITH THIS TIME TOGETHER</span><span>LONDON &amp; SCOTLAND · SEPTEMBER 2026</span></div>
   </div>
-<div class="chapter-nav"><a href="#toc-wrap">&uarr; Back to Table of Contents</a><span class="center">Chapter 3 of 11</span></div>
+<div class="chapter-nav"><a href="#chapter-02">&larr; Prev: Kealey's Birthday in London</a><a href="#toc-wrap" class="center-link">&uarr; Table of Contents</a><a href="#chapter-04">Next: North to Scotland &rarr;</a></div><div class="chapter-nav" style="padding-top:0;justify-content:center;"><span class="center">Chapter 3 of 11</span></div>
 </section>
 </div>
 <hr class="combined-divider">
@@ -1899,7 +1906,7 @@ body{background:#d8c89d;}
 
     <div class="footer-strip"><span>BLESSED WITH THIS TIME TOGETHER</span><span>LONDON &amp; SCOTLAND · SEPTEMBER 2026</span></div>
   </div>
-<div class="chapter-nav"><a href="#toc-wrap">&uarr; Back to Table of Contents</a><span class="center">Chapter 4 of 11</span></div>
+<div class="chapter-nav"><a href="#chapter-03">&larr; Prev: Westminster and the Thames</a><a href="#toc-wrap" class="center-link">&uarr; Table of Contents</a><a href="#chapter-05">Next: Gullane and the Road to St Andrews &rarr;</a></div><div class="chapter-nav" style="padding-top:0;justify-content:center;"><span class="center">Chapter 4 of 11</span></div>
 </section>
 </div>
 <hr class="combined-divider">
@@ -2169,7 +2176,7 @@ body{background:#d8c89d;}
 
     <div class="footer-strip"><span>BLESSED WITH THIS TIME TOGETHER</span><span>LONDON &amp; SCOTLAND · SEPTEMBER 2026</span></div>
   </div>
-<div class="chapter-nav"><a href="#toc-wrap">&uarr; Back to Table of Contents</a><span class="center">Chapter 5 of 11</span></div>
+<div class="chapter-nav"><a href="#chapter-04">&larr; Prev: North to Scotland</a><a href="#toc-wrap" class="center-link">&uarr; Table of Contents</a><a href="#chapter-06">Next: St Andrews and Edinburgh &rarr;</a></div><div class="chapter-nav" style="padding-top:0;justify-content:center;"><span class="center">Chapter 5 of 11</span></div>
 </section>
 </div>
 <hr class="combined-divider">
@@ -2402,7 +2409,7 @@ body{background:#d8c89d;}
 
     <div class="footer-strip"><span>BLESSED WITH THIS TIME TOGETHER</span><span>LONDON &amp; SCOTLAND · SEPTEMBER 2026</span></div>
   </div>
-<div class="chapter-nav"><a href="#toc-wrap">&uarr; Back to Table of Contents</a><span class="center">Chapter 6 of 11</span></div>
+<div class="chapter-nav"><a href="#chapter-05">&larr; Prev: Gullane and the Road to St Andrews</a><a href="#toc-wrap" class="center-link">&uarr; Table of Contents</a><a href="#chapter-07">Next: London's South Bank &rarr;</a></div><div class="chapter-nav" style="padding-top:0;justify-content:center;"><span class="center">Chapter 6 of 11</span></div>
 </section>
 </div>
 <hr class="combined-divider">
@@ -2655,7 +2662,7 @@ body{background:#d8c89d;}
 
     <div class="footer-strip"><span>BLESSED WITH THIS TIME TOGETHER</span><span>LONDON &amp; SCOTLAND · SEPTEMBER 2026</span></div>
   </div>
-<div class="chapter-nav"><a href="#toc-wrap">&uarr; Back to Table of Contents</a><span class="center">Chapter 7 of 11</span></div>
+<div class="chapter-nav"><a href="#chapter-06">&larr; Prev: St Andrews and Edinburgh</a><a href="#toc-wrap" class="center-link">&uarr; Table of Contents</a><a href="#chapter-08">Next: On to Wembley &rarr;</a></div><div class="chapter-nav" style="padding-top:0;justify-content:center;"><span class="center">Chapter 7 of 11</span></div>
 </section>
 </div>
 <hr class="combined-divider">
@@ -2895,7 +2902,7 @@ body{background:#d8c89d;}
 
     <div class="footer-strip"><span>BLESSED WITH THIS TIME TOGETHER</span><span>LONDON &amp; SCOTLAND · SEPTEMBER 2026</span></div>
   </div>
-<div class="chapter-nav"><a href="#toc-wrap">&uarr; Back to Table of Contents</a><span class="center">Chapter 8 of 11</span></div>
+<div class="chapter-nav"><a href="#chapter-07">&larr; Prev: London's South Bank</a><a href="#toc-wrap" class="center-link">&uarr; Table of Contents</a><a href="#chapter-09">Next: Game Day at Wembley &rarr;</a></div><div class="chapter-nav" style="padding-top:0;justify-content:center;"><span class="center">Chapter 8 of 11</span></div>
 </section>
 </div>
 <hr class="combined-divider">
@@ -3062,7 +3069,7 @@ body{background:#d8c89d;}
 
     <div class="footer-strip"><span>BLESSED WITH THIS TIME TOGETHER</span><span>LONDON &amp; SCOTLAND · SEPTEMBER 2026</span></div>
   </div>
-<div class="chapter-nav"><a href="#toc-wrap">&uarr; Back to Table of Contents</a><span class="center">Chapter 9 of 11</span></div>
+<div class="chapter-nav"><a href="#chapter-08">&larr; Prev: On to Wembley</a><a href="#toc-wrap" class="center-link">&uarr; Table of Contents</a><a href="#chapter-10">Next: London to Phoenix &rarr;</a></div><div class="chapter-nav" style="padding-top:0;justify-content:center;"><span class="center">Chapter 9 of 11</span></div>
 </section>
 </div>
 <hr class="combined-divider">
@@ -3203,7 +3210,7 @@ body{background:#d8c89d;}
 
     <div class="footer-strip"><span>BLESSED WITH THIS TIME TOGETHER</span><span>LONDON &amp; SCOTLAND · SEPTEMBER 2026</span></div>
   </div>
-<div class="chapter-nav"><a href="#toc-wrap">&uarr; Back to Table of Contents</a><span class="center">Chapter 10 of 11</span></div>
+<div class="chapter-nav"><a href="#chapter-09">&larr; Prev: Game Day at Wembley</a><a href="#toc-wrap" class="center-link">&uarr; Table of Contents</a><a href="#chapter-11">Next: The Road Home &rarr;</a></div><div class="chapter-nav" style="padding-top:0;justify-content:center;"><span class="center">Chapter 10 of 11</span></div>
 </section>
 </div>
 <hr class="combined-divider">
@@ -3345,8 +3352,31 @@ body{background:#d8c89d;}
 
     <div class="footer-strip"><span>BLESSED WITH THIS TIME TOGETHER</span><span>LONDON &amp; SCOTLAND · SEPTEMBER 2026</span></div>
   </div>
-<div class="chapter-nav"><a href="#toc-wrap">&uarr; Back to Table of Contents</a><span class="center">Chapter 11 of 11</span></div>
+<div class="chapter-nav"><a href="#chapter-10">&larr; Prev: London to Phoenix</a><a href="#toc-wrap" class="center-link">&uarr; Table of Contents</a><span></span></div><div class="chapter-nav" style="padding-top:0;justify-content:center;"><span class="center">Chapter 11 of 11</span></div>
 </section>
 </div>
+<div class="chapter-progress" id="chapterProgress"><a href="#toc-wrap" id="chapterProgressLink"></a></div>
 <a href="#toc-wrap" class="floating-toc" aria-label="Back to Table of Contents">&uarr;</a>
+<script>
+(function(){
+  var bar = document.getElementById('chapterProgress');
+  var link = document.getElementById('chapterProgressLink');
+  var chapters = document.querySelectorAll('.chapter');
+  var current = '';
+  var obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if (entry.isIntersecting) {
+        var num = entry.target.querySelector('.chapter-num');
+        var h1 = entry.target.querySelector('h1');
+        current = (num ? num.textContent : '') + (h1 ? ' \u00b7 ' + h1.textContent : '');
+        link.textContent = current;
+      }
+    });
+  }, { rootMargin: '-15% 0px -80% 0px' });
+  chapters.forEach(function(ch){ obs.observe(ch); });
+  window.addEventListener('scroll', function(){
+    bar.classList.toggle('show', window.scrollY > 400 && current);
+  });
+})();
+</script>
 </body></html>

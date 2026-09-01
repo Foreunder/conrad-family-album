@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Email System Status">
+<meta name="theme-color" content="#11365d">
+<title>Conrad Trip — Email System Status</title>
+<style>
+  :root{--navy:#11365d;--gold:#a97d27;--card:#fffaf0;--ink:#2a1f10;--line:#d8c69a;--green:#3d5c3a;}
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Karla,sans-serif;background:#f3ead7;color:var(--ink);padding-bottom:60px;}
+  header{background:var(--navy);color:#fff;padding:22px 20px 18px;text-align:center;position:sticky;top:0;z-index:10;box-shadow:0 4px 10px rgba(0,0,0,.15);}
+  header h1{margin:0;font-size:20px;letter-spacing:.03em;}
+  header p{margin:4px 0 0;font-size:12px;opacity:.85;}
+  main{max-width:720px;margin:0 auto;padding:16px;}
+  .section{margin-bottom:22px;}
+  .section h2{font-size:14px;text-transform:uppercase;letter-spacing:.08em;color:var(--gold);border-bottom:2px solid var(--gold);padding-bottom:6px;margin:0 0 10px;}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:12px 16px;margin-bottom:8px;font-size:13.5px;line-height:1.5;}
+  .card.done{border-left:4px solid var(--green);}
+  .card.open{border-left:4px solid #b02b2b;background:#fbeeee;}
+  .card b{color:var(--navy);}
+  .tag{display:inline-block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;padding:2px 8px;border-radius:10px;margin-right:6px;}
+  .tag.done{background:var(--green);color:#fff;}
+  .tag.open{background:#b02b2b;color:#fff;}
+  .note{background:#fff5da;border:1px solid var(--line);border-radius:6px;padding:10px 14px;font-size:13px;line-height:1.5;margin-bottom:10px;}
+  footer{text-align:center;font-size:11px;color:#8a7550;padding:20px;}
+</style>
+</head>
+<body>
+<header>
+  <h1>Email System — Full Status</h1>
+  <p>Trivia, photo challenges &amp; daily chapter emails</p>
+</header>
+<main>
+
+  <div class="section">
+    <h2>Built, Tested &amp; Working</h2>
+    <div class="card done"><span class="tag done">Done</span><b>44 family emails</b> — 11 chapters × 4 people (Jamey, Kayla, Jayden, Kealey), byte-for-byte verified, no placeholders. Stored safely in a shared Google Drive folder ("Daily Trip Emails (PRIVATE - not for family)"), not stuck in any chat session.</div>
+    <div class="card done"><span class="tag done">Done</span><b>44 grandparent emails</b> — Steve, Jean, Tim, Sandy × 11 chapters. Simplified: itinerary summary, verse, reflection, public photo-album link. No trivia, no reveal, no private answers.</div>
+    <div class="card done"><span class="tag done">Done</span><b>11 Google Forms</b> — only "Your name" is required; every other field optional, so a resubmission to fix one answer doesn't wipe the rest. Sharing-preference field is a required PRIVATE / OKAY TO SHARE radio button.</div>
+    <div class="card done"><span class="tag done">Done</span><b>Response-reader</b> — reads the most recent non-blank answer per question per person (not most recent full row), so partial resubmissions work correctly.</div>
+    <div class="card done"><span class="tag done">Done</span><b>Reveal-builder</b> — actually rehearsed against the real live Google Sheet with real test data: correctly handled 2-of-4 responses, correctly surfaced a reveal-worthy answer progression, correctly <b>excluded</b> a PRIVATE-marked answer entirely. Cleanup verified afterward — sheet confirmed back to header-only.</div>
+    <div class="card done"><span class="tag done">Done</span><b>Sending — real and confirmed</b> — personal Gmail (jamey.conrad@gmail.com) connected via Zapier and tested with an actual sent message (not a draft, not a simulation). Required fixing a Zapier account-mismatch issue; now resolved and set as default.</div>
+    <div class="card done"><span class="tag done">Done</span><b>Photo challenges</b> — no separate upload field exists; photos rely on the same shared Drive folder the family already uses. A caught gap (emails never said where photos should go) was fixed across all 44 emails with an explicit line.</div>
+  </div>
+
+  <div class="section">
+    <h2>The Trigger Model (Locked)</h2>
+    <div class="note">
+      No fixed schedule. Say <b>"send today's chapter"</b> or <b>"send tomorrow's chapter"</b> in any chat in this project — Claude pulls that day's pre-built content from Drive, fills in the live weather, and sends all 4 real family emails immediately. Grandparent emails follow the same trigger. Nothing to copy, compose, or remember beyond the trigger phrase itself.
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Genuinely Still Open</h2>
+    <div class="card open"><span class="tag open">Open</span>Real "Before We Leave" photos to replace gray placeholders in Chapter I.</div>
+    <div class="card open"><span class="tag open">Open</span>Day-of weather — can't be pulled ahead of time by nature, happens live each morning.</div>
+    <div class="card open"><span class="tag open">Open</span>Jamey personally tapping through one Google Form once, just to confirm the mobile experience himself — the one step that requires a human on a real device.</div>
+  </div>
+
+  <div class="section">
+    <h2>Key Locations</h2>
+    <div class="card">
+      <b>Email content &amp; drafts:</b> Google Drive folder "Daily Trip Emails (PRIVATE - not for family)" — shared to both Jamey's work and personal Drive accounts.<br><br>
+      <b>Response data:</b> Live Google Sheet linked to the 11 Forms.<br><br>
+      <b>Sending account:</b> jamey.conrad@gmail.com via Zapier (Gmail connection confirmed working).
+    </div>
+  </div>
+
+</main>
+<footer>Conrad Family Trip · London &amp; Scotland 2026<br>Add to Home Screen for quick access</footer>
+</body>
+</html>

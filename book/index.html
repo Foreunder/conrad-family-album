@@ -586,6 +586,12 @@ body{background:#d8c89d;}
 .chapter-progress.show{transform:translateY(0);}
 .chapter-progress a{color:#f3e9d2;text-decoration:none;}
 @media print{.chapter-progress{display:none;}}
+.chapter img{cursor:zoom-in;}
+.book-lightbox{display:none;position:fixed;inset:0;z-index:9999;background:rgba(8,14,24,0.94);align-items:center;justify-content:center;padding:24px;}
+.book-lightbox.open{display:flex;}
+.book-lightbox img{max-width:100%;max-height:100%;object-fit:contain;border:2px solid #a97d27;border-radius:2px;}
+.book-lightbox-close{position:absolute;top:18px;right:18px;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,0.12);color:#f3e9d2;font-size:20px;display:flex;align-items:center;justify-content:center;cursor:pointer;}
+@media print{.book-lightbox{display:none !important;}}
 </style></head>
 <body>
 <a name="top"></a>
@@ -3357,6 +3363,7 @@ body{background:#d8c89d;}
 </div>
 <div class="chapter-progress" id="chapterProgress"><a href="#toc-wrap" id="chapterProgressLink"></a></div>
 <a href="#toc-wrap" class="floating-toc" aria-label="Back to Table of Contents">&uarr;</a>
+<div class="book-lightbox" id="bookLightbox"><div class="book-lightbox-close" id="bookLightboxClose">&times;</div><img id="bookLightboxImg" src="" alt=""></div>
 <script>
 (function(){
   var bar = document.getElementById('chapterProgress');
@@ -3377,6 +3384,17 @@ body{background:#d8c89d;}
   window.addEventListener('scroll', function(){
     bar.classList.toggle('show', window.scrollY > 400 && current);
   });
+
+  var lb = document.getElementById('bookLightbox');
+  var lbImg = document.getElementById('bookLightboxImg');
+  function openLb(src, alt){ lbImg.src = src; lbImg.alt = alt || ''; lb.classList.add('open'); }
+  function closeLb(){ lb.classList.remove('open'); lbImg.src=''; }
+  document.querySelectorAll('.chapter img').forEach(function(img){
+    img.addEventListener('click', function(){ openLb(img.src, img.alt); });
+  });
+  document.getElementById('bookLightboxClose').addEventListener('click', closeLb);
+  lb.addEventListener('click', function(e){ if (e.target === lb) closeLb(); });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeLb(); });
 })();
 </script>
 </body></html>

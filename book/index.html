@@ -594,6 +594,9 @@ body{background:#d8c89d;}
 @media print{.book-lightbox{display:none !important;}}
 .front-cover{max-width:920px;margin:0 auto;background:#0c1a2b;}
 .front-cover img{width:100%;height:auto;display:block;}
+html{scroll-behavior:smooth;}
+.reading-progress{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,#a97d27,#F9DDA4);z-index:1000;width:0%;transition:width .1s linear;}
+@media print{.reading-progress{display:none;}}
 </style></head>
 <body>
 <a name="top"></a>
@@ -3368,6 +3371,7 @@ body{background:#d8c89d;}
 </section>
 </div>
 <div class="chapter-progress" id="chapterProgress"><a href="#toc-wrap" id="chapterProgressLink"></a></div>
+<div class="reading-progress" id="readingProgress"></div>
 <a href="#toc-wrap" class="floating-toc" aria-label="Back to Table of Contents">&uarr;</a>
 <div class="book-lightbox" id="bookLightbox"><div class="book-lightbox-close" id="bookLightboxClose">&times;</div><img id="bookLightboxImg" src="" alt=""></div>
 <script>
@@ -3387,6 +3391,17 @@ body{background:#d8c89d;}
     });
   }, { rootMargin: '-15% 0px -80% 0px' });
   chapters.forEach(function(ch){ obs.observe(ch); });
+
+  var progressBar = document.getElementById('readingProgress');
+  function updateProgress(){
+    var scrollTop = window.scrollY;
+    var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    var pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    progressBar.style.width = pct + '%';
+  }
+  window.addEventListener('scroll', updateProgress, { passive: true });
+  window.addEventListener('resize', updateProgress);
+  updateProgress();
   window.addEventListener('scroll', function(){
     bar.classList.toggle('show', window.scrollY > 400 && current);
   });

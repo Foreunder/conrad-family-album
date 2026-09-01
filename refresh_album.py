@@ -276,6 +276,8 @@ const observer = new IntersectionObserver((entries) => {{
     if (!entry.isIntersecting) return;
     const key = entry.target.getAttribute('data-key');
     document.querySelectorAll('.rail-item, .mobile-nav a').forEach(el => el.classList.toggle('active', el.getAttribute('data-key') === key));
+    const activeChip = document.querySelector('.mobile-nav a.active');
+    if (activeChip) activeChip.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
   }});
 }}, {{ rootMargin: '-40% 0px -55% 0px' }});
 document.querySelectorAll('.day').forEach(el => observer.observe(el));

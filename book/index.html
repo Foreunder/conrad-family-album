@@ -576,15 +576,24 @@ body{background:#d8c89d;}
 .photo-feature img{object-fit:contain!important;background:#efe3c2;}
 @media(max-width:700px){.verified-plan li{grid-template-columns:1fr;gap:2px}.family-thread{padding:20px}.approved-map{padding:8px}.chapter-frame{padding-left:16px!important;padding-right:16px!important}}
 @media print{body{background:white}.approved-map,.verified-plan,.family-thread{box-shadow:none;break-inside:avoid}}
-.floating-toc{position:fixed;bottom:22px;right:16px;z-index:999;width:52px;height:52px;border-radius:50%;background:#11365d;color:#f3e9d2;display:flex;align-items:center;justify-content:center;font-size:22px;text-decoration:none;box-shadow:0 4px 14px rgba(0,0,0,0.35);border:2px solid #a97d27;opacity:.92;}
+.floating-toc{position:fixed;bottom:22px;right:16px;z-index:999;width:52px;height:52px;border-radius:50%;background:#11365d;color:#f3e9d2;display:flex;align-items:center;justify-content:center;font-size:22px;text-decoration:none;box-shadow:0 4px 14px rgba(0,0,0,0.35);border:2px solid #a97d27;opacity:.92;cursor:pointer;}
 .floating-toc:active{opacity:1;transform:scale(0.95);}
-@media print{.floating-toc{display:none;}}
+@media print{.floating-toc{display:none;}.quick-jump-overlay{display:none;}}
+.quick-jump-overlay{position:fixed;inset:0;z-index:1001;background:rgba(10,10,15,0.55);display:none;align-items:flex-end;justify-content:flex-end;padding:0;}
+.quick-jump-overlay.open{display:flex;}
+.quick-jump-panel{background:#faf3e3;border:2px solid #a97d27;border-radius:10px 0 0 0;max-width:340px;width:92vw;max-height:78vh;overflow-y:auto;margin:0 16px 88px 0;box-shadow:0 -6px 24px rgba(0,0,0,0.4);}
+.quick-jump-panel h4{margin:0;padding:14px 18px 10px;font-family:'Playfair Display',serif;font-size:16px;color:#11365d;border-bottom:1px solid #ddd0ab;position:sticky;top:0;background:#faf3e3;}
+.quick-jump-panel a{display:flex;align-items:baseline;gap:10px;padding:10px 18px;text-decoration:none;color:#2a2a2a;font-family:'Karla',sans-serif;font-size:14px;border-bottom:1px solid #efe6cd;}
+.quick-jump-panel a:hover,.quick-jump-panel a:active{background:#f0e4c4;}
+.quick-jump-panel a .qj-num{font-family:'Playfair Display',serif;color:#a97d27;font-weight:700;width:24px;flex-shrink:0;}
+.quick-jump-panel a.qj-top{font-weight:700;color:#11365d;}
+@media (max-width:600px){.quick-jump-panel{margin:0 8px 80px 0;max-height:70vh;}}
 .chapter-nav a{font-size:14px;max-width:36%;}
 .chapter-nav .center-link{font-weight:400;color:var(--ink-soft);max-width:none;}
 @media (max-width:600px){.chapter-nav{gap:6px;} .chapter-nav a{font-size:11.5px;max-width:38%;}}
 .chapter-progress{position:fixed;top:0;left:0;right:0;z-index:997;background:rgba(17,54,93,0.96);color:#f3e9d2;text-align:center;padding:9px 14px;font-family:'Karla',sans-serif;font-size:12.5px;letter-spacing:.5px;transform:translateY(-100%);transition:transform .25s ease;box-shadow:0 3px 10px rgba(0,0,0,0.25);}
 .chapter-progress.show{transform:translateY(0);}
-.chapter-progress a{color:#f3e9d2;text-decoration:none;}
+.chapter-progress span{color:#f3e9d2;text-decoration:none;}
 @media print{.chapter-progress{display:none;}}
 .chapter img{cursor:zoom-in;}
 .book-lightbox{display:none;position:fixed;inset:0;z-index:9999;background:rgba(8,14,24,0.94);align-items:center;justify-content:center;padding:24px;}
@@ -3382,9 +3391,15 @@ html{scroll-behavior:smooth;}
 <div class="chapter-nav"><a href="#chapter-10">&larr; Prev: London to Phoenix</a><a href="#toc-wrap" class="center-link">&uarr; Table of Contents</a><span></span></div><div class="chapter-nav" style="padding-top:0;justify-content:center;"><span class="center">Chapter 11 of 11</span></div>
 </section>
 </div>
-<div class="chapter-progress" id="chapterProgress"><a href="#toc-wrap" id="chapterProgressLink"></a></div>
+<div class="chapter-progress" id="chapterProgress"><span id="chapterProgressLink" style="cursor:pointer;"></span></div>
 <div class="reading-progress" id="readingProgress"></div>
-<a href="#toc-wrap" class="floating-toc" aria-label="Back to Table of Contents">&uarr;</a>
+<button type="button" class="floating-toc" id="quickJumpBtn" aria-label="Jump to chapter">&#9776;</button>
+<div class="quick-jump-overlay" id="quickJumpOverlay">
+  <div class="quick-jump-panel" id="quickJumpPanel">
+    <h4>Jump to a chapter</h4>
+    <a class="qj-top" href="#toc-wrap">&uarr; Table of Contents</a><a href="#chapter-01"><span class="qj-num">I</span><span>The Distance Between Here and There</span></a><a href="#chapter-02"><span class="qj-num">II</span><span>Kealey's Birthday in London</span></a><a href="#chapter-03"><span class="qj-num">III</span><span>Westminster and the Thames</span></a><a href="#chapter-04"><span class="qj-num">IV</span><span>North to Scotland</span></a><a href="#chapter-05"><span class="qj-num">V</span><span>Gullane and the Road to St Andrews</span></a><a href="#chapter-06"><span class="qj-num">VI</span><span>St Andrews and Edinburgh</span></a><a href="#chapter-07"><span class="qj-num">VII</span><span>London's South Bank</span></a><a href="#chapter-08"><span class="qj-num">VIII</span><span>On to Wembley</span></a><a href="#chapter-09"><span class="qj-num">IX</span><span>Game Day at Wembley</span></a><a href="#chapter-10"><span class="qj-num">X</span><span>London to Phoenix</span></a><a href="#chapter-11"><span class="qj-num">XI</span><span>The Road Home</span></a>
+  </div>
+</div>
 <div class="book-lightbox" id="bookLightbox"><div class="book-lightbox-close" id="bookLightboxClose">&times;</div><img id="bookLightboxImg" src="" alt=""></div>
 <script>
 (function(){
@@ -3414,6 +3429,15 @@ html{scroll-behavior:smooth;}
   window.addEventListener('scroll', updateProgress, { passive: true });
   window.addEventListener('resize', updateProgress);
   updateProgress();
+
+  var qjBtn = document.getElementById('quickJumpBtn');
+  var qjOverlay = document.getElementById('quickJumpOverlay');
+  var qjPanel = document.getElementById('quickJumpPanel');
+  qjBtn.addEventListener('click', function(){ qjOverlay.classList.toggle('open'); });
+  qjOverlay.addEventListener('click', function(e){ if (e.target === qjOverlay) qjOverlay.classList.remove('open'); });
+  qjPanel.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', function(){ qjOverlay.classList.remove('open'); }); });
+  document.getElementById('chapterProgressLink').addEventListener('click', function(){ qjOverlay.classList.add('open'); });
+
   window.addEventListener('scroll', function(){
     bar.classList.toggle('show', window.scrollY > 400 && current);
   });

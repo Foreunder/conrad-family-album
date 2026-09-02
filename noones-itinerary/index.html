@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Meeting Up in London">
 <meta name="theme-color" content="#11365d">
-<title>Conrads &amp; Noones — London Meetup Plan</title>
+<title>Conrads &amp; Noones — London Itinerary</title>
 <style>
   :root{--navy:#11365d;--gold:#a97d27;--ink:#2a1f10;--line:#d8c69a;--green:#2f6b3a;--gray:#6b7280;--red:#8a3b2b;}
   *{box-sizing:border-box;}
@@ -18,23 +18,28 @@
   main{max-width:760px;margin:0 auto;padding:10px 14px;}
   .section h2{font-size:13px;text-transform:uppercase;letter-spacing:.05em;color:var(--gold);border-bottom:2px solid var(--gold);padding-bottom:4px;margin:16px 0 6px;}
   .intro{background:#fff;border:1px solid var(--line);border-radius:8px;padding:12px 14px;margin:10px 0;font-size:12.5px;line-height:1.5;}
+  .legend{display:flex;gap:10px;flex-wrap:wrap;font-size:10.5px;margin:8px 0 14px;}
+  .legend span{padding:2px 8px;border-radius:8px;font-weight:800;}
   .meetup{background:#e2f0e4;border:2px solid var(--green);border-radius:8px;padding:10px 14px;margin-bottom:8px;}
   .meetup .mtitle{font-weight:800;color:var(--green);font-size:13px;}
   .meetup .mdetail{font-size:12px;color:#2a1f10;margin-top:3px;line-height:1.4;}
   .daytitle{font-size:14.5px;font-weight:800;color:#fff;background:var(--navy);margin:14px 0 0;padding:5px 10px;border-radius:5px 5px 0 0;}
   .daybox{border:1px solid var(--line);border-top:none;border-radius:0 0 5px 5px;margin-bottom:4px;background:#fffdf7;}
-  .item{padding:6px 10px;border-bottom:1px solid #ece0c4;}
+  .item{padding:5px 10px;border-bottom:1px solid #ece0c4;}
   .item:last-child{border-bottom:none;}
   .item.together{background:#eaf5ec;}
+  .item.noone{background:#eaf0fa;}
+  .item.idea{background:#f5f0e6;}
   .item .line1{display:flex;gap:6px;align-items:baseline;flex-wrap:wrap;}
-  .item .time{font-weight:800;color:var(--navy);font-size:11.5px;min-width:90px;flex-shrink:0;}
+  .item .time{font-weight:800;color:var(--navy);font-size:11.5px;min-width:82px;flex-shrink:0;}
   .item .title{font-weight:700;font-size:12.5px;flex:1;}
-  .badge{font-size:8.5px;font-weight:800;text-transform:uppercase;letter-spacing:.03em;padding:1px 5px;border-radius:8px;white-space:nowrap;}
+  .badge{font-size:8px;font-weight:800;text-transform:uppercase;letter-spacing:.03em;padding:1px 6px;border-radius:8px;white-space:nowrap;}
   .b-together{background:#2f6b3a;color:#fff;}
-  .b-noone{background:#dbe6f5;color:#1a4a7a;}
-  .b-conrad{background:#f0dfa8;color:#7b1f28;}
-  .b-idea{background:#e3e3e3;color:#555;}
-  .item .sub{font-size:10.5px;color:#5a4a30;margin-left:96px;line-height:1.35;}
+  .b-noone{background:#1a4a7a;color:#fff;}
+  .b-conrad{background:#7b1f28;color:#f0dfa8;}
+  .b-idea{background:#8a7550;color:#fff;}
+  .item .sub{font-size:10.5px;color:#5a4a30;margin-left:88px;line-height:1.35;}
+  .item .conf{font-family:'SF Mono',Menlo,Consolas,monospace;font-size:9.5px;color:var(--navy);}
   .contact{background:#fff;border:1px solid var(--line);border-radius:8px;padding:12px 14px;font-size:12.5px;line-height:1.6;}
   .contact a{color:var(--navy);font-weight:700;text-decoration:none;}
   footer{text-align:center;font-size:10px;color:#8a7550;padding:16px;}
@@ -42,13 +47,20 @@
 </head>
 <body>
 <header>
-  <h1>Conrads &amp; Noones — London Meetup Plan</h1>
-  <p>September 16–21, 2026</p>
+  <h1>Conrads &amp; Noones — London Itinerary</h1>
+  <p>September 10–21, 2026</p>
 </header>
 <main>
 
   <div class="intro">
-    Hi Patrick &amp; Dana! Here's our full London schedule from when we land back from Scotland through the ASU game, lined up next to what you've shared so far. <b>Green</b> highlights are the two spots already locked in together — everything else is just so you can see what we're up to and jump in wherever makes sense.
+    Hi Patrick &amp; Dana! Here's our entire trip schedule, start to finish, so you can see exactly what we're up to and where things might line up. <b>Green</b> = already locked in together. <b>Blue</b> = what you've told us about your plans. <b>Gold</b> = things worth comparing notes on.
+  </div>
+
+  <div class="legend">
+    <span class="b-together">TOGETHER</span>
+    <span class="b-conrad">OUR PLAN</span>
+    <span class="b-noone">YOUR PLAN</span>
+    <span class="b-idea">WORTH COMPARING</span>
   </div>
 
   <div class="section"><h2>Confirmed Together</h2></div>
@@ -58,74 +70,357 @@
   </div>
   <div class="meetup">
     <div class="mtitle">Sat Sept 19, 5:00 PM — Kickoff: ASU vs. Kansas</div>
-    <div class="mdetail">Wembley Stadium. Union Jack Classic. Great if we can coordinate arrival/seating logistics, even if seats aren't together.</div>
+    <div class="mdetail">Wembley Stadium. Union Jack Classic.</div>
   </div>
 
-  <div class="section"><h2>Worth Comparing Notes On</h2></div>
-  <div class="meetup" style="background:#fdf3e0;border-color:var(--gold);">
-    <div class="mtitle">Thu Sept 17 — Borough Market</div>
-    <div class="mdetail">We're planning to hit Borough Market Thursday morning (opens 10 AM) before the crowds. You mentioned wanting to try it again on a weekday since last time was marathon-weekend chaos — this could be a natural place to meet up if timing lines up.</div>
+  <div class="section"><h2>Our Full Schedule (Sept 10–21)</h2></div>
+  <div class="daytitle">Thursday, September 10</div>
+  <div class="daybox">
+    <div class="item ">
+      <div class="line1"><span class="time">4:45 AM</span><span class="title">Uber from home to Eppley Airfield</span><span class="badge b-conrad">OUR PLAN</span></div>
+      <div class="sub">4501 Abbott Dr, Omaha, NE 68110 · Leave early enough that nothing about the morning has to be rushed.</div>
+    </div>
+    <div class="item ">
+      <div class="line1"><span class="time">6:20 AM</span><span class="title">Depart Omaha — Southwest 696 to Phoenix</span><span class="badge b-conrad">OUR PLAN</span></div>
+      <div class="sub">Eppley Airfield (OMA) · <span class="conf">No confirmation # on file — check booking email</span> · Jamey 11C, Kayla 11B. Jayden/Kealey NOT on this leg.</div>
+    </div>
+    <div class="item ">
+      <div class="line1"><span class="time">~12:10 PM</span><span class="title">Reunite in Phoenix</span><span class="badge b-conrad">OUR PLAN</span></div>
+      <div class="sub">Phoenix Sky Harbor, Terminal 4 · Steve and Jean are part of the morning. Jayden and Kealey join by early afternoon.</div>
+    </div>
+    <div class="item ">
+      <div class="line1"><span class="time">4:10 PM</span><span class="title">Depart Phoenix — American Airlines 194 to London Heathrow</span><span class="badge b-conrad">OUR PLAN</span></div>
+      <div class="sub">Phoenix Sky Harbor, Terminal 4 · <span class="conf">No confirmation # on file — check booking email</span> · Jamey 11C, Kayla 11D, Jayden/Kealey 18D/18H. All 4 together.</div>
+    </div>
   </div>
-  <div class="meetup" style="background:#fdf3e0;border-color:var(--gold);">
-    <div class="mtitle">Fri Sept 18 evening — The White Horse Wembley</div>
-    <div class="mdetail">Heads up: we already have a reservation at The White Horse for Friday 6:30–8:30 PM, currently booked for our family of 4 only. If Dan gets a table there too, let us know — happy to see if they can accommodate everyone together instead of two separate reservations.</div>
+  <div class="daytitle">Friday, September 11</div>
+  <div class="daybox">
+    <div class="item ">
+      <div class="line1"><span class="time">~10:30 AM</span><span class="title">Land London Heathrow</span><span class="badge b-conrad">OUR PLAN</span></div>
+      <div class="sub">Heathrow Airport, Terminal 3, Hounslow TW6 1QG · UK Border Force, baggage claim, then walk to the Heathrow Express platform.</div>
+    </div>
+    <div class="item ">
+      <div class="line1"><span class="time">Late Morning</span><span class="title">Heathrow Express to Paddington</span><span class="badge b-conrad">OUR PLAN</span></div>
+      <div class="sub">Heathrow Terminal 3 → London Paddington · <span class="conf">Ref ac44e8b6</span> · Standard class, ~15–20 minutes. Group discount code 3RDOFF applied.</div>
+    </div>
+    <div class="item ">
+      <div class="line1"><span class="time">Early Afternoon</span><span class="title">Check in — Novotel London Paddington</span><span class="badge b-conrad">OUR PLAN</span></div>
+      <div class="sub">3 Kingdom St, London W2 6BD · <span class="conf">Booking PSBLGLNW</span> · Two rooms, right at the station. Request early check-in; Sky Garden bags can be left at the front desk if rooms aren&#x27;t ready.</div>
+    </div>
+    <div class="item ">
+      <div class="line1"><span class="time">Afternoon</span><span class="title">Hyde Park &amp; Kensington Gardens</span><span class="badge b-conrad">OUR PLAN</span></div>
+      <div class="sub">Hyde Park, London W2 · An easy, unstructured stroll to work off the flight.</div>
+    </div>
+    <div class="item ">
+      <div class="line1"><span class="time">2:45 PM</span><span class="title">Sky Garden</span><span class="badge b-conrad">OUR PLAN</span></div>
+      <div class="sub">1 Sky Garden Walk, 20 Fenchurch St, London EC3M 8AF · <span class="conf">Free timed-entry — no conf # issued; bring photo ID</span> · Free skyline views.</div>
+    </div>
+    <div class="item ">
+      <div class="line1"><span class="time">Evening</span><span class="title">Light dinner near Paddington</span><span class="badge b-conrad">OUR PLAN</span></div>
+      <div class="sub">Paddington area · Early night — no prize for beating jet lag on day one.</div>
+    </div>
   </div>
-
-  <div class="section"><h2>Day by Day — Our Schedule</h2></div>
-
+  <div class="daytitle">Saturday, September 12 — Kealey&#x27;s Birthday</div>
+  <div class="daybox">
+    <div class="item ">
+      <div class="line1"><span class="time">Morning</span><span class="title">Coffee, then the Tube toward Liverpool Street</span><span class="badge b-conrad">OUR PLAN</span></div>
+      <div class="sub">Harrisons Coffee, 3 Spring Street, London W2 3RA · Circle/Hammersmith &amp; City or the Elizabeth line toward Bishopsgate.</div>
+    </div>
+    <div class="item ">
+      <div class="line1"><span class="time">10:30 AM</span><span class="title">Duck &amp; Waffle — Birthday Brunch</span><span class="badge b-conrad">OUR PLAN</span></div>
+      <div class="sub">110 Bishopsgate, London EC2N 4AY (40th floor) · <span class="conf">No confirmation # on file — booked by Kealey</span> · Weekend Brunch menu.</div>
+    </div>
+    <div class="item ">
+      <div class="line1"><span class="time">Afternoon</span><span class="title">Explore the city — free time</span><span class="badge b-conrad">OUR PLAN</span></div>
+      <div class="sub">Central London · No fixed plan.</div>
+    </div>
+    <div class="item ">
+      <div class="line1"><span class="time">2:30–4:50 PM</span><span class="title">The Book of Mormon</span><span class="badge b-conrad">OUR PLAN</span></div>
+      <div class="sub">Prince of Wales Theatre, Coventry Street, London W1D 6AS · <span class="conf">Order TFKRVC7 · Stalls Row K, Seats 23–26</span> · Kealey&#x27;s pick for the birthday show. Tickets are paperless mobile — check email/wallet before leaving the hotel.</div>
+    </div>
+    <div class="item ">
+      <div class="line1"><span class="time">~5:00 PM</span><span class="title">Trafalgar Square</span><span class="badge b-conrad">OUR PLAN</span></div>
+      <div class="sub">Trafalgar Square, London WC2N 5DN · On foot from the theatre.</div>
+    </div>
+    <div class="item ">
+      <div class="line1"><span class="time">Evening</span><span class="title">Wander into St James&#x27;s</span><span class="badge b-conrad">OUR PLAN</span></div>
+      <div class="sub">St James&#x27;s, London SW1 · Quiet streets, royal parks, far fewer tourists.</div>
+    </div>
+    <div class="item ">
+      <div class="line1"><span class="time">Evening</span><span class="title">Liberty London</span><span class="badge b-conrad">OUR PLAN</span></div>
+      <div class="sub">Great Marlborough St, London W1B 5AH · The Tudor-style department store, near Piccadilly Circus.</div>
+    </div>
+    <div class="item ">
+      <div class="line1"><span class="time">7:00 PM</span><span class="title">Yauatcha Soho — Birthday Dinner</span><span class="badge b-conrad">OUR PLAN</span></div>
+      <div class="sub">15–17 Broadwick St, London W1F 0DL · <span class="conf">No confirmation # on file</span> · Smart-casual, no sport coat.</div>
+    </div>
+    <div class="item ">
+      <div class="line1"><span class="time">Evening</span><span class="title">Bakerloo line back to Novotel Paddington</span><span class="badge b-conrad">OUR PLAN</span></div>
+      <div class="sub">— · Direct, no changes.</div>
+    </div>
+  </div>
+  <div class="daytitle">Sunday, September 13</div>
+  <div class="daybox">
+    <div class="item ">
+      <div class="line1"><span class="time">Morning</span><span class="title">Coffee at Harrisons</span><span class="badge b-conrad">OUR PLAN</span></div>
+      <div class="sub">3 Spring Street, London W2 3RA</div>
+    </div>
+    <div class="item ">
+      <div class="line1"><span class="time">Morning (OPTIONAL)</span><span class="title">Westminster Abbey — exterior &amp; precinct</span><span class="badge b-conrad">OUR PLAN</span></div>
+      <div class="sub">20 Deans Yd, London SW1P 3PA · Not booked. If a full interior visit is wanted, book several weeks ahead (~$35/person) — otherwise the exterior/precinct alone is worthwhile.</div>
+    </div>
+    <div class="item ">
+      <div class="line1"><span class="time">If Timing Allows (OPTIONAL)</span><span class="title">Sunday Parade (Changing the Guard, Sunday version)</span><span class="badge b-conrad">OUR PLAN</span></div>
+      <div class="sub">Buckingham Palace, London SW1A 1AA · Worth catching in passing — not worth planning the morning around.</div>
+    </div>
+    <div class="item ">
+      <div class="line1"><span class="time">10:00–10:30 AM Entry</span><span class="title">Churchill War Rooms</span><span class="badge b-conrad">OUR PLAN</span></div>
+      <div class="sub">Clive Steps, King Charles St, London SW1A 2AQ · <span class="conf">Order D82WR6TM8</span> · 4 adults, £136.00 paid in full. Barcode confirmation required at entry — have it ready on phone or printed.</div>
+    </div>
+    <div class="item ">
+      <div class="line1"><span class="time">Midday</span><span class="title">Lunch — St James&#x27;s Park</span><span class="badge b-conrad">OUR PLAN</span></div>
+      <div class="sub">St James&#x27;s Park, London SW1A · Pick up food nearby, eat in the park.</div>
+    </div>
+    <div class="item ">
+      <div class="line1"><span class="time">Afternoon</span><span class="title">Thames walk east toward Tower Bridge</span><span class="badge b-conrad">OUR PLAN</span></div>
+      <div class="sub">South Bank / Thames path</div>
+    </div>
+    <div class="item ">
+      <div class="line1"><span class="time">Afternoon (OPTIONAL)</span><span class="title">Thames Speedboat</span><span class="badge b-conrad">OUR PLAN</span></div>
+      <div class="sub">Departs Tower Pier, London EC3N 4EH · Not booked. Runs hourly; book ahead with a buffer before the 6:45 PM dinner if pursuing.</div>
+    </div>
+    <div class="item ">
+      <div class="line1"><span class="time">Afternoon</span><span class="title">Tower Bridge — optional interior tour</span><span class="badge b-conrad">OUR PLAN</span></div>
+      <div class="sub">Tower Bridge Rd, London SE1 2UP · Worth touring inside if there&#x27;s time; not yet booked.</div>
+    </div>
+    <div class="item ">
+      <div class="line1"><span class="time">6:45 PM</span><span class="title">Aqua Shard — Sunday Roast</span><span class="badge b-conrad">OUR PLAN</span></div>
+      <div class="sub">Level 31, 31 St Thomas St, London SE1 9RY · <span class="conf">No confirmation # on file</span> · Sport coat evening.</div>
+    </div>
+  </div>
+  <div class="daytitle">Monday, September 14</div>
+  <div class="daybox">
+    <div class="item ">
+      <div class="line1"><span class="time">~6:00 AM</span><span class="title">Pre-booked car to King&#x27;s Cross</span><span class="badge b-conrad">OUR PLAN</span></div>
+      <div class="sub">Novotel Paddington → King&#x27;s Cross Station, Euston Rd, London N1 9AL · Book an Uber XL (or Bolt XL) the night before via the app&#x27;s &#x27;reserve&#x27; feature. Recommended over the Tube for 4 people plus luggage this early.</div>
+    </div>
+    <div class="item ">
+      <div class="line1"><span class="time">7:03 AM</span><span class="title">LNER First Class to Edinburgh</span><span class="badge b-conrad">OUR PLAN</span></div>
+      <div class="sub">King&#x27;s Cross → Edinburgh Waverley · <span class="conf">Ref 26SNB2K4SZ · Coach L, seats 15–18</span> · ~4.5 hours, arriving around 11:30 AM. £400.80 total.</div>
+    </div>
+    <div class="item ">
+      <div class="line1"><span class="time">~11:30 AM</span><span class="title">Arrive Edinburgh Waverley — collect rental car</span><span class="badge b-conrad">OUR PLAN</span></div>
+      <div class="sub">Waverley Bridge, Edinburgh EH1 1BB · <span class="conf">Alamo Volvo XC90 — Conf #1497942020</span> · $237.08 total, Sept 14–16. Double-check the two duplicate Expedia bookings were cancelled.</div>
+    </div>
+    <div class="item ">
+      <div class="line1"><span class="time">2:00 PM</span><span class="title">Golf — Musselburgh Old Links (hickory clubs)</span><span class="badge b-conrad">OUR PLAN</span></div>
+      <div class="sub">Balcarres Rd, Musselburgh EH21 7SD · <span class="conf">Booked via Dave Hillis (oldlinks@enjoyleisure.com)</span> · 4 players, whole family, hickory clubs (3 right-handed sets + 1 ladies&#x27;). ~£88 total ($114.40), ~£22pp. No formal confirmation number on file.</div>
+    </div>
+    <div class="item ">
+      <div class="line1"><span class="time">Evening</span><span class="title">Drive to Gullane — check into The Bonnie Badger</span><span class="badge b-conrad">OUR PLAN</span></div>
+      <div class="sub">Main St, Gullane EH31 2AB · <span class="conf">Booking DBM78037863774731</span> · 2 Deluxe Loft Rooms, non-refundable, £538.20. No early coffee/breakfast available — Nespresso machines in-room instead.</div>
+    </div>
+    <div class="item ">
+      <div class="line1"><span class="time">7:00 PM</span><span class="title">Dinner — The Bonnie Badger, The Stables</span><span class="badge b-conrad">OUR PLAN</span></div>
+      <div class="sub">Main St, Gullane EH31 2AB · <span class="conf">Table for 4, confirmed</span> · A proper Scottish evening to close out the first day north. Sport coat evening.</div>
+    </div>
+  </div>
+  <div class="daytitle">Tuesday, September 15</div>
+  <div class="daybox">
+    <div class="item ">
+      <div class="line1"><span class="time">Sunrise</span><span class="title">A quiet look at Gullane village and coast</span><span class="badge b-conrad">OUR PLAN</span></div>
+      <div class="sub">Gullane, East Lothian</div>
+    </div>
+    <div class="item ">
+      <div class="line1"><span class="time">8:00 AM</span><span class="title">Golf — Gullane No. 2</span><span class="badge b-conrad">OUR PLAN</span></div>
+      <div class="sub">East Links Rd, Gullane EH31 2BB · <span class="conf">Booking ID 583112</span> · Jamey, Jayden, Kealey playing (£300 total, $390); Kayla walking. Electric trolleys with GPS confirmed. Club hire (£180/$234) and trolley rental (£27/$35.10) due directly to the pro shop on arrival — NOT yet paid. Pick up clubs by 7:00 AM, warm up 7:15 AM.</div>
+    </div>
+    <div class="item ">
+      <div class="line1"><span class="time">Afternoon</span><span class="title">Drive to St Andrews (~1 hour)</span><span class="badge b-conrad">OUR PLAN</span></div>
+      <div class="sub">Gullane → St Andrews · Timing depends on how the golf round runs — no fixed departure.</div>
+    </div>
+    <div class="item ">
+      <div class="line1"><span class="time">Afternoon</span><span class="title">Fisher &amp; Donaldson — coffee &amp; snack stop</span><span class="badge b-conrad">OUR PLAN</span></div>
+      <div class="sub">13 Church St, St Andrews KY16 9BQ · Fife-local favorite, known for fudge doughnuts and coffee cream cakes. No reservation.</div>
+    </div>
+    <div class="item ">
+      <div class="line1"><span class="time">Afternoon</span><span class="title">Old Course, Swilcan Bridge, Cathedral &amp; Castle ruins</span><span class="badge b-conrad">OUR PLAN</span></div>
+      <div class="sub">St Andrews town centre · All walkable — the compressed version of eight centuries of Scottish golf and history.</div>
+    </div>
+    <div class="item ">
+      <div class="line1"><span class="time">Afternoon</span><span class="title">The Himalayas Putting Green</span><span class="badge b-conrad">OUR PLAN</span></div>
+      <div class="sub">The Links, St Andrews, Fife KY16 9JD · <span class="conf">BOOK ONLINE BY SEPT 11</span> · 18-hole course requires booking ~4 days ahead: standrewsputtingclub.com/himalayas-putting-book-online. Phone +44 1334 475196. No wheeled bags/trolleys allowed on the green.</div>
+    </div>
+    <div class="item ">
+      <div class="line1"><span class="time">Afternoon</span><span class="title">The R&amp;A World Golf Museum</span><span class="badge b-conrad">OUR PLAN</span></div>
+      <div class="sub">Bruce Embankment, St Andrews KY16 9AB · Opposite the R&amp;A Clubhouse, steps from the 1st tee.</div>
+    </div>
+    <div class="item ">
+      <div class="line1"><span class="time">Afternoon</span><span class="title">Clarets — coffee or light bite</span><span class="badge b-conrad">OUR PLAN</span></div>
+      <div class="sub">Inside the R&amp;A World Golf Museum · Café-brasserie with a view over the Old Course.</div>
+    </div>
+    <div class="item ">
+      <div class="line1"><span class="time">Afternoon</span><span class="title">Check into Old Course Hotel</span><span class="badge b-conrad">OUR PLAN</span></div>
+      <div class="sub">Old Station Rd, St Andrews KY16 9SP · <span class="conf">Bookings 77530SG087104 &amp; 77530SG087105</span> · Old Course King Room + Champions Old Course Double Double. Both non-refundable, £660 + £678.</div>
+    </div>
+    <div class="item ">
+      <div class="line1"><span class="time">7:30 PM</span><span class="title">Road Hole Restaurant</span><span class="badge b-conrad">OUR PLAN</span></div>
+      <div class="sub">Old Course Hotel, Old Station Rd, St Andrews KY16 9SP · <span class="conf">Ref BV2WXAKF · 4 guests</span> · On-site, overlooking the 17th (Road Hole). Sport coat evening, cufflinks.</div>
+    </div>
+  </div>
   <div class="daytitle">Wednesday, September 16</div>
   <div class="daybox">
-    <div class="item"><div class="line1"><span class="time">Afternoon</span><span class="title">You land at Heathrow, Heathrow Express to Paddington</span><span class="badge b-noone">YOUR PLAN</span></div>
-      <div class="sub">Hilton Paddington — connected to the station, good base for the next couple days.</div></div>
-    <div class="item"><div class="line1"><span class="time">Evening</span><span class="title">We arrive back in London from St Andrews</span><span class="badge b-conrad">OUR PLAN</span></div>
-      <div class="sub">LNER from Edinburgh, arriving ~9:00 PM. Checking back into Novotel Paddington — a few minutes' walk from the Hilton Paddington.</div></div>
+    <div class="item ">
+      <div class="line1"><span class="time">7:00 AM</span><span class="title">Road Hole 17th tee photos</span><span class="badge b-conrad">OUR PLAN</span></div>
+      <div class="sub">Old Course, 17th tee, St Andrews · The &#x27;OLD COURSE HOTEL&#x27; aiming-point sign on the railway shed is visible from here.</div>
+    </div>
+    <div class="item ">
+      <div class="line1"><span class="time">8:00 AM</span><span class="title">Tom Morris Bar &amp; Grill — Breakfast</span><span class="badge b-conrad">OUR PLAN</span></div>
+      <div class="sub">Old Course Hotel, Old Station Rd, St Andrews KY16 9SP · <span class="conf">Ref B4GR9JXY</span> · On-site, 4 people. Table must be returned by 10:00 AM.</div>
+    </div>
+    <div class="item ">
+      <div class="line1"><span class="time">10:00 AM</span><span class="title">St Andrews Old Course History Tour</span><span class="badge b-conrad">OUR PLAN</span></div>
+      <div class="sub">Meets near the 1st tee / Old Course, St Andrews · <span class="conf">Booking S790-260902-2</span> · 4 adults, £80.00 paid via Stripe. Guided walk covering the 1st tee, 18th green, and Swilcan Bridge, ~75–90 min. No ticket needs to be shown on arrival.</div>
+    </div>
+    <div class="item ">
+      <div class="line1"><span class="time">Late Morning</span><span class="title">More time at St Andrews — Swilcan Bridge, pro shop, R&amp;A Museum</span><span class="badge b-conrad">OUR PLAN</span></div>
+      <div class="sub">St Andrews town centre · Flexible — however the morning is going determines how long this stretches.</div>
+    </div>
+    <div class="item ">
+      <div class="line1"><span class="time">Afternoon</span><span class="title">Drive to Edinburgh Waverley — return the rental car</span><span class="badge b-conrad">OUR PLAN</span></div>
+      <div class="sub">St Andrews → Edinburgh Waverley · Route via M90 / the Cupar junction to skip the bypass and Queensferry Crossing slowdowns.</div>
+    </div>
+    <div class="item ">
+      <div class="line1"><span class="time">4:17 PM</span><span class="title">LNER South to London</span><span class="badge b-conrad">OUR PLAN</span></div>
+      <div class="sub">Edinburgh Waverley → King&#x27;s Cross · <span class="conf">Coach K, seats 21–24</span> · £536.40 total (incl. £40 change fee). Departs 16:17, arrives London ~9:02 PM.</div>
+    </div>
+    <div class="item ">
+      <div class="line1"><span class="time">Evening</span><span class="title">Check back into Novotel London Paddington</span><span class="badge b-conrad">OUR PLAN</span></div>
+      <div class="sub">3 Kingdom St, London W2 6BD · <span class="conf">Booking PSBLGMGV</span></div>
+    </div>
+    <div class="item noone">
+      <div class="line1"><span class="time">Afternoon</span><span class="title">You land at Heathrow, Heathrow Express to Paddington</span><span class="badge b-noone">YOUR PLAN</span></div>
+      <div class="sub">Staying at the Hilton Paddington — connected to the station, easy underground access.</div>
+    </div>
   </div>
-
   <div class="daytitle">Thursday, September 17</div>
   <div class="daybox">
-    <div class="item"><div class="line1"><span class="time">Morning</span><span class="title">Borough Market</span><span class="badge b-conrad">OUR PLAN</span></div>
-      <div class="sub">Opens 10 AM. Real possible overlap with your Borough Market plan — let's compare timing.</div></div>
-    <div class="item"><div class="line1"><span class="time">Midday</span><span class="title">Tate Modern; Millennium Bridge → St Paul's Cathedral</span><span class="badge b-conrad">OUR PLAN</span></div></div>
-    <div class="item"><div class="line1"><span class="time">Afternoon</span><span class="title">West along the South Bank</span><span class="badge b-conrad">OUR PLAN</span></div></div>
-    <div class="item"><div class="line1"><span class="time">3:00 PM</span><span class="title">Afternoon Tea — The Library at County Hall</span><span class="badge b-conrad">OUR PLAN</span></div>
-      <div class="sub">Already booked for our family.</div></div>
-    <div class="item"><div class="line1"><span class="time">Evening (maybe)</span><span class="title">London Eye at sunset</span><span class="badge b-idea">IDEA — NOT BOOKED</span></div></div>
-    <div class="item"><div class="line1"><span class="time">Open</span><span class="title">Your day is still open — join any of the above, or we're easy to reach if you land on a plan</span><span class="badge b-noone">YOUR PLAN</span></div></div>
+    <div class="item ">
+      <div class="line1"><span class="time">Morning</span><span class="title">Borough Market</span><span class="badge b-conrad">OUR PLAN</span></div>
+      <div class="sub">8 Southwark St, London SE1 1TL · Opens 10 AM — best before the crowds. A real sit-down or grazing meal here.</div>
+    </div>
+    <div class="item ">
+      <div class="line1"><span class="time">Midday</span><span class="title">Tate Modern</span><span class="badge b-conrad">OUR PLAN</span></div>
+      <div class="sub">Bankside, London SE1 9TG · Former power station.</div>
+    </div>
+    <div class="item ">
+      <div class="line1"><span class="time">Midday</span><span class="title">Millennium Bridge → St Paul&#x27;s Cathedral</span><span class="badge b-conrad">OUR PLAN</span></div>
+      <div class="sub">St Paul&#x27;s Churchyard, London EC4M 8AD · Budget 1–1.5 hours. Climb the Dome if energy allows.</div>
+    </div>
+    <div class="item ">
+      <div class="line1"><span class="time">Afternoon</span><span class="title">West along the South Bank</span><span class="badge b-conrad">OUR PLAN</span></div>
+      <div class="sub">South Bank, London · Walk or bus.</div>
+    </div>
+    <div class="item ">
+      <div class="line1"><span class="time">3:00 PM</span><span class="title">The Library at County Hall — Afternoon Tea</span><span class="badge b-conrad">OUR PLAN</span></div>
+      <div class="sub">County Hall, Westminster Bridge Rd, London SE1 7PB · <span class="conf">No confirmation # on file</span> · Sport coat.</div>
+    </div>
+    <div class="item ">
+      <div class="line1"><span class="time">Evening (OPTIONAL)</span><span class="title">London Eye at sunset</span><span class="badge b-conrad">OUR PLAN</span></div>
+      <div class="sub">Riverside Building, County Hall, Westminster Bridge Rd, London SE1 7PB · Not booked — sunset flights sell out, so book ahead if pursuing this.</div>
+    </div>
+    <div class="item noone">
+      <div class="line1"><span class="time">TBD</span><span class="title">Your day is still open — Borough Market is on your list</span><span class="badge b-noone">YOUR PLAN</span></div>
+      <div class="sub">You mentioned wanting to try Borough Market on a weekday (less crowded than marathon weekend). We&#x27;re there Thursday morning — worth comparing timing.</div>
+    </div>
   </div>
-
   <div class="daytitle">Friday, September 18</div>
   <div class="daybox">
-    <div class="item"><div class="line1"><span class="time">Open</span><span class="title">Your day is still open too</span><span class="badge b-noone">YOUR PLAN</span></div></div>
-    <div class="item"><div class="line1"><span class="time">Morning</span><span class="title">Harrods Christmas Shop</span><span class="badge b-conrad">OUR PLAN</span></div></div>
-    <div class="item"><div class="line1"><span class="time">Midday</span><span class="title">We check out of Paddington, head to Wembley</span><span class="badge b-conrad">OUR PLAN</span></div>
-      <div class="sub">Checking into Novotel London Wembley.</div></div>
-    <div class="item"><div class="line1"><span class="time">Afternoon</span><span class="title">Wembley Stadium Tour</span><span class="badge b-conrad">OUR PLAN</span></div></div>
-    <div class="item"><div class="line1"><span class="time">4:45 PM</span><span class="title">Sixes Cricket</span><span class="badge b-conrad">OUR PLAN</span></div>
-      <div class="sub">Already booked for our family of 4.</div></div>
-    <div class="item"><div class="line1"><span class="time">6:30–8:30 PM</span><span class="title">The White Horse Wembley</span><span class="badge b-conrad">OUR PLAN</span></div>
-      <div class="sub">Booked for 4 (our family). See note above if Dan's table comes together — might be worth merging.</div></div>
+    <div class="item ">
+      <div class="line1"><span class="time">Morning</span><span class="title">Harrods Christmas Shop (4th floor)</span><span class="badge b-conrad">OUR PLAN</span></div>
+      <div class="sub">87–135 Brompton Rd, London SW1X 7XL</div>
+    </div>
+    <div class="item ">
+      <div class="line1"><span class="time">Midday</span><span class="title">Check out — Novotel London Paddington</span><span class="badge b-conrad">OUR PLAN</span></div>
+      <div class="sub">3 Kingdom St, London W2 6BD</div>
+    </div>
+    <div class="item ">
+      <div class="line1"><span class="time">Midday</span><span class="title">Tube to Wembley (Bakerloo or Metropolitan/Jubilee)</span><span class="badge b-conrad">OUR PLAN</span></div>
+      <div class="sub">—</div>
+    </div>
+    <div class="item ">
+      <div class="line1"><span class="time">Midday</span><span class="title">Check into Novotel London Wembley</span><span class="badge b-conrad">OUR PLAN</span></div>
+      <div class="sub">Fulton Rd, Wembley HA9 0TF · <span class="conf">Booking PSBLGCBX</span></div>
+    </div>
+    <div class="item ">
+      <div class="line1"><span class="time">Afternoon</span><span class="title">Wembley Stadium Tour</span><span class="badge b-conrad">OUR PLAN</span></div>
+      <div class="sub">Wembley, London HA9 0WS · Walk the pitch and dressing rooms.</div>
+    </div>
+    <div class="item ">
+      <div class="line1"><span class="time">4:45 PM</span><span class="title">Sixes Cricket</span><span class="badge b-conrad">OUR PLAN</span></div>
+      <div class="sub">Arena Square, Engineers Way, Wembley HA9 0DH · <span class="conf">Ref 69B7TH4GXHBD</span> · All 4 player profiles must be registered at sixescricket.com before arrival.</div>
+    </div>
+    <div class="item ">
+      <div class="line1"><span class="time">6:30–8:30 PM</span><span class="title">The White Horse Wembley</span><span class="badge b-conrad">OUR PLAN</span></div>
+      <div class="sub">Engineers Way, Wembley HA9 0DH (Wembley Park) · <span class="conf">Ref DMN-16959678684</span> · Conrad family only tonight (4 people) — cashless venue, order at the bar.</div>
+    </div>
+    <div class="item noone">
+      <div class="line1"><span class="time">TBD</span><span class="title">Your day is still open too</span><span class="badge b-noone">YOUR PLAN</span></div>
+      <div class="sub">No fixed plans yet on your end as of your last update.</div>
+    </div>
+    <div class="item idea">
+      <div class="line1"><span class="time">Evening</span><span class="title">Dan looking at The White Horse Wembley</span><span class="badge b-idea">WORTH COMPARING</span></div>
+      <div class="sub">Not yet bookable on your end as of your last update. We already have a table for 4 that evening 6:30-8:30 PM — worth checking if it can become one bigger table.</div>
+    </div>
   </div>
-
-  <div class="daytitle">Saturday, September 19 — Game Day</div>
+  <div class="daytitle">Saturday, September 19</div>
   <div class="daybox">
-    <div class="item together"><div class="line1"><span class="time">Pregame</span><span class="title">Feed the Yak</span><span class="badge b-together">TOGETHER</span></div>
-      <div class="sub">Table for 6, both families. https://www.feedtheyak.com/wembley</div></div>
-    <div class="item"><div class="line1"><span class="time">60–90 min early</span><span class="title">Head to the stadium — security, find seats</span><span class="badge b-conrad">OUR PLAN</span></div>
-      <div class="sub">Doors and security lines move slowly on gameday.</div></div>
-    <div class="item together"><div class="line1"><span class="time">5:00 PM</span><span class="title">Kickoff — ASU vs. Kansas</span><span class="badge b-together">TOGETHER</span></div>
-      <div class="sub">Wembley Stadium, Union Jack Classic. (FYI — we looked at the official ASU alumni tailgate too and agree it's not worth $200/person: alumni.asu.edu/london-sparkys-touchdown-tailgate.)</div></div>
-    <div class="item"><div class="line1"><span class="time">Postgame</span><span class="title">We walk back to Novotel Wembley</span><span class="badge b-conrad">OUR PLAN</span></div></div>
+    <div class="item together">
+      <div class="line1"><span class="time">Pregame</span><span class="title">Feed the Yak</span><span class="badge b-together">TOGETHER</span></div>
+      <div class="sub">Wembley Park area — exact address to confirm · <span class="conf">No confirmation # on file</span> · 6 people, incl. the Noones. Seating time still being finalized.</div>
+    </div>
+    <div class="item ">
+      <div class="line1"><span class="time">60–90 min early</span><span class="title">Arrive Wembley — security, seats</span><span class="badge b-conrad">OUR PLAN</span></div>
+      <div class="sub">Wembley Stadium, Wembley HA9 0WS · Doors and security lines move slowly on gameday — arrive early.</div>
+    </div>
+    <div class="item together">
+      <div class="line1"><span class="time">5:00 PM</span><span class="title">Kickoff — ASU vs. Kansas, Union Jack Classic</span><span class="badge b-together">TOGETHER</span></div>
+      <div class="sub">Wembley Stadium, Wembley HA9 0WS · <span class="conf">Order #38-35122/UK8 · Section 124, Row 14, Seats 48-51</span> · 4 tickets, £825.85 total (incl. facility/service fees) — Christmas 2025 gift, already settled.</div>
+    </div>
+    <div class="item ">
+      <div class="line1"><span class="time">Postgame</span><span class="title">Walk back to Novotel Wembley</span><span class="badge b-conrad">OUR PLAN</span></div>
+      <div class="sub">Fulton Rd, Wembley HA9 0TF</div>
+    </div>
+    <div class="item idea">
+      <div class="line1"><span class="time">—</span><span class="title">ASU official alumni tailgate — you&#x27;re passing on this</span><span class="badge b-idea">WORTH COMPARING</span></div>
+      <div class="sub">We agree — $200/person doesn&#x27;t seem worth it. alumni.asu.edu/london-sparkys-touchdown-tailgate</div>
+    </div>
   </div>
-
   <div class="daytitle">Sunday, September 20</div>
   <div class="daybox">
-    <div class="item"><div class="line1"><span class="time">Morning</span><span class="title">We check out of Wembley</span><span class="badge b-conrad">OUR PLAN</span></div></div>
-    <div class="item"><div class="line1"><span class="time">4:25 PM</span><span class="title">We depart Heathrow — American Airlines 195 to Phoenix</span><span class="badge b-conrad">OUR PLAN</span></div></div>
+    <div class="item ">
+      <div class="line1"><span class="time">Morning</span><span class="title">Check out of Novotel Wembley</span><span class="badge b-conrad">OUR PLAN</span></div>
+      <div class="sub">Fulton Rd, Wembley HA9 0TF · No direct Tube from Wembley to Heathrow — plan a car or taxi with a generous buffer.</div>
+    </div>
+    <div class="item ">
+      <div class="line1"><span class="time">4:25 PM</span><span class="title">Depart Heathrow — American Airlines 195 to Phoenix</span><span class="badge b-conrad">OUR PLAN</span></div>
+      <div class="sub">Heathrow Airport, Terminal 3 · <span class="conf">No confirmation # on file — check booking email</span> · Jamey 8D, Kayla 8E.</div>
+    </div>
+    <div class="item ">
+      <div class="line1"><span class="time">Evening</span><span class="title">Arrive Phoenix — overnight</span><span class="badge b-conrad">OUR PLAN</span></div>
+      <div class="sub">Phoenix Sky Harbor · Before the final legs separate.</div>
+    </div>
   </div>
-
   <div class="daytitle">Monday, September 21</div>
   <div class="daybox">
-    <div class="item"><div class="line1"><span class="time">Morning</span><span class="title">You depart London</span><span class="badge b-noone">YOUR PLAN</span></div></div>
+    <div class="item ">
+      <div class="line1"><span class="time">Morning</span><span class="title">Southwest 680 — Phoenix to Omaha</span><span class="badge b-conrad">OUR PLAN</span></div>
+      <div class="sub">Phoenix Sky Harbor → Eppley Airfield · <span class="conf">No confirmation # on file — check booking email</span> · Jamey 8D, Kayla 8E.</div>
+    </div>
+    <div class="item noone">
+      <div class="line1"><span class="time">Morning</span><span class="title">You depart London</span><span class="badge b-noone">YOUR PLAN</span></div>
+      
+    </div>
   </div>
 
   <div class="section"><h2>Contact While We're Both There</h2></div>

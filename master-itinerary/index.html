@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Master Itinerary">
+<meta name="theme-color" content="#11365d">
+<title>Conrad Trip — Master Itinerary</title>
+<style>
+  :root{--navy:#11365d;--gold:#a97d27;--card:#fffaf0;--ink:#2a1f10;--line:#d8c69a;--green:#2f6b3a;--gray:#6b7280;--red:#8a3b2b;}
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Karla,sans-serif;background:#f3ead7;color:var(--ink);padding-bottom:60px;}
+  header{background:var(--navy);color:#fff;padding:22px 20px 18px;text-align:center;position:sticky;top:0;z-index:10;box-shadow:0 4px 10px rgba(0,0,0,.15);}
+  header h1{margin:0;font-size:20px;letter-spacing:.03em;}
+  header p{margin:4px 0 0;font-size:12px;opacity:.85;}
+  nav.jump{max-width:720px;margin:14px auto 0;padding:0 16px;display:flex;flex-wrap:wrap;gap:6px;}
+  nav.jump a{font-size:11px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:5px 10px;color:var(--navy);text-decoration:none;font-weight:600;}
+  main{max-width:720px;margin:0 auto;padding:16px;}
+  .section{margin-bottom:26px;}
+  .section h2{font-size:15px;text-transform:uppercase;letter-spacing:.06em;color:var(--gold);border-bottom:2px solid var(--gold);padding-bottom:6px;margin:0 0 10px;}
+  .daytitle{font-size:16px;font-weight:800;color:var(--navy);margin:0 0 10px;padding-bottom:4px;border-bottom:2px solid var(--navy);}
+  .item{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:12px 14px;margin-bottom:9px;box-shadow:0 2px 6px rgba(74,48,16,.08);}
+  .item .top{display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap;}
+  .item .time{font-weight:800;color:var(--navy);font-size:13px;white-space:nowrap;}
+  .item .title{font-weight:700;font-size:14.5px;flex:1;}
+  .item .addr{font-size:12.5px;color:#5a4a30;margin-top:3px;}
+  .item .conf{margin-top:6px;font-family:'SF Mono',Menlo,Consolas,monospace;font-size:12.5px;background:#fff;border:1px dashed var(--line);border-radius:5px;padding:4px 8px;display:inline-block;}
+  .item .detail{font-size:12.5px;color:#4a3a20;margin-top:6px;line-height:1.4;}
+  .badge{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;padding:2px 7px;border-radius:10px;white-space:nowrap;}
+  .st-booked{background:#e2f0e4;color:var(--green);}
+  .st-optional{background:#e3e3e3;color:#555;}
+  .st-todo{background:#fbe4de;color:var(--red);}
+  .st-none{display:none;}
+  .pretrip{background:#fff6e0;border:2px solid var(--gold);border-radius:8px;padding:14px 16px;margin-bottom:9px;}
+  .pretrip .deadline{font-weight:800;color:var(--red);font-size:13px;text-transform:uppercase;letter-spacing:.03em;}
+  .pretrip .action{font-weight:700;font-size:14.5px;margin-top:2px;}
+  .pretrip .detail{font-size:12.5px;color:#4a3a20;margin-top:5px;line-height:1.4;}
+  footer{text-align:center;font-size:11px;color:#8a7550;padding:20px;}
+</style>
+</head>
+<body>
+<header>
+  <h1>Conrad Family Trip — Master Itinerary</h1>
+  <p>London &amp; Scotland · September 10–21, 2026 · Everything, in order</p>
+</header>
+<main>
+
+  <div style="text-align:center;margin:16px 0;">
+    <a href="Conrad-Trip-Master-Itinerary.pdf" download style="display:inline-block;background:#a97d27;color:#fff;font-weight:700;font-size:13px;padding:10px 18px;border-radius:20px;text-decoration:none;">Download PDF (works offline)</a>
+  </div>
+
+  <div class="section" id="pretrip">
+    <h2>Pre-Trip Checklist — Do These Before You Leave</h2>
+    <div class="pretrip">
+      <div class="deadline">By Sept 5</div>
+      <div class="action">Place AirTags in all 4 bags</div>
+      <div class="detail">Sling bag, passport cover, backpack, Solgaard Carry-On Closet.</div>
+    </div>
+    <div class="pretrip">
+      <div class="deadline">By Sept 9</div>
+      <div class="action">Activate eSIM</div>
+      <div class="detail">Sim Local, 150GB, EE network — activate the day before departure to preserve the 30-day window.</div>
+    </div>
+    <div class="pretrip">
+      <div class="deadline">By Sept 9</div>
+      <div class="action">Charge Garmin Epix 53 fully and pack the charger</div>
+      <div class="detail">Battery life has degraded — bring the charger, don&#x27;t rely on a single charge lasting the trip.</div>
+    </div>
+    <div class="pretrip">
+      <div class="deadline">By Sept 11</div>
+      <div class="action">Book The Himalayas Putting Green</div>
+      <div class="detail">18-hole course requires booking ~4 days ahead. Book online at standrewsputtingclub.com/himalayas-putting-book-online for the afternoon of Sept 15, on arrival in St Andrews from Gullane. Address: The Links, St Andrews, Fife KY16 9JD. Phone +44 1334 475196.</div>
+    </div>
+    <div class="pretrip">
+      <div class="deadline">By Sept 13</div>
+      <div class="action">Book car to King&#x27;s Cross for the morning of Sept 14</div>
+      <div class="detail">~6:00 AM pickup from Novotel Paddington. For 4 people plus luggage, an Uber XL (or Bolt XL) booked/scheduled the night before is the cheapest reliable option — a standard black cab may not fit 4 people and full luggage in one vehicle. Schedule via the Uber app&#x27;s &#x27;reserve&#x27; feature the night before to lock in a car for that early hour.</div>
+    </div>
+    <div class="pretrip">
+      <div class="deadline">By Before departure</div>
+      <div class="action">Verify the two duplicate Expedia car rental bookings are cancelled</div>
+      <div class="detail">Confirmations #73504238754487 and #73511800865096 — only the Alamo Volvo XC90 booking (Conf #1497942020) should remain active, to avoid duplicate charges.</div>
+    </div>
+    <div class="pretrip">
+      <div class="deadline">By Before departure</div>
+      <div class="action">Confirm Jayden and Kealey&#x27;s UK ETA status</div>
+      <div class="detail">Jamey and Kayla are both APPROVED. Jayden and Kealey&#x27;s status should be double-checked before departure.</div>
+    </div>
+    <div class="pretrip">
+      <div class="deadline">By Before departure</div>
+      <div class="action">Register all 4 players at sixescricket.com</div>
+      <div class="detail">Required before arrival for the Sixes Wembley booking (Sept 18, 4:45 PM). [Per book: already completed.]</div>
+    </div>
+    <div class="pretrip">
+      <div class="deadline">By Ongoing</div>
+      <div class="action">Update Bonnie Badger and Old Course Hotel contact numbers to Jamey&#x27;s personal cell</div>
+      <div class="detail">Open item — not yet confirmed done.</div>
+    </div>
+  </div>
+
+  <nav class="jump">
+    <a href="#Thursday-September-10">September 10</a>
+    <a href="#Friday-September-11">September 11</a>
+    <a href="#Saturday-September-12---Kealey&#x27;s-Birthday">September 12</a>
+    <a href="#Sunday-September-13">September 13</a>
+    <a href="#Monday-September-14">September 14</a>
+    <a href="#Tuesday-September-15">September 15</a>
+    <a href="#Wednesday-September-16">September 16</a>
+    <a href="#Thursday-September-17">September 17</a>
+    <a href="#Friday-September-18">September 18</a>
+    <a href="#Saturday-September-19">September 19</a>
+    <a href="#Sunday-September-20">September 20</a>
+    <a href="#Monday-September-21">September 21</a>
+  </nav>
+
+  <div class="section" id="Thursday-September-10">
+    <div class="daytitle">Thursday, September 10</div>
+    <div class="item">
+      <div class="top"><span class="time">4:45 AM</span><span class="title">Uber from home to Eppley Airfield</span><span class="badge st-todo">TODO</span></div>
+      <div class="addr">4501 Abbott Dr, Omaha, NE 68110</div>
+      
+      <div class="detail">Leave early enough that nothing about the morning has to be rushed.</div>
+    </div>
+    <div class="item">
+      <div class="top"><span class="time">6:20 AM</span><span class="title">Depart Omaha — Southwest 696 to Phoenix</span><span class="badge st-booked">BOOKED</span></div>
+      <div class="addr">Eppley Airfield (OMA)</div>
+      <div class="conf">—</div>
+      <div class="detail">Jamey 11C, Kayla 11B. Jayden and Kealey are NOT on this leg — they join in Phoenix.</div>
+    </div>
+    <div class="item">
+      <div class="top"><span class="time">~12:10 PM</span><span class="title">Reunite in Phoenix</span></div>
+      <div class="addr">Phoenix Sky Harbor, Terminal 4</div>
+      
+      <div class="detail">Steve and Jean are part of the morning. Jayden and Kealey join by early afternoon.</div>
+    </div>
+    <div class="item">
+      <div class="top"><span class="time">4:10 PM</span><span class="title">Depart Phoenix — American Airlines 194 to London Heathrow</span><span class="badge st-booked">BOOKED</span></div>
+      <div class="addr">Phoenix Sky Harbor (PHX), Terminal 4</div>
+      <div class="conf">—</div>
+      <div class="detail">Boeing 777-200ER, economy, overnight. Jamey 11C, Kayla 11D, Jayden/Kealey 18D/18H. All four fly together.</div>
+    </div>
+  </div>
+
+  <div class="section" id="Friday-September-11">
+    <div class="daytitle">Friday, September 11</div>
+    <div class="item">
+      <div class="top"><span class="time">~10:30 AM</span><span class="title">Land London Heathrow</span></div>
+      <div class="addr">Heathrow Airport, Terminal 3, Hounslow TW6 1QG</div>
+      
+      <div class="detail">UK Border Force, baggage claim, then walk to the Heathrow Express platform.</div>
+    </div>
+    <div class="item">
+      <div class="top"><span class="time">Late Morning</span><span class="title">Heathrow Express to Paddington</span><span class="badge st-booked">BOOKED</span></div>
+      <div class="addr">Heathrow Terminal 3 → London Paddington</div>
+      <div class="conf">Ref ac44e8b6</div>
+      <div class="detail">Standard class, ~15–20 minutes. Group discount code 3RDOFF applied.</div>
+    </div>
+    <div class="item">
+      <div class="top"><span class="time">Early Afternoon</span><span class="title">Check in — Novotel London Paddington</span><span class="badge st-booked">BOOKED</span></div>
+      <div class="addr">3 Kingdom St, London W2 6BD</div>
+      <div class="conf">Booking PSBLGLNW</div>
+      <div class="detail">Two rooms, right at the station. Request early check-in; Sky Garden bags can be left at the front desk if rooms aren&#x27;t ready.</div>
+    </div>
+    <div class="item">
+      <div class="top"><span class="time">Afternoon</span><span class="title">Hyde Park &amp; Kensington Gardens</span></div>
+      <div class="addr">Hyde Park, London W2</div>
+      
+      <div class="detail">An easy, unstructured stroll to work off the flight.</div>
+    </div>
+    <div class="item">
+      <div class="top"><span class="time">2:45 PM</span><span class="title">Sky Garden</span><span class="badge st-booked">BOOKED</span></div>
+      <div class="addr">1 Sky Garden Walk, 20 Fenchurch St, London EC3M 8AF</div>
+      <div class="conf">Timed-entry, free</div>
+      <div class="detail">Free skyline views from the top of the &#x27;Walkie Talkie.&#x27; Bring photo ID for entry.</div>
+    </div>
+    <div class="item">
+      <div class="top"><span class="time">Evening</span><span class="title">Light dinner near Paddington</span><span class="badge st-todo">TODO</span></div>
+      <div class="addr">Paddington area</div>
+      
+      <div class="detail">Early night — no prize for beating jet lag on day one.</div>
+    </div>
+  </div>
+
+  <div class="section" id="Saturday-September-12---Kealey&#x27;s-Birthday">
+    <div class="daytitle">Saturday, September 12 — Kealey&#x27;s Birthday</div>
+    <div class="item">
+      <div class="top"><span class="time">Morning</span><span class="title">Coffee, then the Tube toward Liverpool Street</span></div>
+      <div class="addr">Harrisons Coffee, 3 Spring Street, London W2 3RA</div>
+      
+      <div class="detail">Circle/Hammersmith &amp; City or the Elizabeth line toward Bishopsgate.</div>
+    </div>
+    <div class="item">
+      <div class="top"><span class="time">10:30 AM</span><span class="title">Duck &amp; Waffle — Birthday Brunch</span><span class="badge st-booked">BOOKED</span></div>
+      <div class="addr">110 Bishopsgate, London EC2N 4AY (40th floor)</div>
+      <div class="conf">Booked by Kealey</div>
+      <div class="detail">Weekend Brunch menu (10am–4pm): signature Duck &amp; Waffle, Duck Benedict, Eggs Florentine, the Full Elvis, Lobster Roll.</div>
+    </div>
+    <div class="item">
+      <div class="top"><span class="time">Afternoon</span><span class="title">Explore the city — free time</span></div>
+      <div class="addr">Central London</div>
+      
+      <div class="detail">No fixed plan.</div>
+    </div>
+    <div class="item">
+      <div class="top"><span class="time">2:30–4:50 PM</span><span class="title">The Book of Mormon</span><span class="badge st-booked">BOOKED</span></div>
+      <div class="addr">Prince of Wales Theatre, Coventry Street, London W1D 6AS</div>
+      <div class="conf">Order TFKRVC7 · Stalls Row K, Seats 23–26</div>
+      <div class="detail">Kealey&#x27;s pick for the birthday show. Tickets are paperless mobile — check email/wallet before leaving the hotel.</div>
+    </div>
+    <div class="item">
+      <div class="top"><span class="time">~5:00 PM</span><span class="title">Trafalgar Square</span></div>
+      <div class="addr">Trafalgar Square, London WC2N 5DN</div>
+      
+      <div class="detail">On foot from the theatre.</div>
+    </div>
+    <div class="item">
+      <div class="top"><span class="time">Evening</span><span class="title">Wander into St James&#x27;s</span></div>
+      <div class="addr">St James&#x27;s, London SW1</div>
+      
+      <div class="detail">Quiet streets, royal parks, far fewer tourists.</div>
+    </div>
+    <div class="item">
+      <div class="top"><span class="time">Evening</span><span class="title">Liberty London</span></div>
+      <div class="addr">Great Marlborough St, London W1B 5AH</div>
+      
+      <div class="detail">The Tudor-style department store, near Piccadilly Circus.</div>
+    </div>
+    <div class="item">
+      <div class="top"><span class="time">7:00 PM</span><span class="title">Yauatcha Soho — Birthday Dinner</span><span class="badge st-booked">BOOKED</span></div>
+      <div class="addr">15–17 Broadwick St, London W1F 0DL</div>
+      <div class="conf">Booked</div>
+      <div class="detail">Michelin-recognized dim sum. Smart-casual, no sport coat — see packing list.</div>
+    </div>
+    <div class="item">
+      <div class="top"><span class="time">Evening</span><span class="title">Bakerloo line back to Novotel Paddington</span></div>
+      <div class="addr">—</div>
+      
+      <div class="detail">Direct, no changes.</div>
+    </div>
+  </div>
+
+  <div class="section" id="Sunday-September-13">
+    <div class="daytitle">Sunday, September 13</div>
+    <div class="item">
+      <div class="top"><span class="time">Morning</span><span class="title">Coffee at Harrisons</span></div>
+      <div class="addr">3 Spring Street, London W2 3RA</div>
+      
+      
+    </div>
+    <div class="item">
+      <div class="top"><span class="time">Morning (OPTIONAL)</span><span class="title">Westminster Abbey — exterior &amp; precinct</span><span class="badge st-optional">OPTIONAL</span></div>
+      <div class="addr">20 Deans Yd, London SW1P 3PA</div>
+      
+      <div class="detail">Not booked. If a full interior visit is wanted, book several weeks ahead (~$35/person) — otherwise the exterior/precinct alone is worthwhile.</div>
+    </div>
+    <div class="item">
+      <div class="top"><span class="time">If Timing Allows (OPTIONAL)</span><span class="title">Sunday Parade (Changing the Guard, Sunday version)</span><span class="badge st-optional">OPTIONAL</span></div>
+      <div class="addr">Buckingham Palace, London SW1A 1AA</div>
+      
+      <div class="detail">Worth catching in passing — not worth planning the morning around.</div>
+    </div>
+    <div class="item">
+      <div class="top"><span class="time">10:00–10:30 AM Entry</span><span class="title">Churchill War Rooms</span><span class="badge st-booked">BOOKED / PAID</span></div>
+      <div class="addr">Clive Steps, King Charles St, London SW1A 2AQ</div>
+      <div class="conf">Order D82WR6TM8</div>
+      <div class="detail">4 adults, £136.00 paid in full. Barcode confirmation required at entry — have it ready on phone or printed.</div>
+    </div>
+    <div class="item">
+      <div class="top"><span class="time">Midday</span><span class="title">Lunch — St James&#x27;s Park</span><span class="badge st-todo">TODO</span></div>
+      <div class="addr">St James&#x27;s Park, London SW1A</div>
+      
+      <div class="detail">Pick up food nearby, eat in the park.</div>
+    </div>
+    <div class="item">
+      <div class="top"><span class="time">Afternoon</span><span class="title">Thames walk east toward Tower Bridge</span></div>
+      <div class="addr">South Bank / Thames path</div>
+      
+      
+    </div>
+    <div class="item">
+      <div class="top"><span class="time">Afternoon (OPTIONAL)</span><span class="title">Thames Speedboat</span><span class="badge st-optional">OPTIONAL</span></div>
+      <div class="addr">Departs Tower Pier, London EC3N 4EH</div>
+      
+      <div class="detail">Not booked. Runs hourly; book ahead with a buffer before the 6:45 PM dinner if pursuing.</div>
+    </div>
+    <div class="item">
+      <div class="top"><span class="time">Afternoon</span><span class="title">Tower Bridge — optional interior tour</span><span class="badge st-todo">TODO</span></div>
+      <div class="addr">Tower Bridge Rd, London SE1 2UP</div>
+      
+      <div class="detail">Worth touring inside if there&#x27;s time; not yet booked.</div>
+    </div>
+    <div class="item">
+      <div class="top"><span class="time">6:45 PM</span><span class="title">Aqua Shard — Sunday Roast</span><span class="badge st-booked">BOOKED</span></div>
+      <div class="addr">Level 31, 31 St Thomas St, London SE1 9RY</div>
+      <div class="conf">Booked</div>
+      <div class="detail">Thirty-two floors up. Sport coat evening — see packing list.</div>
+    </div>
+  </div>
+
+  <div class="section" id="Monday-September-14">
+    <div class="daytitle">Monday, September 14</div>
+    <div class="item">
+      <div class="top"><span class="time">~6:00 AM</span><span class="title">Pre-booked car to King&#x27;s Cross</span><span class="badge st-todo">TODO — BOOK BY SEPT 13</span></div>
+      <div class="addr">Novotel Paddington → King&#x27;s Cross Station, Euston Rd, London N1 9AL</div>
+      
+      <div class="detail">Book an Uber XL (or Bolt XL) the night before via the app&#x27;s &#x27;reserve&#x27; feature. Recommended over the Tube for 4 people plus luggage this early.</div>
+    </div>
+    <div class="item">
+      <div class="top"><span class="time">7:03 AM</span><span class="title">LNER First Class to Edinburgh</span><span class="badge st-booked">BOOKED</span></div>
+      <div class="addr">King&#x27;s Cross → Edinburgh Waverley</div>
+      <div class="conf">Ref 26SNB2K4SZ · Coach L, seats 15–18</div>
+      <div class="detail">~4.5 hours, arriving around 11:30 AM. £400.80 total.</div>
+    </div>
+    <div class="item">
+      <div class="top"><span class="time">~11:30 AM</span><span class="title">Arrive Edinburgh Waverley — collect rental car</span><span class="badge st-booked">BOOKED</span></div>
+      <div class="addr">Waverley Bridge, Edinburgh EH1 1BB</div>
+      <div class="conf">Alamo Volvo XC90 — Conf #1497942020</div>
+      <div class="detail">$237.08 total, Sept 14–16. Double-check the two duplicate Expedia bookings were cancelled.</div>
+    </div>
+    <div class="item">
+      <div class="top"><span class="time">2:00 PM</span><span class="title">Golf — Musselburgh Old Links (hickory clubs)</span><span class="badge st-booked">BOOKED / NOT YET PAID</span></div>
+      <div class="addr">Balcarres Rd, Musselburgh EH21 7SD</div>
+      <div class="conf">Booked via Dave Hillis (oldlinks@enjoyleisure.com)</div>
+      <div class="detail">4 players, whole family, hickory clubs (3 right-handed sets + 1 ladies&#x27;). ~£88 total ($114.40), ~£22pp. No formal confirmation number on file.</div>
+    </div>
+    <div class="item">
+      <div class="top"><span class="time">Evening</span><span class="title">Drive to Gullane — check into The Bonnie Badger</span><span class="badge st-booked">BOOKED</span></div>
+      <div class="addr">Main St, Gullane EH31 2AB</div>
+      <div class="conf">Booking DBM78037863774731</div>
+      <div class="detail">2 Deluxe Loft Rooms, non-refundable, £538.20. No early coffee/breakfast available — Nespresso machines in-room instead.</div>
+    </div>
+    <div class="item">
+      <div class="top"><span class="time">7:00 PM</span><span class="title">Dinner — The Bonnie Badger, The Stables</span><span class="badge st-booked">BOOKED</span></div>
+      <div class="addr">Main St, Gullane EH31 2AB</div>
+      <div class="conf">Table for 4, confirmed</div>
+      <div class="detail">A proper Scottish evening to close out the first day north. Sport coat evening.</div>
+    </div>
+  </div>
+
+  <div class="section" id="Tuesday-September-15">
+    <div class="daytitle">Tuesday, September 15</div>
+    <div class="item">
+      <div class="top"><span class="time">Sunrise</span><span class="title">A quiet look at Gullane village and coast</span></div>
+      <div class="addr">Gullane, East Lothian</div>
+      
+      
+    </div>
+    <div class="item">
+      <div class="top"><span class="time">8:00 AM</span><span class="title">Golf — Gullane No. 2</span><span class="badge st-booked">BOOKED / PAID</span></div>
+      <div class="addr">East Links Rd, Gullane EH31 2BB</div>
+      <div class="conf">Booking ID 583112</div>
+      <div class="detail">Jamey, Jayden, Kealey playing (£300 total, $390); Kayla walking. Electric trolleys with GPS confirmed. Club hire (£180/$234) and trolley rental (£27/$35.10) due directly to the pro shop on arrival — NOT yet paid. Pick up clubs by 7:00 AM, warm up 7:15 AM.</div>
+    </div>
+    <div class="item">
+      <div class="top"><span class="time">Afternoon</span><span class="title">Drive to St Andrews (~1 hour)</span></div>
+      <div class="addr">Gullane → St Andrews</div>
+      
+      <div class="detail">Timing depends on how the golf round runs — no fixed departure.</div>
+    </div>
+    <div class="item">
+      <div class="top"><span class="time">Afternoon</span><span class="title">Fisher &amp; Donaldson — coffee &amp; snack stop</span></div>
+      <div class="addr">13 Church St, St Andrews KY16 9BQ</div>
+      
+      <div class="detail">Fife-local favorite, known for fudge doughnuts and coffee cream cakes. No reservation.</div>
+    </div>
+    <div class="item">
+      <div class="top"><span class="time">Afternoon</span><span class="title">Old Course, Swilcan Bridge, Cathedral &amp; Castle ruins</span></div>
+      <div class="addr">St Andrews town centre</div>
+      
+      <div class="detail">All walkable — the compressed version of eight centuries of Scottish golf and history.</div>
+    </div>
+    <div class="item">
+      <div class="top"><span class="time">Afternoon</span><span class="title">The Himalayas Putting Green</span><span class="badge st-todo">TODO — BOOK BY SEPT 11</span></div>
+      <div class="addr">The Links, St Andrews, Fife KY16 9JD</div>
+      <div class="conf">BOOK ONLINE BY SEPT 11</div>
+      <div class="detail">18-hole course requires booking ~4 days ahead: standrewsputtingclub.com/himalayas-putting-book-online. Phone +44 1334 475196. No wheeled bags/trolleys allowed on the green.</div>
+    </div>
+    <div class="item">
+      <div class="top"><span class="time">Afternoon</span><span class="title">The R&amp;A World Golf Museum</span></div>
+      <div class="addr">Bruce Embankment, St Andrews KY16 9AB</div>
+      
+      <div class="detail">Opposite the R&amp;A Clubhouse, steps from the 1st tee.</div>
+    </div>
+    <div class="item">
+      <div class="top"><span class="time">Afternoon</span><span class="title">Clarets — coffee or light bite</span></div>
+      <div class="addr">Inside the R&amp;A World Golf Museum</div>
+      
+      <div class="detail">Café-brasserie with a view over the Old Course.</div>
+    </div>
+    <div class="item">
+      <div class="top"><span class="time">Afternoon</span><span class="title">Check into Old Course Hotel</span><span class="badge st-booked">BOOKED</span></div>
+      <div class="addr">Old Station Rd, St Andrews KY16 9SP</div>
+      <div class="conf">Bookings 77530SG087104 &amp; 77530SG087105</div>
+      <div class="detail">Old Course King Room + Champions Old Course Double Double. Both non-refundable, £660 + £678.</div>
+    </div>
+    <div class="item">
+      <div class="top"><span class="time">7:30 PM</span><span class="title">Road Hole Restaurant</span><span class="badge st-booked">BOOKED</span></div>
+      <div class="addr">Old Course Hotel, Old Station Rd, St Andrews KY16 9SP</div>
+      <div class="conf">Ref BV2WXAKF · 4 guests</div>
+      <div class="detail">On-site, overlooking the 17th (Road Hole). Sport coat evening, cufflinks.</div>
+    </div>
+  </div>
+
+  <div class="section" id="Wednesday-September-16">
+    <div class="daytitle">Wednesday, September 16</div>
+    <div class="item">
+      <div class="top"><span class="time">7:00 AM</span><span class="title">Road Hole 17th tee photos</span></div>
+      <div class="addr">Old Course, 17th tee, St Andrews</div>
+      
+      <div class="detail">The &#x27;OLD COURSE HOTEL&#x27; aiming-point sign on the railway shed is visible from here.</div>
+    </div>
+    <div class="item">
+      <div class="top"><span class="time">8:00 AM</span><span class="title">Tom Morris Bar &amp; Grill — Breakfast</span><span class="badge st-booked">BOOKED</span></div>
+      <div class="addr">Old Course Hotel, Old Station Rd, St Andrews KY16 9SP</div>
+      <div class="conf">Ref B4GR9JXY</div>
+      <div class="detail">On-site, 4 people. Table must be returned by 10:00 AM.</div>
+    </div>
+    <div class="item">
+      <div class="top"><span class="time">10:00 AM</span><span class="title">St Andrews Old Course History Tour</span><span class="badge st-booked">BOOKED / PAID</span></div>
+      <div class="addr">Meets near the 1st tee / Old Course, St Andrews</div>
+      <div class="conf">Booking S790-260902-2</div>
+      <div class="detail">4 adults, £80.00 paid via Stripe. Guided walk covering the 1st tee, 18th green, and Swilcan Bridge, ~75–90 min. No ticket needs to be shown on arrival.</div>
+    </div>
+    <div class="item">
+      <div class="top"><span class="time">Late Morning</span><span class="title">More time at St Andrews — Swilcan Bridge, pro shop, R&amp;A Museum</span></div>
+      <div class="addr">St Andrews town centre</div>
+      
+      <div class="detail">Flexible — however the morning is going determines how long this stretches.</div>
+    </div>
+    <div class="item">
+      <div class="top"><span class="time">Afternoon</span><span class="title">Drive to Edinburgh Waverley — return the rental car</span></div>
+      <div class="addr">St Andrews → Edinburgh Waverley</div>
+      
+      <div class="detail">Route via M90 / the Cupar junction to skip the bypass and Queensferry Crossing slowdowns.</div>
+    </div>
+    <div class="item">
+      <div class="top"><span class="time">4:17 PM</span><span class="title">LNER South to London</span><span class="badge st-booked">BOOKED</span></div>
+      <div class="addr">Edinburgh Waverley → King&#x27;s Cross</div>
+      <div class="conf">Coach K, seats 21–24</div>
+      <div class="detail">£536.40 total (incl. £40 change fee). Departs 16:17, arrives London ~9:02 PM.</div>
+    </div>
+    <div class="item">
+      <div class="top"><span class="time">Evening</span><span class="title">Check back into Novotel London Paddington</span><span class="badge st-booked">BOOKED</span></div>
+      <div class="addr">3 Kingdom St, London W2 6BD</div>
+      <div class="conf">Booking PSBLGMGV</div>
+      
+    </div>
+  </div>
+
+  <div class="section" id="Thursday-September-17">
+    <div class="daytitle">Thursday, September 17</div>
+    <div class="item">
+      <div class="top"><span class="time">Morning</span><span class="title">Borough Market</span></div>
+      <div class="addr">8 Southwark St, London SE1 1TL</div>
+      
+      <div class="detail">Opens 10 AM — best before the crowds. A real sit-down or grazing meal here.</div>
+    </div>
+    <div class="item">
+      <div class="top"><span class="time">Midday</span><span class="title">Tate Modern</span></div>
+      <div class="addr">Bankside, London SE1 9TG</div>
+      
+      <div class="detail">Former power station.</div>
+    </div>
+    <div class="item">
+      <div class="top"><span class="time">Midday</span><span class="title">Millennium Bridge → St Paul&#x27;s Cathedral</span></div>
+      <div class="addr">St Paul&#x27;s Churchyard, London EC4M 8AD</div>
+      
+      <div class="detail">Budget 1–1.5 hours. Climb the Dome if energy allows.</div>
+    </div>
+    <div class="item">
+      <div class="top"><span class="time">Afternoon</span><span class="title">West along the South Bank</span></div>
+      <div class="addr">South Bank, London</div>
+      
+      <div class="detail">Walk or bus.</div>
+    </div>
+    <div class="item">
+      <div class="top"><span class="time">3:00 PM</span><span class="title">The Library at County Hall — Afternoon Tea</span><span class="badge st-booked">BOOKED</span></div>
+      <div class="addr">County Hall, Westminster Bridge Rd, London SE1 7PB</div>
+      <div class="conf">Booked</div>
+      <div class="detail">Thames and Big Ben views. Sport coat for this one.</div>
+    </div>
+    <div class="item">
+      <div class="top"><span class="time">Evening (OPTIONAL)</span><span class="title">London Eye at sunset</span><span class="badge st-optional">OPTIONAL</span></div>
+      <div class="addr">Riverside Building, County Hall, Westminster Bridge Rd, London SE1 7PB</div>
+      
+      <div class="detail">Not booked — sunset flights sell out, so book ahead if pursuing this.</div>
+    </div>
+  </div>
+
+  <div class="section" id="Friday-September-18">
+    <div class="daytitle">Friday, September 18</div>
+    <div class="item">
+      <div class="top"><span class="time">Morning</span><span class="title">Harrods Christmas Shop (4th floor)</span></div>
+      <div class="addr">87–135 Brompton Rd, London SW1X 7XL</div>
+      
+      
+    </div>
+    <div class="item">
+      <div class="top"><span class="time">Midday</span><span class="title">Check out — Novotel London Paddington</span></div>
+      <div class="addr">3 Kingdom St, London W2 6BD</div>
+      
+      
+    </div>
+    <div class="item">
+      <div class="top"><span class="time">Midday</span><span class="title">Tube to Wembley (Bakerloo or Metropolitan/Jubilee)</span></div>
+      <div class="addr">—</div>
+      
+      
+    </div>
+    <div class="item">
+      <div class="top"><span class="time">Midday</span><span class="title">Check into Novotel London Wembley</span><span class="badge st-booked">BOOKED</span></div>
+      <div class="addr">Fulton Rd, Wembley HA9 0TF</div>
+      <div class="conf">Booking PSBLGCBX</div>
+      
+    </div>
+    <div class="item">
+      <div class="top"><span class="time">Afternoon</span><span class="title">Wembley Stadium Tour</span></div>
+      <div class="addr">Wembley, London HA9 0WS</div>
+      
+      <div class="detail">Walk the pitch and dressing rooms.</div>
+    </div>
+    <div class="item">
+      <div class="top"><span class="time">4:45 PM</span><span class="title">Sixes Cricket</span><span class="badge st-booked">BOOKED</span></div>
+      <div class="addr">Arena Square, Engineers Way, Wembley HA9 0DH</div>
+      <div class="conf">Ref 69B7TH4GXHBD</div>
+      <div class="detail">All 4 player profiles must be registered at sixescricket.com before arrival.</div>
+    </div>
+    <div class="item">
+      <div class="top"><span class="time">6:30–8:30 PM</span><span class="title">The White Horse Wembley</span><span class="badge st-booked">BOOKED</span></div>
+      <div class="addr">Engineers Way, Wembley HA9 0DH (Wembley Park)</div>
+      <div class="conf">Ref DMN-16959678684</div>
+      <div class="detail">Conrad family only tonight (4 people) — cashless venue, order at the bar.</div>
+    </div>
+    <div class="item">
+      <div class="top"><span class="time">Pregame</span><span class="title">Feed the Yak</span><span class="badge st-booked">BOOKED</span></div>
+      <div class="addr">Wembley Park area — exact address to confirm</div>
+      
+      <div class="detail">6 people, including Patrick and Dana Noone. Exact seating time still being finalized day-of.</div>
+    </div>
+  </div>
+
+  <div class="section" id="Saturday-September-19">
+    <div class="daytitle">Saturday, September 19</div>
+    <div class="item">
+      <div class="top"><span class="time">60–90 min early</span><span class="title">Arrive Wembley — security, seats</span></div>
+      <div class="addr">Wembley Stadium, Wembley HA9 0WS</div>
+      
+      <div class="detail">Doors and security lines move slowly on gameday — arrive early.</div>
+    </div>
+    <div class="item">
+      <div class="top"><span class="time">5:00 PM</span><span class="title">Kickoff — ASU vs. Kansas, Union Jack Classic</span><span class="badge st-booked">BOOKED</span></div>
+      <div class="addr">Wembley Stadium, Wembley HA9 0WS</div>
+      
+      <div class="detail">The first FBS college football game ever played at Wembley. Tickets were a Christmas 2025 gift — already settled.</div>
+    </div>
+    <div class="item">
+      <div class="top"><span class="time">Postgame</span><span class="title">Walk back to Novotel Wembley</span></div>
+      <div class="addr">Fulton Rd, Wembley HA9 0TF</div>
+      
+      
+    </div>
+  </div>
+
+  <div class="section" id="Sunday-September-20">
+    <div class="daytitle">Sunday, September 20</div>
+    <div class="item">
+      <div class="top"><span class="time">Morning</span><span class="title">Check out of Novotel Wembley</span></div>
+      <div class="addr">Fulton Rd, Wembley HA9 0TF</div>
+      
+      <div class="detail">No direct Tube from Wembley to Heathrow — plan a car or taxi with a generous buffer.</div>
+    </div>
+    <div class="item">
+      <div class="top"><span class="time">4:25 PM</span><span class="title">Depart Heathrow — American Airlines 195 to Phoenix</span><span class="badge st-booked">BOOKED</span></div>
+      <div class="addr">Heathrow Airport, Terminal 3</div>
+      
+      <div class="detail">Jamey 8D, Kayla 8E. Overnight, watches go back before the Phoenix descent.</div>
+    </div>
+    <div class="item">
+      <div class="top"><span class="time">Evening</span><span class="title">Arrive Phoenix — overnight</span></div>
+      <div class="addr">Phoenix Sky Harbor</div>
+      
+      <div class="detail">Before the final legs separate.</div>
+    </div>
+  </div>
+
+  <div class="section" id="Monday-September-21">
+    <div class="daytitle">Monday, September 21</div>
+    <div class="item">
+      <div class="top"><span class="time">Morning</span><span class="title">Southwest 680 — Phoenix to Omaha</span><span class="badge st-booked">BOOKED</span></div>
+      <div class="addr">Phoenix Sky Harbor → Eppley Airfield</div>
+      
+      <div class="detail">Jamey 8D, Kayla 8E. Jayden and Kealey are already home in Phoenix — not confirmed whether they&#x27;re on this leg (they live in Phoenix).</div>
+    </div>
+    <div class="item">
+      <div class="top"><span class="time">~Midday</span><span class="title">Arrive Omaha — home</span></div>
+      <div class="addr">Eppley Airfield, Omaha</div>
+      
+      <div class="detail">Cosmo will be waiting. Mango and Pearle will be waiting for Kealey in Scottsdale.</div>
+    </div>
+  </div>
+
+  <footer>Generated from the online book — the book at /book/ remains the narrative source of truth; this page is the fast-reference checklist for the trip itself.</footer>
+</main>
+</body>
+</html>

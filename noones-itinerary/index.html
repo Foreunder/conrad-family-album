@@ -18,16 +18,19 @@
   main{max-width:760px;margin:0 auto;padding:10px 14px;}
   .section h2{font-size:13px;text-transform:uppercase;letter-spacing:.05em;color:var(--gold);border-bottom:2px solid var(--gold);padding-bottom:4px;margin:16px 0 6px;}
   .intro{background:#fff;border:1px solid var(--line);border-radius:8px;padding:12px 14px;margin:10px 0;font-size:12.5px;line-height:1.5;}
-  .legend{display:flex;gap:10px;flex-wrap:wrap;font-size:10.5px;margin:8px 0 14px;}
-  .legend span{padding:2px 8px;border-radius:8px;font-weight:800;}
+  .legend{display:flex;gap:8px;flex-wrap:wrap;font-size:10px;margin:8px 0 14px;}
+  .legend span{padding:2px 7px;border-radius:8px;font-weight:800;}
   .meetup{background:#e2f0e4;border:2px solid var(--green);border-radius:8px;padding:10px 14px;margin-bottom:8px;}
   .meetup .mtitle{font-weight:800;color:var(--green);font-size:13px;}
   .meetup .mdetail{font-size:12px;color:#2a1f10;margin-top:3px;line-height:1.4;}
+  .meetup.invite{background:#fdf3e0;border-color:var(--gold);}
+  .meetup.invite .mtitle{color:var(--gold);}
   .daytitle{font-size:14.5px;font-weight:800;color:#fff;background:var(--navy);margin:14px 0 0;padding:5px 10px;border-radius:5px 5px 0 0;}
   .daybox{border:1px solid var(--line);border-top:none;border-radius:0 0 5px 5px;margin-bottom:4px;background:#fffdf7;}
   .item{padding:5px 10px;border-bottom:1px solid #ece0c4;}
   .item:last-child{border-bottom:none;}
   .item.together{background:#eaf5ec;}
+  .item.invited{background:#fdf3e0;}
   .item.noone{background:#eaf0fa;}
   .item.idea{background:#f5f0e6;}
   .item .line1{display:flex;gap:6px;align-items:baseline;flex-wrap:wrap;}
@@ -35,9 +38,11 @@
   .item .title{font-weight:700;font-size:12.5px;flex:1;}
   .badge{font-size:8px;font-weight:800;text-transform:uppercase;letter-spacing:.03em;padding:1px 6px;border-radius:8px;white-space:nowrap;}
   .b-together{background:#2f6b3a;color:#fff;}
+  .b-invited{background:#a97d27;color:#fff;}
   .b-noone{background:#1a4a7a;color:#fff;}
   .b-conrad{background:#7b1f28;color:#f0dfa8;}
   .b-idea{background:#8a7550;color:#fff;}
+  .b-optional{background:#e3e3e3;color:#555;}
   .item .sub{font-size:10.5px;color:#5a4a30;margin-left:88px;line-height:1.35;}
   .item .conf{font-family:'SF Mono',Menlo,Consolas,monospace;font-size:9.5px;color:var(--navy);}
   .contact{background:#fff;border:1px solid var(--line);border-radius:8px;padding:12px 14px;font-size:12.5px;line-height:1.6;}
@@ -53,17 +58,23 @@
 <main>
 
   <div class="intro">
-    Hi Patrick &amp; Dana! Here's our entire trip schedule, start to finish, so you can see exactly what we're up to and where things might line up. <b>Green</b> = already locked in together. <b>Blue</b> = what you've told us about your plans. <b>Gold</b> = things worth comparing notes on.
+    Hi Patrick &amp; Dana! Here's our entire trip schedule, start to finish, so you can see exactly what we're up to and where things line up. <b>Green</b> = already agreed together. <b>Gold</b> = you're invited, let us know. <b>Tan/idea</b> = worth comparing notes. Times on our stuff are just targets to keep us on schedule — plenty of room to adjust.
   </div>
 
   <div class="legend">
     <span class="b-together">TOGETHER</span>
+    <span class="b-invited">YOU'RE INVITED</span>
     <span class="b-conrad">OUR PLAN</span>
     <span class="b-noone">YOUR PLAN</span>
     <span class="b-idea">WORTH COMPARING</span>
+    <span class="b-optional">OPTIONAL</span>
   </div>
 
   <div class="section"><h2>Confirmed Together</h2></div>
+  <div class="meetup">
+    <div class="mtitle">Thu Sept 17, Morning — Borough Market</div>
+    <div class="mdetail">Already discussed doing this together. We're targeting the morning to stay on our own itinerary, but happy to be flexible on exact timing.</div>
+  </div>
   <div class="meetup">
     <div class="mtitle">Sat Sept 19 — Feed the Yak (Pregame)</div>
     <div class="mdetail">Reservation for 6 (both families). Wembley Park area. Seating time still being finalized closer to the day.</div>
@@ -71,6 +82,16 @@
   <div class="meetup">
     <div class="mtitle">Sat Sept 19, 5:00 PM — Kickoff: ASU vs. Kansas</div>
     <div class="mdetail">Wembley Stadium. Union Jack Classic.</div>
+  </div>
+
+  <div class="section"><h2>You're Invited</h2></div>
+  <div class="meetup invite">
+    <div class="mtitle">Thu Sept 17, 3:00 PM — Afternoon Tea, The Library at County Hall</div>
+    <div class="mdetail">Would love to have you join us. County Hall, Westminster Bridge Rd, London SE1 7PB. Let us know if you're in and we'll sort the reservation size.</div>
+  </div>
+  <div class="meetup invite">
+    <div class="mtitle">Coffee — Thursday AND Friday mornings</div>
+    <div class="mdetail">We're around both mornings and would love to grab coffee either day (or both). Also totally open to planning anything else together that sounds fun — just say the word.</div>
   </div>
 
   <div class="section"><h2>Our Full Schedule (Sept 10–21)</h2></div>
@@ -166,11 +187,11 @@
       <div class="sub">3 Spring Street, London W2 3RA</div>
     </div>
     <div class="item ">
-      <div class="line1"><span class="time">Morning (OPTIONAL)</span><span class="title">Westminster Abbey — exterior &amp; precinct</span><span class="badge b-conrad">OUR PLAN</span></div>
+      <div class="line1"><span class="time">Morning (OPTIONAL)</span><span class="title">Westminster Abbey — exterior &amp; precinct</span><span class="badge b-optional">OPTIONAL</span></div>
       <div class="sub">20 Deans Yd, London SW1P 3PA · Not booked. If a full interior visit is wanted, book several weeks ahead (~$35/person) — otherwise the exterior/precinct alone is worthwhile.</div>
     </div>
     <div class="item ">
-      <div class="line1"><span class="time">If Timing Allows (OPTIONAL)</span><span class="title">Sunday Parade (Changing the Guard, Sunday version)</span><span class="badge b-conrad">OUR PLAN</span></div>
+      <div class="line1"><span class="time">If Timing Allows (OPTIONAL)</span><span class="title">Sunday Parade (Changing the Guard, Sunday version)</span><span class="badge b-optional">OPTIONAL</span></div>
       <div class="sub">Buckingham Palace, London SW1A 1AA · Worth catching in passing — not worth planning the morning around.</div>
     </div>
     <div class="item ">
@@ -186,7 +207,7 @@
       <div class="sub">South Bank / Thames path</div>
     </div>
     <div class="item ">
-      <div class="line1"><span class="time">Afternoon (OPTIONAL)</span><span class="title">Thames Speedboat</span><span class="badge b-conrad">OUR PLAN</span></div>
+      <div class="line1"><span class="time">Afternoon (OPTIONAL)</span><span class="title">Thames Speedboat</span><span class="badge b-optional">OPTIONAL</span></div>
       <div class="sub">Departs Tower Pier, London EC3N 4EH · Not booked. Runs hourly; book ahead with a buffer before the 6:45 PM dinner if pursuing.</div>
     </div>
     <div class="item ">
@@ -298,15 +319,11 @@
       <div class="line1"><span class="time">Evening</span><span class="title">Check back into Novotel London Paddington</span><span class="badge b-conrad">OUR PLAN</span></div>
       <div class="sub">3 Kingdom St, London W2 6BD · <span class="conf">Booking PSBLGMGV</span></div>
     </div>
-    <div class="item noone">
-      <div class="line1"><span class="time">Afternoon</span><span class="title">You land at Heathrow, Heathrow Express to Paddington</span><span class="badge b-noone">YOUR PLAN</span></div>
-      <div class="sub">Staying at the Hilton Paddington — connected to the station, easy underground access.</div>
-    </div>
   </div>
   <div class="daytitle">Thursday, September 17</div>
   <div class="daybox">
-    <div class="item ">
-      <div class="line1"><span class="time">Morning</span><span class="title">Borough Market</span><span class="badge b-conrad">OUR PLAN</span></div>
+    <div class="item together">
+      <div class="line1"><span class="time">Morning</span><span class="title">Borough Market</span><span class="badge b-together">TOGETHER</span></div>
       <div class="sub">8 Southwark St, London SE1 1TL · Opens 10 AM — best before the crowds. A real sit-down or grazing meal here.</div>
     </div>
     <div class="item ">
@@ -326,12 +343,16 @@
       <div class="sub">County Hall, Westminster Bridge Rd, London SE1 7PB · <span class="conf">No confirmation # on file</span> · Sport coat.</div>
     </div>
     <div class="item ">
-      <div class="line1"><span class="time">Evening (OPTIONAL)</span><span class="title">London Eye at sunset</span><span class="badge b-conrad">OUR PLAN</span></div>
+      <div class="line1"><span class="time">Evening (OPTIONAL)</span><span class="title">London Eye at sunset</span><span class="badge b-optional">OPTIONAL</span></div>
       <div class="sub">Riverside Building, County Hall, Westminster Bridge Rd, London SE1 7PB · Not booked — sunset flights sell out, so book ahead if pursuing this.</div>
     </div>
-    <div class="item noone">
-      <div class="line1"><span class="time">TBD</span><span class="title">Your day is still open — Borough Market is on your list</span><span class="badge b-noone">YOUR PLAN</span></div>
-      <div class="sub">You mentioned wanting to try Borough Market on a weekday (less crowded than marathon weekend). We&#x27;re there Thursday morning — worth comparing timing.</div>
+    <div class="item together">
+      <div class="line1"><span class="time">Morning</span><span class="title">Coffee together, before Borough Market</span><span class="badge b-together">TOGETHER</span></div>
+      <div class="sub">Let&#x27;s grab coffee Thursday morning — happy to figure out where/when works for you.</div>
+    </div>
+    <div class="item invited">
+      <div class="line1"><span class="time">3:00 PM</span><span class="title">You&#x27;re invited: Afternoon Tea, The Library at County Hall</span><span class="badge b-invited">YOU'RE INVITED</span></div>
+      <div class="sub">We&#x27;d love to have you join us — County Hall, Westminster Bridge Rd, London SE1 7PB. Let us know if you&#x27;re in.</div>
     </div>
   </div>
   <div class="daytitle">Friday, September 18</div>
@@ -353,8 +374,8 @@
       <div class="sub">Fulton Rd, Wembley HA9 0TF · <span class="conf">Booking PSBLGCBX</span></div>
     </div>
     <div class="item ">
-      <div class="line1"><span class="time">Afternoon</span><span class="title">Wembley Stadium Tour</span><span class="badge b-conrad">OUR PLAN</span></div>
-      <div class="sub">Wembley, London HA9 0WS · Walk the pitch and dressing rooms.</div>
+      <div class="line1"><span class="time">Afternoon</span><span class="title">Wembley Stadium Tour</span><span class="badge b-optional">OPTIONAL</span></div>
+      <div class="sub">Wembley, London HA9 0WS · Couldn&#x27;t book a slot in advance. If still interested, try booking once in London or at Wembley itself.</div>
     </div>
     <div class="item ">
       <div class="line1"><span class="time">4:45 PM</span><span class="title">Sixes Cricket</span><span class="badge b-conrad">OUR PLAN</span></div>
@@ -364,9 +385,9 @@
       <div class="line1"><span class="time">6:30–8:30 PM</span><span class="title">The White Horse Wembley</span><span class="badge b-conrad">OUR PLAN</span></div>
       <div class="sub">Engineers Way, Wembley HA9 0DH (Wembley Park) · <span class="conf">Ref DMN-16959678684</span> · Conrad family only tonight (4 people) — cashless venue, order at the bar.</div>
     </div>
-    <div class="item noone">
-      <div class="line1"><span class="time">TBD</span><span class="title">Your day is still open too</span><span class="badge b-noone">YOUR PLAN</span></div>
-      <div class="sub">No fixed plans yet on your end as of your last update.</div>
+    <div class="item together">
+      <div class="line1"><span class="time">Morning</span><span class="title">Coffee together again?</span><span class="badge b-together">TOGETHER</span></div>
+      <div class="sub">Happy to meet up Friday morning too, and we&#x27;re open to planning anything else together that sounds fun — just say the word.</div>
     </div>
     <div class="item idea">
       <div class="line1"><span class="time">Evening</span><span class="title">Dan looking at The White Horse Wembley</span><span class="badge b-idea">WORTH COMPARING</span></div>

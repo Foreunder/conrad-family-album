@@ -7,6 +7,7 @@ on:
 
 permissions:
   contents: write
+  issues: write
 
 jobs:
   refresh:
@@ -28,17 +29,75 @@ jobs:
           SERVICE_ACCOUNT_KEY: ${{ secrets.DRIVE_SERVICE_ACCOUNT_KEY }}
 
       - name: Build the album
+        id: build
+        continue-on-error: true
         run: python refresh_album.py
         env:
           REACTIONS_ENDPOINT: ${{ secrets.REACTIONS_ENDPOINT }}
 
       - name: Clean up key file
+        if: always()
         run: rm -f sa_key.json
 
       - name: Commit and push if changed
+        if: steps.build.outcome == 'success'
         run: |
           git config user.name "album-bot"
           git config user.email "album-bot@users.noreply.github.com"
           git add index.html geocode_cache.json
           git diff --cached --quiet || git commit -m "Auto-refresh album $(date -u +%Y-%m-%dT%H:%M:%SZ)"
           git push
+
+      - name: Check failure streak and alert only if habitual
+        if: always()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BUILD_OUTCOME: ${{ steps.build.outcome }}
+        run: |
+          set -e
+          REPO="${{ github.repository }}"
+          WORKFLOW="refresh-album.yml"
+          ALERT_LABEL="album-refresh-failing"
+          THRESHOLD=3
+
+          gh label create "$ALERT_LABEL" --color "d73a4a" --description "Photo album refresh has failed 3+ times in a row" >/dev/null 2>&1 || true
+
+          RECENT=$(gh run list -R "$REPO" --workflow "$WORKFLOW" --limit "$THRESHOLD" --json conclusion --jq '[.[].conclusion]' 2>/dev/null || echo "[]")
+
+          PRIOR_FAILURES=0
+          while IFS= read -r c; do
+            [ -z "$c" ] && continue
+            if [ "$c" = "failure" ]; then
+              PRIOR_FAILURES=$((PRIOR_FAILURES + 1))
+            else
+              break
+            fi
+          done < <(echo "$RECENT" | jq -r '.[]')
+
+          if [ "$BUILD_OUTCOME" = "failure" ]; then
+            STREAK=$((PRIOR_FAILURES + 1))
+            echo "Current run failed. Streak (including this run): $STREAK"
+
+            if [ "$STREAK" -ge "$THRESHOLD" ]; then
+              EXISTING=$(gh issue list -R "$REPO" --label "$ALERT_LABEL" --state open --json number --jq '.[0].number' || echo "")
+              if [ -z "$EXISTING" ]; then
+                gh issue create -R "$REPO" \
+                  --title "Photo album refresh has failed $STREAK times in a row" \
+                  --label "$ALERT_LABEL" \
+                  --body "The 'Refresh photo album' workflow has now failed $STREAK consecutive times as of $(date -u +%Y-%m-%dT%H:%M:%SZ). This looks like a real, ongoing problem rather than a one-off blip. This issue will close itself automatically once the workflow succeeds again."
+                echo "Opened alert issue."
+              else
+                echo "Alert issue #$EXISTING already open — not creating a duplicate."
+              fi
+            else
+              echo "Below threshold ($STREAK/$THRESHOLD) — treating as a normal one-off, no alert."
+            fi
+            exit 1
+          else
+            echo "This run succeeded."
+            EXISTING=$(gh issue list -R "$REPO" --label "$ALERT_LABEL" --state open --json number --jq '.[0].number' || echo "")
+            if [ -n "$EXISTING" ]; then
+              gh issue close -R "$REPO" "$EXISTING" --comment "The photo album refresh succeeded again as of $(date -u +%Y-%m-%dT%H:%M:%SZ) — closing this automatically."
+              echo "Closed alert issue #$EXISTING."
+            fi
+          fi

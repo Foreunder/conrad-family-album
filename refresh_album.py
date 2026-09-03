@@ -39,6 +39,19 @@ DAYS = [
 ]
 # Wembley game-weekend days get ASU maroon/gold styling so they visually jump out from the rest
 ASU_DAYS = {"08", "09"}
+# The rest of the days quietly match the book's own three-color chapter system,
+# so the album already feels visually consistent with the book once it's unveiled
+DAY_ACCENTS = {
+  "01": "#0c1f3d",  # navy
+  "02": "#7B2730",  # burgundy
+  "03": "#0c1f3d",  # navy
+  "04": "#3d5c3a",  # sage
+  "05": "#3d5c3a",  # sage
+  "06": "#3d5c3a",  # sage
+  "07": "#7B2730",  # burgundy
+  "10": "#0c1f3d",  # navy
+  "11": "#3d5c3a",  # sage
+}
 TAGS = {
   "PRE":"Compression cubes, a Garmin charger, and mounting anticipation.",
   "01":"Omaha meets Phoenix at the gate, and by morning all four of us are stepping off the same plane in London.",
@@ -246,15 +259,18 @@ def build_html(photos_by_day, reactions, build_time_str):
 <div class="cap"><div class="loc">{esc(p['loc'])}</div><div class="time">{esc(p['when'])}</div></div></div>''')
         empty = '<div class="day-empty">Nobody\'s added a photo here yet &mdash; get on that.</div>' if not photos else ""
         is_asu = key in ASU_DAYS
+        accent = DAY_ACCENTS.get(key)
         day_class = "day asu" if is_asu else "day"
+        day_attr = f' data-accent="1" style="--chapter-accent:{accent}"' if (accent and not is_asu) else ""
         title_html = f'{esc(d["title"])}<span class="asu-badge">Go Devils</span>' if is_asu else esc(d['title'])
         rail_class = "rail-item asu" if is_asu else "rail-item"
-        days_out.append(f'''<div id="day-{key}" class="{day_class}" data-key="{key}">
+        rail_attr = f' data-accent="1" style="--chapter-accent:{accent}"' if (accent and not is_asu) else ""
+        days_out.append(f'''<div id="day-{key}" class="{day_class}" data-key="{key}"{day_attr}>
 <div class="chapter-date-row"><span class="chapter-eyebrow">{esc(eyebrow)}</span><span class="day-label">{esc(d['date'])}</span></div>
 <h2 class="day-title">{title_html}</h2>
 <p class="day-tag">{esc(TAGS.get(key,''))}</p>
 <div class="photo-grid">{"".join(cards)}</div>{empty}</div>''')
-        rail.append(f'''<a class="{rail_class}" data-key="{key}" href="#day-{key}"><span class="num">{esc(d['roman'])}</span><div class="stack"><div class="lbl">{esc(d['railTitle'])}</div><div class="rdate">{esc(d['short'])}</div></div></a>''')
+        rail.append(f'''<a class="{rail_class}" data-key="{key}"{rail_attr} href="#day-{key}"><span class="num">{esc(d['roman'])}</span><div class="stack"><div class="lbl">{esc(d['railTitle'])}</div><div class="rdate">{esc(d['short'])}</div></div></a>''')
         mobile.append(f'<a data-key="{key}" href="#day-{key}">{esc(d["roman"])}</a>')
 
     style = open("style_block.html").read()

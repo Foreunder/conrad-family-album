@@ -91,6 +91,12 @@ a{color:inherit;}
 .vrow:first-of-type{border-top:none;}
 .vrow span{display:block;font-size:10px;letter-spacing:1px;color:var(--ink-soft);margin-bottom:2px;}
 .vrow p{margin:0;font-size:13px;color:var(--ink);}
+.top-vitals{display:flex;flex-wrap:wrap;background:var(--accent);border-radius:4px;margin:16px 0 20px;overflow:hidden;box-shadow:0 2px 6px rgba(0,0,0,.15);}
+.top-vitals .tv-item{flex:1 1 220px;padding:12px 16px;border-right:1px solid rgba(255,255,255,.22);}
+.top-vitals .tv-item:last-child{border-right:none;}
+.top-vitals .tv-item span{display:block;font-size:9.5px;letter-spacing:1.2px;text-transform:uppercase;color:rgba(255,255,255,.75);margin-bottom:3px;font-family:'Karla',sans-serif;}
+.top-vitals .tv-item p{margin:0;font-size:13px;line-height:1.4;color:#fff;font-family:'Karla',sans-serif;}
+@media (max-width:520px){.top-vitals .tv-item{flex:1 1 100%;border-right:none;border-bottom:1px solid rgba(255,255,255,.22);}.top-vitals .tv-item:last-child{border-bottom:none;}}
 .vempty{font-size:12.5px;color:var(--ink-soft);font-style:italic;margin:0;}
 
 /* quirks / quotes */
@@ -354,6 +360,12 @@ a{color:inherit;}
 .vrow:first-of-type{border-top:none;}
 .vrow span{display:block;font-size:10px;letter-spacing:1px;color:var(--ink-soft);margin-bottom:2px;}
 .vrow p{margin:0;font-size:13px;color:var(--ink);}
+.top-vitals{display:flex;flex-wrap:wrap;background:var(--accent);border-radius:4px;margin:16px 0 20px;overflow:hidden;box-shadow:0 2px 6px rgba(0,0,0,.15);}
+.top-vitals .tv-item{flex:1 1 220px;padding:12px 16px;border-right:1px solid rgba(255,255,255,.22);}
+.top-vitals .tv-item:last-child{border-right:none;}
+.top-vitals .tv-item span{display:block;font-size:9.5px;letter-spacing:1.2px;text-transform:uppercase;color:rgba(255,255,255,.75);margin-bottom:3px;font-family:'Karla',sans-serif;}
+.top-vitals .tv-item p{margin:0;font-size:13px;line-height:1.4;color:#fff;font-family:'Karla',sans-serif;}
+@media (max-width:520px){.top-vitals .tv-item{flex:1 1 100%;border-right:none;border-bottom:1px solid rgba(255,255,255,.22);}.top-vitals .tv-item:last-child{border-bottom:none;}}
 .vempty{font-size:12.5px;color:var(--ink-soft);font-style:italic;margin:0;}
 
 /* quirks / quotes */
@@ -687,7 +699,7 @@ html{scroll-behavior:smooth;}
       <div class="chapter-bignum" aria-hidden="true">01</div>
     </div>
 
-    <div class="rule"></div>
+    <div class="rule"></div><div class="top-vitals"><div class="tv-item"><span>STAYING</span><p>Novotel London Paddington · PSBLGLNW</p></div><div class="tv-item"><span>WEATHER</span><p>69°F/55°F, mostly cloudy with showers and thunderstorms likely later in the day — pack a compact umbrella for arrival day. <em>Current forecast as of Sept 3; will refine closer to departure.</em></p></div><div class="tv-item"><span>PACK</span><p>Passports, chargers, a London layer, confirmations</p></div></div>
 
     
 
@@ -1058,10 +1070,7 @@ html{scroll-behavior:smooth;}
       </div>
       <aside class="mag-side">
         <div class="quote-card"><div class="quote-mark">“</div><p>When all four of us are seated on AA194, the trip is officially real.</p><div class="quote-mark quote-mark-close">”</div></div>
-        <div class="vitals-card">
-          <h3>Vitals</h3>
-          <div class="vrow"><span>STAYING</span><p>Novotel London Paddington · PSBLGLNW</p></div><div class="vrow"><span>WEATHER</span><p>69°F/55°F, mostly cloudy with showers and thunderstorms likely later in the day — pack a compact umbrella for arrival day. <em>Current forecast as of Sept 3; will refine closer to departure.</em></p></div><div class="vrow"><span>PACK</span><p>Passports, chargers, a London layer, confirmations</p></div>
-        </div>
+        
       </aside>
     </div>
 
@@ -1101,7 +1110,7 @@ html{scroll-behavior:smooth;}
       <div class="chapter-bignum" aria-hidden="true">02</div>
     </div>
 
-    <div class="rule"></div>
+    <div class="rule"></div><div class="top-vitals"><div class="tv-item"><span>STAYING</span><p>Novotel London Paddington</p></div><div class="tv-item"><span>WEATHER</span><p>69°F/54°F, partly sunny — a good day, light layers are fine, cool by evening for the theater. <em>Current forecast as of Sept 3; will refine closer to departure.</em></p></div><div class="tv-item"><span>PACK</span><p>Something photo-worthy for the birthday dinner</p></div></div>
 
     <div class="bday-hero-img">
       <img src="https://foreunder.github.io/conrad-family-album/book-images/img_kealey_25_banner.png" alt="Happy 25th Birthday, Kealey!" style="width:100%;height:auto;display:block;">
@@ -1434,10 +1443,7 @@ html{scroll-behavior:smooth;}
       </div>
       <aside class="mag-side">
         <div class="quote-card"><div class="quote-mark">“</div><p>London provides the history. Kealey provides the reason the day matters.</p><div class="quote-mark quote-mark-close">”</div></div>
-        <div class="vitals-card">
-          <h3>Vitals</h3>
-          <div class="vrow"><span>STAYING</span><p>Novotel London Paddington</p></div><div class="vrow"><span>WEATHER</span><p>69°F/54°F, partly sunny — a good day, light layers are fine, cool by evening for the theater. <em>Current forecast as of Sept 3; will refine closer to departure.</em></p></div><div class="vrow"><span>PACK</span><p>Something photo-worthy for the birthday dinner</p></div>
-        </div>
+        
       </aside>
     </div>
 
@@ -1479,7 +1485,7 @@ html{scroll-behavior:smooth;}
       <div class="chapter-bignum" aria-hidden="true">03</div>
     </div>
 
-    <div class="rule"></div>
+    <div class="rule"></div><div class="top-vitals"><div class="tv-item"><span>STAYING</span><p>Novotel London Paddington</p></div><div class="tv-item"><span>WEATHER</span><p>68°F/55°F, sunny early turning cloudy — a light layer covers the river walk. <em>Current forecast as of Sept 3; will refine closer to departure.</em></p></div><div class="tv-item"><span>PACK</span><p>Comfortable walking shoes — this is the longest stretch of London on foot</p></div></div>
 
     
 
@@ -1734,10 +1740,7 @@ html{scroll-behavior:smooth;}
       </div>
       <aside class="mag-side">
         <div class="quote-card"><div class="quote-mark">“</div><p>Ceremony gives way to wartime urgency, the park lowers the temperature, and the Thames carries the day east.</p><div class="quote-mark quote-mark-close">”</div></div>
-        <div class="vitals-card">
-          <h3>Vitals</h3>
-          <div class="vrow"><span>STAYING</span><p>Novotel London Paddington</p></div><div class="vrow"><span>WEATHER</span><p>68°F/55°F, sunny early turning cloudy — a light layer covers the river walk. <em>Current forecast as of Sept 3; will refine closer to departure.</em></p></div><div class="vrow"><span>PACK</span><p>Comfortable walking shoes — this is the longest stretch of London on foot</p></div>
-        </div>
+        
       </aside>
     </div>
 
@@ -1778,7 +1781,7 @@ html{scroll-behavior:smooth;}
       <div class="chapter-bignum" aria-hidden="true">04</div>
     </div>
 
-    <div class="rule"></div>
+    <div class="rule"></div><div class="top-vitals"><div class="tv-item"><span>STAYING</span><p>The Bonnie Badger, Gullane</p></div><div class="tv-item"><span>WEATHER</span><p>Musselburgh: 62°F/52°F, cloudy and breezy (WSW 17 mph) — the rain layer earns its keep today. <em>Current forecast as of Sept 3; will refine closer to departure.</em></p></div><div class="tv-item"><span>PACK</span><p>Layers, a windproof shell, waterproof-ish shoes</p></div></div>
 
     
 
@@ -2015,10 +2018,7 @@ html{scroll-behavior:smooth;}
       </div>
       <aside class="mag-side">
         <div class="quote-card"><div class="quote-mark">“</div><p>The day changes countries, transportation systems, and centuries before anyone has had time to properly complain about the alarm.</p><div class="quote-mark quote-mark-close">”</div></div>
-        <div class="vitals-card">
-          <h3>Vitals</h3>
-          <div class="vrow"><span>STAYING</span><p>The Bonnie Badger, Gullane</p></div><div class="vrow"><span>WEATHER</span><p>Musselburgh: 62°F/52°F, cloudy and breezy (WSW 17 mph) — the rain layer earns its keep today. <em>Current forecast as of Sept 3; will refine closer to departure.</em></p></div><div class="vrow"><span>PACK</span><p>Layers, a windproof shell, waterproof-ish shoes</p></div>
-        </div>
+        
       </aside>
     </div>
 
@@ -2060,7 +2060,7 @@ html{scroll-behavior:smooth;}
       <div class="chapter-bignum" aria-hidden="true">05</div>
     </div>
 
-    <div class="rule"></div>
+    <div class="rule"></div><div class="top-vitals"><div class="tv-item"><span>STAYING</span><p>Old Course Hotel, St Andrews</p></div><div class="tv-item"><span>WEATHER</span><p>Gullane: 63°F/49°F, a shower possible in the morning then sunny spells, windy (W 22 mph) — dress for wind on the course. St Andrews warms slightly to 64°F by afternoon. <em>Current forecast as of Sept 3; will refine closer to departure.</em></p></div><div class="tv-item"><span>PACK</span><p>Golf attire, a jacket for the evening walk into town</p></div></div>
 
     
 
@@ -2486,10 +2486,7 @@ html{scroll-behavior:smooth;}
       </div>
       <aside class="mag-side">
         <div class="quote-card"><div class="quote-mark">“</div><p>Golf begins the day, St Andrews gathers the centuries, and dinner looks directly over the hole most likely to humble everyone.</p><div class="quote-mark quote-mark-close">”</div></div>
-        <div class="vitals-card">
-          <h3>Vitals</h3>
-          <div class="vrow"><span>STAYING</span><p>Old Course Hotel, St Andrews</p></div><div class="vrow"><span>WEATHER</span><p>Gullane: 63°F/49°F, a shower possible in the morning then sunny spells, windy (W 22 mph) — dress for wind on the course. St Andrews warms slightly to 64°F by afternoon. <em>Current forecast as of Sept 3; will refine closer to departure.</em></p></div><div class="vrow"><span>PACK</span><p>Golf attire, a jacket for the evening walk into town</p></div>
-        </div>
+        
       </aside>
     </div>
 
@@ -2531,7 +2528,7 @@ html{scroll-behavior:smooth;}
       <div class="chapter-bignum" aria-hidden="true">06</div>
     </div>
 
-    <div class="rule"></div>
+    <div class="rule"></div><div class="top-vitals"><div class="tv-item"><span>STAYING</span><p>Novotel London Paddington</p></div><div class="tv-item"><span>WEATHER</span><p>59°F/52°F in St Andrews this morning, clearing and milder by evening arrival in London (63°F). <em>Current forecast as of Sept 3; will refine closer to departure.</em></p></div><div class="tv-item"><span>PACK</span><p>Nothing new — same kit, one more travel day</p></div></div>
 
     
 
@@ -2796,10 +2793,7 @@ html{scroll-behavior:smooth;}
       </div>
       <aside class="mag-side">
         <div class="quote-card"><div class="quote-mark">“</div><p>A final St Andrews morning stretches as long as it can before Scotland recedes through a train window.</p><div class="quote-mark quote-mark-close">”</div></div>
-        <div class="vitals-card">
-          <h3>Vitals</h3>
-          <div class="vrow"><span>STAYING</span><p>Novotel London Paddington</p></div><div class="vrow"><span>WEATHER</span><p>59°F/52°F in St Andrews this morning, clearing and milder by evening arrival in London (63°F). <em>Current forecast as of Sept 3; will refine closer to departure.</em></p></div><div class="vrow"><span>PACK</span><p>Nothing new — same kit, one more travel day</p></div>
-        </div>
+        
       </aside>
     </div>
 
@@ -2841,7 +2835,7 @@ html{scroll-behavior:smooth;}
       <div class="chapter-bignum" aria-hidden="true">07</div>
     </div>
 
-    <div class="rule"></div>
+    <div class="rule"></div><div class="top-vitals"><div class="tv-item"><span>STAYING</span><p>Novotel London Paddington</p></div><div class="tv-item"><span>WEATHER</span><p>64°F/48°F, cloudy — comfortable walking weather, a light jacket for the cooler morning. <em>Current forecast as of Sept 3; will refine closer to departure.</em></p></div><div class="tv-item"><span>PACK</span><p>Comfortable shoes again — another long walking day</p></div></div>
 
     
 
@@ -3071,10 +3065,7 @@ html{scroll-behavior:smooth;}
       </div>
       <aside class="mag-side">
         <div class="quote-card"><div class="quote-mark">“</div><p>The day follows food, art, faith, and the river — four reliable ways to understand a city without pretending they agree with one another.</p><div class="quote-mark quote-mark-close">”</div></div>
-        <div class="vitals-card">
-          <h3>Vitals</h3>
-          <div class="vrow"><span>STAYING</span><p>Novotel London Paddington</p></div><div class="vrow"><span>WEATHER</span><p>64°F/48°F, cloudy — comfortable walking weather, a light jacket for the cooler morning. <em>Current forecast as of Sept 3; will refine closer to departure.</em></p></div><div class="vrow"><span>PACK</span><p>Comfortable shoes again — another long walking day</p></div>
-        </div>
+        
       </aside>
     </div>
 
@@ -3116,7 +3107,7 @@ html{scroll-behavior:smooth;}
       <div class="chapter-bignum" aria-hidden="true">08</div>
     </div>
 
-    <div class="rule"></div>
+    <div class="rule"></div><div class="top-vitals"><div class="tv-item"><span>STAYING</span><p>Novotel London Wembley · PSBLGCBX</p></div><div class="tv-item"><span>WEATHER (PLANNING)</span><p>Check conditions for the stadium tour. <em>Recheck closer to departure.</em></p></div><div class="tv-item"><span>PACK</span><p>ASU gear starts making appearances from here on out</p></div></div>
 
     
 
@@ -3364,10 +3355,7 @@ html{scroll-behavior:smooth;}
       </div>
       <aside class="mag-side">
         <div class="quote-card"><div class="quote-mark">“</div><p>Central London gives way to Wembley, where a stadium tour and a completely unfamiliar bat prepare the family for tomorrow.</p><div class="quote-mark quote-mark-close">”</div></div>
-        <div class="vitals-card">
-          <h3>Vitals</h3>
-          <div class="vrow"><span>STAYING</span><p>Novotel London Wembley · PSBLGCBX</p></div><div class="vrow"><span>WEATHER (PLANNING)</span><p>Check conditions for the stadium tour. <em>Recheck closer to departure.</em></p></div><div class="vrow"><span>PACK</span><p>ASU gear starts making appearances from here on out</p></div>
-        </div>
+        
       </aside>
     </div>
 
@@ -3410,7 +3398,7 @@ html{scroll-behavior:smooth;}
       <div class="chapter-bignum" aria-hidden="true">09</div>
     </div>
 
-    <div class="rule"></div>
+    <div class="rule"></div><div class="top-vitals"><div class="tv-item"><span>STAYING</span><p>Novotel London Wembley</p></div><div class="tv-item"><span>WEATHER (PLANNING)</span><p>Check gameday forecast for layering under colors. <em>Recheck closer to departure.</em></p></div><div class="tv-item"><span>PACK</span><p>ASU gear, phone charged for the whole day</p></div></div>
 
     
 
@@ -3552,10 +3540,7 @@ html{scroll-behavior:smooth;}
       </div>
       <aside class="mag-side">
         <div class="quote-card"><div class="quote-mark">“</div><p>The itinerary becomes a game day, Wembley becomes personal, and four lifelong Sun Devils carry their own history under the arch.</p><div class="quote-mark quote-mark-close">”</div></div>
-        <div class="vitals-card">
-          <h3>Vitals</h3>
-          <div class="vrow"><span>STAYING</span><p>Novotel London Wembley</p></div><div class="vrow"><span>WEATHER (PLANNING)</span><p>Check gameday forecast for layering under colors. <em>Recheck closer to departure.</em></p></div><div class="vrow"><span>PACK</span><p>ASU gear, phone charged for the whole day</p></div>
-        </div>
+        
       </aside>
     </div>
 
@@ -3597,7 +3582,7 @@ html{scroll-behavior:smooth;}
       <div class="chapter-bignum" aria-hidden="true">10</div>
     </div>
 
-    <div class="rule"></div>
+    <div class="rule"></div><div class="top-vitals"><div class="tv-item"><span>STAYING</span><p>Overnight in Phoenix</p></div><div class="tv-item"><span>PACK</span><p>Start consolidating for the last two flights</p></div></div>
 
     
 
@@ -3714,10 +3699,7 @@ html{scroll-behavior:smooth;}
       </div>
       <aside class="mag-side">
         <div class="quote-card"><div class="quote-mark">“</div><p>The family leaves London together, crosses the Atlantic in reverse, and reaches Phoenix on the same date with a completely different sense of time.</p><div class="quote-mark quote-mark-close">”</div></div>
-        <div class="vitals-card">
-          <h3>Vitals</h3>
-          <div class="vrow"><span>STAYING</span><p>Overnight in Phoenix</p></div><div class="vrow"><span>PACK</span><p>Start consolidating for the last two flights</p></div>
-        </div>
+        
       </aside>
     </div>
 
@@ -3759,7 +3741,7 @@ html{scroll-behavior:smooth;}
       <div class="chapter-bignum" aria-hidden="true">11</div>
     </div>
 
-    <div class="rule"></div>
+    <div class="rule"></div><div class="top-vitals"><div class="tv-item"><span>FLIGHT</span><p>Southwest 680 — Jamey 8D, Kayla 8E</p></div><div class="tv-item"><span>TIMING</span><p>Depart Phoenix 8:00 a.m. · Arrive Omaha ~12:30 p.m.</p></div><div class="tv-item"><span>PACK</span><p>Everything, one last time — the trip fits back in the same bags it started in</p></div></div>
 
     
 
@@ -3879,10 +3861,7 @@ html{scroll-behavior:smooth;}
       </div>
       <aside class="mag-side">
         <div class="quote-card"><div class="quote-mark">“</div><p>The final leg belongs to Mom and Dad, but the journey closes around all four people and the home waiting behind it.</p><div class="quote-mark quote-mark-close">”</div></div>
-        <div class="vitals-card">
-          <h3>Vitals</h3>
-          <div class="vrow"><span>FLIGHT</span><p>Southwest 680 — Jamey 8D, Kayla 8E</p></div><div class="vrow"><span>TIMING</span><p>Depart Phoenix 8:00 a.m. · Arrive Omaha ~12:30 p.m.</p></div><div class="vrow"><span>PACK</span><p>Everything, one last time — the trip fits back in the same bags it started in</p></div>
-        </div>
+        
       </aside>
     </div>
 

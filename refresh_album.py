@@ -37,6 +37,8 @@ DAYS = [
   {"key":"11","roman":"XI","title":"The Road Home","railTitle":"The road home","date":"Monday, Sept 21, 2026","short":"Sept 21","dates":["2026-09-21"]},
   {"key":"00","roman":"?","title":"Unsorted","railTitle":"Unsorted","date":"No date or GPS data found","short":"\u2014","dates":[]},
 ]
+# Wembley game-weekend days get ASU maroon/gold styling so they visually jump out from the rest
+ASU_DAYS = {"08", "09"}
 TAGS = {
   "PRE":"Compression cubes, a Garmin charger, and mounting anticipation.",
   "01":"Omaha meets Phoenix at the gate, and by morning all four of us are stepping off the same plane in London.",
@@ -243,12 +245,16 @@ def build_html(photos_by_day, reactions, build_time_str):
 </div>
 <div class="cap"><div class="loc">{esc(p['loc'])}</div><div class="time">{esc(p['when'])}</div></div></div>''')
         empty = '<div class="day-empty">Nobody\'s added a photo here yet &mdash; get on that.</div>' if not photos else ""
-        days_out.append(f'''<div id="day-{key}" class="day" data-key="{key}">
+        is_asu = key in ASU_DAYS
+        day_class = "day asu" if is_asu else "day"
+        title_html = f'{esc(d["title"])}<span class="asu-badge">Go Devils</span>' if is_asu else esc(d['title'])
+        rail_class = "rail-item asu" if is_asu else "rail-item"
+        days_out.append(f'''<div id="day-{key}" class="{day_class}" data-key="{key}">
 <div class="chapter-date-row"><span class="chapter-eyebrow">{esc(eyebrow)}</span><span class="day-label">{esc(d['date'])}</span></div>
-<h2 class="day-title">{esc(d['title'])}</h2>
+<h2 class="day-title">{title_html}</h2>
 <p class="day-tag">{esc(TAGS.get(key,''))}</p>
 <div class="photo-grid">{"".join(cards)}</div>{empty}</div>''')
-        rail.append(f'''<a class="rail-item" data-key="{key}" href="#day-{key}"><span class="num">{esc(d['roman'])}</span><div class="stack"><div class="lbl">{esc(d['railTitle'])}</div><div class="rdate">{esc(d['short'])}</div></div></a>''')
+        rail.append(f'''<a class="{rail_class}" data-key="{key}" href="#day-{key}"><span class="num">{esc(d['roman'])}</span><div class="stack"><div class="lbl">{esc(d['railTitle'])}</div><div class="rdate">{esc(d['short'])}</div></div></a>''')
         mobile.append(f'<a data-key="{key}" href="#day-{key}">{esc(d["roman"])}</a>')
 
     style = open("style_block.html").read()

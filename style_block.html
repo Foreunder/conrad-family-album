@@ -33,6 +33,12 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:'Inter',sans-ser
 .layout{display:flex;max-width:1200px;margin:0 auto;align-items:flex-start;}
 .rail{width:230px;flex-shrink:0;position:sticky;top:0;height:100vh;padding:60px 16px 60px 24px;display:flex;flex-direction:column;gap:2px;overflow-y:auto;}
 .rail-item{display:flex;align-items:flex-start;gap:12px;padding:12px 12px;cursor:pointer;color:var(--ink-faint);font-size:12.5px;text-decoration:none;border-radius:5px;border-left:2px solid transparent;transition:background .15s,border-color .15s;}
+.rail-item.asu{border-left-color:#8C1D40;background:rgba(140,29,64,0.18);}
+.rail-item.asu .num{color:#FFC627;}
+.rail-item.asu .lbl{color:#FFC627;}
+.rail-item.asu:hover{background:rgba(140,29,64,0.28);}
+.rail-item.asu.active{background:rgba(140,29,64,0.32);border-left-color:#FFC627;}
+.rail-item.asu.active .lbl{color:#FFC627;font-weight:600;}
 .rail-item .num{font-family:'Fraunces',serif;font-size:16px;color:var(--ink-faint);flex-shrink:0;line-height:1.4;width:20px;}
 .rail-item .stack{min-width:0;flex:1;}
 .rail-item .lbl{color:var(--ink-soft);line-height:1.35;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
@@ -46,6 +52,10 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:'Inter',sans-ser
 
 .days{flex:1;padding:60px 40px 60px 48px;max-width:760px;min-width:0;}
 .day{padding-bottom:100px;}
+.day.asu{background:linear-gradient(180deg, rgba(140,29,64,0.22), transparent 320px);border-left:4px solid #8C1D40;padding-left:24px;margin-left:-24px;}
+.day.asu .day-title{color:#FFC627;}
+.day.asu .chapter-eyebrow{color:#FFC627;letter-spacing:3px;}
+.asu-badge{display:inline-block;background:#8C1D40;color:#FFC627;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:4px 10px;border-radius:3px;margin-left:10px;vertical-align:middle;}
 .day:last-child{padding-bottom:60px;}
 .chapter-date-row{display:flex;align-items:baseline;gap:12px;margin-bottom:14px;flex-wrap:wrap;}
 .chapter-eyebrow{font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);}

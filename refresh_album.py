@@ -456,6 +456,21 @@ document.querySelectorAll('.react-btn').forEach(btn => {{
     sendReaction(photoId, reaction);
   }});
 }});
+
+// Auto-reload every 15 minutes so new photos/votes appear without a manual refresh.
+// Preserves scroll position, and skips the reload if the name-prompt modal is open.
+(function() {{
+  const savedScroll = sessionStorage.getItem('albumScrollY');
+  if (savedScroll !== null) {{
+    window.scrollTo(0, parseInt(savedScroll, 10));
+    sessionStorage.removeItem('albumScrollY');
+  }}
+  setInterval(function() {{
+    if (whoModal.classList.contains('show')) return; // don't interrupt someone mid-vote
+    sessionStorage.setItem('albumScrollY', window.scrollY);
+    location.reload();
+  }}, 15 * 60 * 1000);
+}})();
 </script></body></html>'''
 
 def main():

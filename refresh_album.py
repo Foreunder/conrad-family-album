@@ -250,7 +250,7 @@ def build_html(photos_by_day, reactions, voters, build_time_str, next_update_str
 
     all_photos = [p for photos in photos_by_day.values() for p in photos]
     def top_photo(kind):
-        candidates = [(p, reactions.get(p["id"], {}).get(kind, 0)) for p in all_photos]
+        candidates = [(p, len(voters.get(p["id"], {}).get(kind, []))) for p in all_photos]
         candidates = [c for c in candidates if c[1] > 0]
         if not candidates:
             return None, 0
@@ -281,10 +281,9 @@ def build_html(photos_by_day, reactions, voters, build_time_str, next_update_str
         for p in photos:
             needs = " needs-sort" if key == "00" else ""
             flag = '<div class="unsorted-flag">Needs sorting</div>' if key == "00" else ""
-            r = reactions.get(p["id"], {})
-            heart_n, laugh_n, down_n = r.get("heart", 0), r.get("laugh", 0), r.get("thumbsdown", 0)
             pv = voters.get(p["id"], {})
             heart_names, laugh_names, down_names = pv.get("heart", []), pv.get("laugh", []), pv.get("thumbsdown", [])
+            heart_n, laugh_n, down_n = len(heart_names), len(laugh_names), len(down_names)
             def names_attr(names): return esc(", ".join(names))
             reactor_bits = []
             if heart_names: reactor_bits.append(f"&#10084;&#65039; {esc(', '.join(heart_names))}")

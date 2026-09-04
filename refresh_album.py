@@ -81,9 +81,12 @@ def fetch_reactions():
         return {}
     try:
         req = urllib.request.Request(REACTIONS_ENDPOINT, headers={"User-Agent": "conrad-family-album/1.0"})
-        with urllib.request.urlopen(req, timeout=10) as resp:
-            return json.loads(resp.read())
-    except Exception:
+        with urllib.request.urlopen(req, timeout=15) as resp:
+            body = resp.read()
+            print(f"fetch_reactions: HTTP {resp.status}, {len(body)} bytes", file=sys.stderr)
+            return json.loads(body)
+    except Exception as e:
+        print(f"fetch_reactions FAILED: {type(e).__name__}: {e}", file=sys.stderr)
         return {}
 
 def fetch_voters():
@@ -94,8 +97,10 @@ def fetch_voters():
         sep = "&" if "?" in REACTIONS_ENDPOINT else "?"
         url = f"{REACTIONS_ENDPOINT}{sep}mode=voters"
         req = urllib.request.Request(url, headers={"User-Agent": "conrad-family-album/1.0"})
-        with urllib.request.urlopen(req, timeout=10) as resp:
-            rows = json.loads(resp.read())
+        with urllib.request.urlopen(req, timeout=15) as resp:
+            body = resp.read()
+            print(f"fetch_voters: HTTP {resp.status}, {len(body)} bytes", file=sys.stderr)
+            rows = json.loads(body)
         out = {}
         for row in rows:
             pid = row.get("photoId")
@@ -106,8 +111,10 @@ def fetch_voters():
             out.setdefault(pid, {}).setdefault(reaction, [])
             if voter not in out[pid][reaction]:
                 out[pid][reaction].append(voter)
+        print(f"fetch_voters: parsed {len(rows)} rows into {len(out)} photos", file=sys.stderr)
         return out
-    except Exception:
+    except Exception as e:
+        print(f"fetch_voters FAILED: {type(e).__name__}: {e}", file=sys.stderr)
         return {}
 
 def get_drive_service():

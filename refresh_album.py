@@ -86,6 +86,30 @@ def fetch_reactions():
     except Exception:
         return {}
 
+def fetch_voters():
+    # Returns { photoId: { "heart": ["Kayla", ...], "laugh": [...], "thumbsdown": [...] } }
+    if not REACTIONS_ENDPOINT:
+        return {}
+    try:
+        sep = "&" if "?" in REACTIONS_ENDPOINT else "?"
+        url = f"{REACTIONS_ENDPOINT}{sep}mode=voters"
+        req = urllib.request.Request(url, headers={"User-Agent": "conrad-family-album/1.0"})
+        with urllib.request.urlopen(req, timeout=10) as resp:
+            rows = json.loads(resp.read())
+        out = {}
+        for row in rows:
+            pid = row.get("photoId")
+            reaction = row.get("reaction")
+            voter = (row.get("voter") or "").strip()
+            if not pid or not reaction or not voter:
+                continue
+            out.setdefault(pid, {}).setdefault(reaction, [])
+            if voter not in out[pid][reaction]:
+                out[pid][reaction].append(voter)
+        return out
+    except Exception:
+        return {}
+
 def get_drive_service():
     creds = service_account.Credentials.from_service_account_file(KEY_PATH, scopes=SCOPES)
     return build("drive", "v3", credentials=creds)
@@ -212,7 +236,7 @@ def reverse_geocode(lat, lon, cache):
     time.sleep(1.1)
     return result
 
-def build_html(photos_by_day, reactions, build_time_str):
+def build_html(photos_by_day, reactions, voters, build_time_str):
     import html as htmlmod
     def esc(s): return htmlmod.escape(s or "")
     rail, mobile, days_out = [], [], []
@@ -229,16 +253,18 @@ def build_html(photos_by_day, reactions, build_time_str):
     top_laugh, laugh_count = top_photo("laugh")
     top_down, down_count = top_photo("thumbsdown")
 
-    def trophy_html(label, header_img, photo, count):
+    def trophy_html(label, header_img, photo, count, kind):
         header = f'<img class="trophy-header" src="{header_img}" alt="{label}">'
         if not photo:
             return f'<div class="trophy-card">{header}<div class="trophy-empty">No votes yet</div></div>'
+        names = voters.get(photo["id"], {}).get(kind, [])
+        names_html = f'<div class="trophy-count">{esc(", ".join(names))}</div>' if names else ""
         return f'''<div class="trophy-card">{header}
 <img class="photo-img" src="data:image/jpeg;base64,{photo.get('b64_thumb') or photo['b64']}" data-full="data:image/jpeg;base64,{photo['b64']}" alt="">
-<div class="trophy-count">{count} vote{'s' if count != 1 else ''}</div></div>'''
+<div class="trophy-count">{count} vote{'s' if count != 1 else ''}</div>{names_html}</div>'''
 
     IMG_BASE = "https://foreunder.github.io/conrad-family-album/book-images"
-    trophies_html = f'''<div class="trophies">{trophy_html("Most loved", IMG_BASE + "/category_most_loved.png", top_heart, heart_count)}{trophy_html("Funniest", IMG_BASE + "/category_funniest.png", top_laugh, laugh_count)}{trophy_html("Yikes", IMG_BASE + "/category_yikes.png", top_down, down_count)}</div>'''
+    trophies_html = f'''<div class="trophies">{trophy_html("Most loved", IMG_BASE + "/category_most_loved.png", top_heart, heart_count, "heart")}{trophy_html("Funniest", IMG_BASE + "/category_funniest.png", top_laugh, laugh_count, "laugh")}{trophy_html("Yikes", IMG_BASE + "/category_yikes.png", top_down, down_count, "thumbsdown")}</div>'''
 
     for d in DAYS:
         key = d["key"]
@@ -250,13 +276,21 @@ def build_html(photos_by_day, reactions, build_time_str):
             flag = '<div class="unsorted-flag">Needs sorting</div>' if key == "00" else ""
             r = reactions.get(p["id"], {})
             heart_n, laugh_n, down_n = r.get("heart", 0), r.get("laugh", 0), r.get("thumbsdown", 0)
+            pv = voters.get(p["id"], {})
+            heart_names, laugh_names, down_names = pv.get("heart", []), pv.get("laugh", []), pv.get("thumbsdown", [])
+            def names_attr(names): return esc(", ".join(names))
+            reactor_bits = []
+            if heart_names: reactor_bits.append(f"&#10084;&#65039; {esc(', '.join(heart_names))}")
+            if laugh_names: reactor_bits.append(f"&#128514; {esc(', '.join(laugh_names))}")
+            if down_names: reactor_bits.append(f"&#128078; {esc(', '.join(down_names))}")
+            reactors_html = f'<div class="reactors">{" &middot; ".join(reactor_bits)}</div>' if reactor_bits else ""
             cards.append(f'''<div class="photo{needs}" data-photo-id="{esc(p['id'])}">{flag}<img src="data:image/jpeg;base64,{p.get('b64_thumb') or p['b64']}" data-full="data:image/jpeg;base64,{p['b64']}" alt="">
 <div class="reactions">
-<button class="react-btn" data-reaction="heart">&#10084;&#65039; <span class="rc">{heart_n}</span></button>
-<button class="react-btn" data-reaction="laugh">&#128514; <span class="rc">{laugh_n}</span></button>
-<button class="react-btn" data-reaction="thumbsdown">&#128078; <span class="rc">{down_n}</span></button>
+<button class="react-btn" data-reaction="heart" title="{names_attr(heart_names)}">&#10084;&#65039; <span class="rc">{heart_n}</span></button>
+<button class="react-btn" data-reaction="laugh" title="{names_attr(laugh_names)}">&#128514; <span class="rc">{laugh_n}</span></button>
+<button class="react-btn" data-reaction="thumbsdown" title="{names_attr(down_names)}">&#128078; <span class="rc">{down_n}</span></button>
 </div>
-<div class="cap"><div class="loc">{esc(p['loc'])}</div><div class="time">{esc(p['when'])}</div></div></div>''')
+<div class="cap"><div class="loc">{esc(p['loc'])}</div><div class="time">{esc(p['when'])}</div>{reactors_html}</div></div>''')
         empty = '<div class="day-empty">Nobody\'s added a photo here yet &mdash; get on that.</div>' if not photos else ""
         is_asu = key in ASU_DAYS
         accent = DAY_ACCENTS.get(key)
@@ -282,6 +316,20 @@ def build_html(photos_by_day, reactions, build_time_str):
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 {style}
 </head><body>
+<div id="whoModal">
+<div class="box">
+<p>Quick &mdash; who's tapping?</p>
+<button class="who-btn" data-who="Jamey">Jamey</button>
+<button class="who-btn" data-who="Kayla">Kayla</button>
+<button class="who-btn" data-who="Jayden">Jayden</button>
+<button class="who-btn" data-who="Kealey">Kealey</button>
+<button class="who-btn" id="whoOtherToggle">Someone else</button>
+<div class="who-other-row" id="whoOtherRow">
+<input type="text" class="who-input" id="whoOtherInput" placeholder="Your name" maxlength="30">
+<button class="who-go" id="whoOtherGo">Go</button>
+</div>
+</div>
+</div>
 <div class="hero"><div class="eyebrow">A Conrad family journey</div><h1>Blessed With This Time Together</h1>
 <p>Eleven days chasing golf balls across Scotland, celebrating Kealey turning 25 in London, and watching ASU play Kansas at Wembley &mdash; because apparently that's a thing that happens now. Every photo below came from someone's actual camera roll.</p>
 <div class="divider"></div><div class="dates">Sept 10 &ndash; 21, 2026</div>
@@ -337,6 +385,52 @@ lightbox.addEventListener('touchend', () => {{
 }});
 
 const REACTIONS_ENDPOINT = "{REACTIONS_ENDPOINT}";
+
+function getVoterName() {{
+  return localStorage.getItem('voterName');
+}}
+
+function sendReaction(photoId, reaction) {{
+  const voter = getVoterName();
+  fetch(REACTIONS_ENDPOINT, {{
+    method: 'POST',
+    body: JSON.stringify({{ photoId, reaction, voter }})
+  }}).catch(() => {{}});
+}}
+
+let pendingReaction = null;
+const whoModal = document.getElementById('whoModal');
+
+function confirmVoter(name) {{
+  localStorage.setItem('voterName', name);
+  whoModal.classList.remove('show');
+  if (pendingReaction) {{
+    sendReaction(pendingReaction.photoId, pendingReaction.reaction);
+    pendingReaction = null;
+  }}
+}}
+
+document.querySelectorAll('.who-btn[data-who]').forEach(btn => {{
+  btn.addEventListener('click', () => confirmVoter(btn.getAttribute('data-who')));
+}});
+
+document.getElementById('whoOtherToggle').addEventListener('click', () => {{
+  const row = document.getElementById('whoOtherRow');
+  row.classList.add('show');
+  document.getElementById('whoOtherInput').focus();
+}});
+
+function submitOtherName() {{
+  const input = document.getElementById('whoOtherInput');
+  const name = input.value.trim();
+  if (!name) {{ input.focus(); return; }}
+  confirmVoter(name);
+}}
+document.getElementById('whoOtherGo').addEventListener('click', submitOtherName);
+document.getElementById('whoOtherInput').addEventListener('keydown', (e) => {{
+  if (e.key === 'Enter') submitOtherName();
+}});
+
 document.querySelectorAll('.react-btn').forEach(btn => {{
   btn.addEventListener('click', (e) => {{
     e.stopPropagation();
@@ -347,10 +441,12 @@ document.querySelectorAll('.react-btn').forEach(btn => {{
     const countEl = btn.querySelector('.rc');
     countEl.textContent = parseInt(countEl.textContent, 10) + 1;
     btn.classList.add('voted');
-    fetch(REACTIONS_ENDPOINT, {{
-      method: 'POST',
-      body: JSON.stringify({{ photoId, reaction }})
-    }}).catch(() => {{}});
+    if (!getVoterName()) {{
+      pendingReaction = {{ photoId, reaction }};
+      whoModal.classList.add('show');
+      return;
+    }}
+    sendReaction(photoId, reaction);
   }});
 }});
 </script></body></html>'''
@@ -392,9 +488,10 @@ def main():
 
     json.dump(cache, open(CACHE_PATH, "w"))
     reactions = fetch_reactions()
+    voters = fetch_voters()
     now = datetime.now(_TZ)
     build_time_str = now.strftime("%b %-d, %Y \u00b7 %-I:%M %p") + " CT"
-    html_out = build_html(photos_by_day, reactions, build_time_str)
+    html_out = build_html(photos_by_day, reactions, voters, build_time_str)
     with open("index.html", "w") as f:
         f.write(html_out)
     total = sum(len(v) for v in photos_by_day.values())

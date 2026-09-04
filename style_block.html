@@ -82,6 +82,17 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:'Inter',sans-ser
 .photo .cap{position:absolute;left:0;right:0;bottom:0;padding:12px 14px;z-index:1;}
 .photo .cap .loc{font-size:12px;color:#fff;line-height:1.3;}
 .photo .cap .time{font-size:10px;color:rgba(255,255,255,.7);letter-spacing:.5px;text-transform:uppercase;margin-top:2px;}
+.photo .cap .reactors{font-size:10px;color:rgba(255,255,255,.85);line-height:1.4;margin-top:4px;}
+#whoModal{display:none;position:fixed;inset:0;z-index:50;background:rgba(0,0,0,.65);align-items:center;justify-content:center;padding:20px;}
+#whoModal.show{display:flex;}
+#whoModal .box{background:var(--panel);border:1px solid var(--gold);border-radius:8px;padding:22px;max-width:320px;width:100%;text-align:center;}
+#whoModal .box p{color:var(--ink);font-size:14px;margin:0 0 14px;}
+#whoModal .who-btn{display:block;width:100%;background:transparent;border:1px solid var(--gold);color:var(--gold);border-radius:5px;padding:10px;font-size:14px;margin-bottom:8px;cursor:pointer;font-family:'Inter',sans-serif;}
+#whoModal .who-btn:hover{background:var(--gold);color:var(--bg);}
+#whoModal .who-other-row{display:none;gap:8px;margin-top:2px;}
+#whoModal .who-other-row.show{display:flex;}
+#whoModal input.who-input{flex:1;background:var(--bg);border:1px solid var(--gold);color:var(--ink);border-radius:5px;padding:9px 10px;font-size:14px;font-family:'Inter',sans-serif;}
+#whoModal .who-go{background:var(--gold);color:var(--bg);border:none;border-radius:5px;padding:0 14px;font-weight:bold;cursor:pointer;font-family:'Inter',sans-serif;}
 .photo .unsorted-flag{position:absolute;top:8px;left:8px;z-index:2;background:var(--gold);color:#1c1d1f;font-size:10px;padding:3px 8px;border-radius:3px;font-weight:600;}
 .photo select.reassign{position:absolute;top:8px;right:8px;z-index:2;font-size:10px;background:rgba(0,0,0,.6);color:#fff;border:1px solid rgba(255,255,255,.25);border-radius:3px;padding:3px 4px;max-width:110px;}
 .unsorted-bar{grid-column:1/-1;background:var(--panel);border:1px solid var(--gold);border-radius:4px;padding:12px 14px;font-size:12px;color:var(--ink-soft);margin-bottom:4px;display:none;}

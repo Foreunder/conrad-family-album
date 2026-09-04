@@ -243,7 +243,7 @@ def reverse_geocode(lat, lon, cache):
     time.sleep(1.1)
     return result
 
-def build_html(photos_by_day, reactions, voters, build_time_str):
+def build_html(photos_by_day, reactions, voters, build_time_str, next_update_str):
     import html as htmlmod
     def esc(s): return htmlmod.escape(s or "")
     rail, mobile, days_out = [], [], []
@@ -340,7 +340,7 @@ def build_html(photos_by_day, reactions, voters, build_time_str):
 <div class="hero"><div class="eyebrow">A Conrad family journey</div><h1>Blessed With This Time Together</h1>
 <p>Eleven days chasing golf balls across Scotland, celebrating Kealey turning 25 in London, and watching ASU play Kansas at Wembley &mdash; because apparently that's a thing that happens now. Every photo below came from someone's actual camera roll.</p>
 <div class="divider"></div><div class="dates">Sept 10 &ndash; 21, 2026</div>
-<div class="updated-stamp">Updated {build_time_str} &middot; refreshes automatically every 15 minutes</div></div>
+<div class="updated-stamp">Updated {build_time_str} &middot; next update around {next_update_str}</div></div>
 {trophies_html}
 <div class="mobile-nav">{"".join(mobile)}</div>
 <div class="layout"><div class="rail">{"".join(rail)}</div><div class="thread"></div><div class="days">{"".join(days_out)}</div></div>
@@ -513,7 +513,10 @@ def main():
     voters = fetch_voters()
     now = datetime.now(_TZ)
     build_time_str = now.strftime("%b %-d, %Y \u00b7 %-I:%M %p") + " CT"
-    html_out = build_html(photos_by_day, reactions, voters, build_time_str)
+    minutes_to_next = 15 - (now.minute % 15)
+    next_update = now + timedelta(minutes=minutes_to_next)
+    next_update_str = next_update.strftime("%-I:%M %p") + " CT"
+    html_out = build_html(photos_by_day, reactions, voters, build_time_str, next_update_str)
     with open("index.html", "w") as f:
         f.write(html_out)
     total = sum(len(v) for v in photos_by_day.values())

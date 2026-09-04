@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Site Map">
+<meta name="theme-color" content="#11365d">
+<title>Conrad Trip — Site Map</title>
+<style>
+  :root{--navy:#11365d;--gold:#a97d27;--card:#fffaf0;--ink:#2a1f10;--line:#d8c69a;}
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Karla,sans-serif;background:#f3ead7;color:var(--ink);padding-bottom:60px;}
+  header{background:var(--navy);color:#fff;padding:22px 20px 18px;text-align:center;position:sticky;top:0;z-index:10;box-shadow:0 4px 10px rgba(0,0,0,.15);}
+  header h1{margin:0;font-size:20px;letter-spacing:.03em;}
+  header p{margin:4px 0 0;font-size:12px;opacity:.85;}
+  main{max-width:720px;margin:0 auto;padding:16px;}
+  .section{margin-bottom:22px;}
+  .section h2{font-size:14px;text-transform:uppercase;letter-spacing:.08em;color:var(--gold);border-bottom:2px solid var(--gold);padding-bottom:6px;margin:0 0 10px;}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:14px 16px;margin-bottom:10px;box-shadow:0 2px 6px rgba(74,48,16,.08);}
+  .card .name{font-weight:700;font-size:15px;color:var(--navy);}
+  .card a.name{text-decoration:none;}
+  .card a.name:hover{text-decoration:underline;}
+  .card .meta{font-size:13px;color:#5a4a30;margin-top:2px;}
+  .card .ref{margin-top:8px;font-family:'SF Mono',Menlo,Consolas,monospace;font-size:13px;background:#fff;border:1px dashed var(--line);border-radius:5px;padding:6px 10px;display:inline-block;letter-spacing:.02em;word-break:break-all;}
+  .card .ref-label{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:#8a7550;display:block;margin-bottom:2px;}
+  .not-in-repo{opacity:.9;}
+  footer{text-align:center;font-size:11px;color:#8a7550;padding:20px;}
+</style>
+</head>
+<body>
+<header>
+  <h1>Conrad Family Trip — Site Map</h1>
+  <p>Everything that's live, in one place</p>
+</header>
+<main>
+
+  <div class="section">
+    <h2>Live pages</h2>
+    <div class="card"><a class="name" href="https://foreunder.github.io/conrad-family-album/">Photo Album</a><div class="meta">Auto-refreshes every 15 minutes. Has reactions with voter names attached.</div></div>
+    <div class="card"><a class="name" href="https://foreunder.github.io/conrad-family-album/book/">The Keepsake Book</a><div class="meta">The full 11-chapter "Blessed With This Time Together" book.</div></div>
+    <div class="card"><a class="name" href="https://foreunder.github.io/conrad-family-album/master-itinerary/">Master Itinerary</a><div class="meta">Day-by-day plan. Also has a downloadable PDF version.</div></div>
+    <div class="card"><a class="name" href="https://foreunder.github.io/conrad-family-album/noones-itinerary/">Noones' Itinerary</a><div class="meta">Stripped-down version shared with Patrick &amp; Dana — no prices or confirmation numbers.</div></div>
+    <div class="card"><a class="name" href="https://foreunder.github.io/conrad-family-album/confirmations/">Confirmations</a><div class="meta">All booking confirmation numbers in one place.</div></div>
+    <div class="card"><a class="name" href="https://foreunder.github.io/conrad-family-album/financial/">Financial Breakdown</a><div class="meta">Who owes what.</div></div>
+    <div class="card"><a class="name" href="https://foreunder.github.io/conrad-family-album/before-we-go/">Before We Go</a><div class="meta">Pre-trip checklist and prep page.</div></div>
+    <div class="card"><a class="name" href="https://foreunder.github.io/conrad-family-album/before-we-go-letter/">Before We Go Letter</a><div class="meta">The letter, also available as a PDF.</div></div>
+    <div class="card"><a class="name" href="https://foreunder.github.io/conrad-family-album/email-plan/">Email Plan</a><div class="meta">Reference doc — the daily email chapter schedule and design.</div></div>
+    <div class="card"><a class="name" href="https://foreunder.github.io/conrad-family-album/email-status/">Email Status</a><div class="meta">Reference doc — build status tracker for the 44 daily emails.</div></div>
+  </div>
+
+  <div class="section">
+    <h2>Behind the scenes</h2>
+    <div class="card"><div class="name">refresh_album.py</div><div class="meta">The script that rebuilds the album every 15 minutes — pulls new photos from Drive, bakes in reaction counts and voter names.</div></div>
+    <div class="card"><div class="name">style_block.html</div><div class="meta">The album's visual styling, read by the script above.</div></div>
+    <div class="card"><div class="name">apps_script/Code.gs</div><div class="meta">Backup copy of the Google Apps Script code. The live version runs inside the "Album Reactions" Google Sheet.</div></div>
+    <div class="card"><div class="name">.github/workflows/refresh-album.yml</div><div class="meta">The automation that runs the 15-minute refresh.</div></div>
+    <div class="card"><div class="name">REACTIONS_ENDPOINT</div><div class="meta">A GitHub Actions secret. Tells the refresh script which Google Sheet to pull votes from.</div></div>
+  </div>
+
+  <div class="section">
+    <h2>Related, but not in GitHub</h2>
+    <div class="card not-in-repo"><div class="name">"Album Reactions" Google Sheet</div><div class="meta">Where every vote actually lands — the ReactionLog and Reactions tabs.</div></div>
+    <div class="card not-in-repo"><div class="name">Google Drive folders</div><div class="meta">Separate from GitHub — the photo upload folder, plus the family and grandparent email Drive folders.</div></div>
+    <div class="card not-in-repo"><div class="name">11 Google Forms</div><div class="meta">The daily trivia forms, one per chapter.</div></div>
+  </div>
+
+</main>
+<footer>Updated as the trip system grows &middot; Conrad Family Trip 2026</footer>
+</body>
+</html>

@@ -340,7 +340,7 @@ def build_html(photos_by_day, reactions, voters, build_time_str):
 <div class="hero"><div class="eyebrow">A Conrad family journey</div><h1>Blessed With This Time Together</h1>
 <p>Eleven days chasing golf balls across Scotland, celebrating Kealey turning 25 in London, and watching ASU play Kansas at Wembley &mdash; because apparently that's a thing that happens now. Every photo below came from someone's actual camera roll.</p>
 <div class="divider"></div><div class="dates">Sept 10 &ndash; 21, 2026</div>
-<div class="updated-stamp">Updated {build_time_str}</div></div>
+<div class="updated-stamp">Updated {build_time_str} &middot; refreshes automatically every 15 minutes</div></div>
 {trophies_html}
 <div class="mobile-nav">{"".join(mobile)}</div>
 <div class="layout"><div class="rail">{"".join(rail)}</div><div class="thread"></div><div class="days">{"".join(days_out)}</div></div>

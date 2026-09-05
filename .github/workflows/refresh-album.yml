@@ -44,7 +44,7 @@ jobs:
         run: |
           git config user.name "album-bot"
           git config user.email "album-bot@users.noreply.github.com"
-          git add index.html geocode_cache.json
+          git add index.html geocode_cache.json voters_cache.json
           git diff --cached --quiet || git commit -m "Auto-refresh album $(date -u +%Y-%m-%dT%H:%M:%SZ)"
           git push
 

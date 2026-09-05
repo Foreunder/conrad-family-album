@@ -549,10 +549,10 @@ def main():
     reactions = fetch_reactions()
     voters = fetch_voters()
     now = datetime.now(_TZ)
-    build_time_str = now.strftime("%b %-d, %Y \u00b7 %-I:%M %p") + " CT"
+    build_time_str = now.strftime("%b %-d, %Y \u00b7 %-I:%M\u00a0%p\u00a0CT")
     minutes_to_next = 15 - (now.minute % 15)
     next_update = now + timedelta(minutes=minutes_to_next)
-    next_update_str = next_update.strftime("%-I:%M %p") + " CT"
+    next_update_str = next_update.strftime("%-I:%M\u00a0%p\u00a0CT")
     html_out = build_html(photos_by_day, reactions, voters, build_time_str, next_update_str)
     with open("index.html", "w") as f:
         f.write(html_out)

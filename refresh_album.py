@@ -40,17 +40,22 @@ DAYS = [
 # Wembley game-weekend days get ASU maroon/gold styling so they visually jump out from the rest
 ASU_DAYS = {"08", "09"}
 # The rest of the days quietly match the book's own three-color chapter system,
-# so the album already feels visually consistent with the book once it's unveiled
+# so the album already feels visually consistent with the book once it's unveiled.
+# These are brightened versions of the book's chapter colors (navy/burgundy/sage) —
+# the book uses the darker originals as background panels with light text on top,
+# but here they're used as text color on a dark page background, so the darker
+# originals (especially navy) are nearly invisible. These are lightened just
+# enough to read clearly while still reading as "navy," "burgundy," "sage."
 DAY_ACCENTS = {
-  "01": "#0c1f3d",  # navy
-  "02": "#7B2730",  # burgundy
-  "03": "#0c1f3d",  # navy
-  "04": "#3d5c3a",  # sage
-  "05": "#3d5c3a",  # sage
-  "06": "#3d5c3a",  # sage
-  "07": "#7B2730",  # burgundy
-  "10": "#0c1f3d",  # navy
-  "11": "#3d5c3a",  # sage
+  "01": "#7ea6d9",  # navy (brightened for legibility on dark bg)
+  "02": "#d98a95",  # burgundy (brightened)
+  "03": "#7ea6d9",  # navy (brightened)
+  "04": "#8fbf87",  # sage (brightened)
+  "05": "#8fbf87",  # sage (brightened)
+  "06": "#8fbf87",  # sage (brightened)
+  "07": "#d98a95",  # burgundy (brightened)
+  "10": "#7ea6d9",  # navy (brightened)
+  "11": "#8fbf87",  # sage (brightened)
 }
 TAGS = {
   "PRE":"Compression cubes, a Garmin charger, and mounting anticipation.",

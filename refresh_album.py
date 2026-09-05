@@ -341,6 +341,7 @@ def build_html(photos_by_day, reactions, voters, build_time_str, next_update_str
 </div>
 </div>
 </div>
+<button id="manualRefreshBtn" title="Refresh now" aria-label="Refresh now">&#8635;</button>
 <div class="hero"><div class="eyebrow">A Conrad family journey</div><h1>Blessed With This Time Together</h1>
 <p>Eleven days chasing golf balls across Scotland, celebrating Kealey turning 25 in London, and watching ASU play Kansas at Wembley &mdash; because apparently that's a thing that happens now. Every photo below came from someone's actual camera roll.</p>
 <div class="divider"></div><div class="dates">Sept 10 &ndash; 21, 2026</div>
@@ -475,6 +476,17 @@ document.querySelectorAll('.react-btn').forEach(btn => {{
     location.reload();
   }}, 15 * 60 * 1000);
 }})();
+
+// Manual refresh button — mainly for Home Screen / standalone mode on iOS,
+// where pull-to-refresh doesn't work since there's no Safari chrome.
+const manualRefreshBtn = document.getElementById('manualRefreshBtn');
+if (manualRefreshBtn) {{
+  manualRefreshBtn.addEventListener('click', function() {{
+    manualRefreshBtn.classList.add('spinning');
+    sessionStorage.setItem('albumScrollY', window.scrollY);
+    location.reload();
+  }});
+}}
 </script></body></html>'''
 
 def main():

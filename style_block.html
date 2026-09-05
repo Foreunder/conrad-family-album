@@ -144,4 +144,8 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:'Inter',sans-ser
   .lightbox-nav{width:40px;height:40px;font-size:22px;}
   .lightbox-prev{left:6px;} .lightbox-next{right:6px;}
 }
+#manualRefreshBtn{position:fixed;top:calc(12px + env(safe-area-inset-top));right:calc(12px + env(safe-area-inset-right));z-index:500;width:38px;height:38px;border-radius:50%;background:var(--panel);border:1px solid var(--line);color:var(--ink-soft);font-size:18px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.35);transition:transform .5s ease,color .2s ease;}
+#manualRefreshBtn:active{color:var(--ink);}
+#manualRefreshBtn.spinning{animation:refreshSpin .6s linear;}
+@keyframes refreshSpin{to{transform:rotate(360deg);}}
 </style>

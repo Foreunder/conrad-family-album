@@ -352,7 +352,7 @@ def build_html(photos_by_day, reactions, voters, build_time_str, next_update_str
 <button class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="Previous photo">&#8249;</button>
 <button class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="Next photo">&#8250;</button>
 <div class="lightbox-content"><img id="lightboxImg" src="" alt=""><div class="lightbox-cap"><div class="loc" id="lightboxLoc"></div><div class="time" id="lightboxTime"></div></div></div></div>
-<div class="footer-strip"><span>Made by the Conrads, one blister at a time</span><span><a href="https://foreunder.github.io/conrad-family-album/site-map/" style="color:inherit;">Site Map</a> &middot; London &amp; Scotland &middot; September 2026</span></div>
+<div class="footer-strip"><span>Made by the Conrads, one blister at a time</span><span>London &amp; Scotland &middot; September 2026</span></div>
 <script>
 const observer = new IntersectionObserver((entries) => {{
   entries.forEach(entry => {{

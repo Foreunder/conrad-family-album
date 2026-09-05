@@ -18,6 +18,7 @@ DRIVE_FOLDER_ID = "1idR48mqlXyY1Jjh8E0ZxpnG2N5fqUhUN"
 SCOPES = ["https://www.googleapis.com/auth/drive.readonly"]
 KEY_PATH = os.environ.get("SERVICE_ACCOUNT_KEY_PATH", "sa_key.json")
 CACHE_PATH = "geocode_cache.json"
+VOTERS_CACHE_PATH = "voters_cache.json"
 
 TRIP_START = "2026-09-10"
 PRE_TRIP_WINDOW_START = "2026-08-11"
@@ -96,28 +97,48 @@ def fetch_reactions():
 
 def fetch_voters():
     # Returns { photoId: { "heart": ["Kayla", ...], "laugh": [...], "thumbsdown": [...] } }
+    # Retries a few times before giving up, and falls back to the last known-good
+    # result on disk if every attempt fails — a transient network hiccup to Google
+    # should never make real votes disappear from the site.
     if not REACTIONS_ENDPOINT:
         return {}
+    sep = "&" if "?" in REACTIONS_ENDPOINT else "?"
+    url = f"{REACTIONS_ENDPOINT}{sep}mode=voters"
+    last_error = None
+    for attempt in range(1, 4):
+        try:
+            req = urllib.request.Request(url, headers={"User-Agent": "conrad-family-album/1.0"})
+            with urllib.request.urlopen(req, timeout=15) as resp:
+                body = resp.read()
+                print(f"fetch_voters attempt {attempt}: HTTP {resp.status}, {len(body)} bytes", file=sys.stderr)
+                rows = json.loads(body)
+            out = {}
+            for row in rows:
+                pid = row.get("photoId")
+                reaction = row.get("reaction")
+                voter = (row.get("voter") or "").strip()
+                if not pid or not reaction or not voter:
+                    continue
+                out.setdefault(pid, {}).setdefault(reaction, [])
+                if voter not in out[pid][reaction]:
+                    out[pid][reaction].append(voter)
+            print(f"fetch_voters: parsed {len(rows)} rows into {len(out)} photos", file=sys.stderr)
+            try:
+                json.dump(out, open(VOTERS_CACHE_PATH, "w"))
+            except Exception:
+                pass
+            return out
+        except Exception as e:
+            last_error = e
+            print(f"fetch_voters attempt {attempt} FAILED: {type(e).__name__}: {e}", file=sys.stderr)
+            if attempt < 3:
+                time.sleep(2)
+    print(f"fetch_voters: all attempts failed ({last_error}); falling back to last known-good cache", file=sys.stderr)
     try:
-        sep = "&" if "?" in REACTIONS_ENDPOINT else "?"
-        url = f"{REACTIONS_ENDPOINT}{sep}mode=voters"
-        req = urllib.request.Request(url, headers={"User-Agent": "conrad-family-album/1.0"})
-        with urllib.request.urlopen(req, timeout=15) as resp:
-            body = resp.read()
-            print(f"fetch_voters: HTTP {resp.status}, {len(body)} bytes", file=sys.stderr)
-            rows = json.loads(body)
-        out = {}
-        for row in rows:
-            pid = row.get("photoId")
-            reaction = row.get("reaction")
-            voter = (row.get("voter") or "").strip()
-            if not pid or not reaction or not voter:
-                continue
-            out.setdefault(pid, {}).setdefault(reaction, [])
-            if voter not in out[pid][reaction]:
-                out[pid][reaction].append(voter)
-        print(f"fetch_voters: parsed {len(rows)} rows into {len(out)} photos", file=sys.stderr)
-        return out
+        return json.load(open(VOTERS_CACHE_PATH))
+    except Exception:
+        print("fetch_voters: no cache available either, returning empty", file=sys.stderr)
+        return {}
     except Exception as e:
         print(f"fetch_voters FAILED: {type(e).__name__}: {e}", file=sys.stderr)
         return {}

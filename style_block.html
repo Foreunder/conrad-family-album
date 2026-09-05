@@ -113,6 +113,16 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:'Inter',sans-ser
 .trophy-count{font-size:12px;color:var(--ink-soft);padding:8px 12px 12px;}
 .trophy-empty{font-size:12px;color:var(--ink-faint);font-style:italic;padding:20px 12px;text-align:center;}
 @media (max-width:760px){.trophies{grid-template-columns:1fr;}}
+@media (max-width:600px){
+  /* On tall narrow phones, background-size:cover on a wide panoramic photo has
+     to crop most of the width to fill the height, which is why it looked cut
+     off in portrait — reducing the hero's height here lets more of the actual
+     photo show without needing to rotate the phone. */
+  .hero{min-height:38vh;padding:44px 18px;}
+  .hero h1{font-size:clamp(28px,7.5vw,40px);}
+  .hero p{font-size:14px;}
+  .hero .dates{margin-top:22px;}
+}
 .debug-note{position:absolute;bottom:38px;left:14px;right:14px;z-index:1;font-size:9.5px;color:#ffb4a0;background:rgba(0,0,0,.5);border-radius:3px;padding:3px 6px;}
 
 /* ===== Lightbox ===== */

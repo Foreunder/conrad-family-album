@@ -208,6 +208,13 @@ a{color:inherit;}
 .hd-gallery-item img{width:100%;height:110px;object-fit:cover;border-radius:3px;margin:0;filter:sepia(6%);}
 .hd-gallery-item span{display:block;font-family:'Karla',sans-serif;font-size:9.5px;color:var(--ink-soft);text-align:center;margin-top:3px;}
 @media (max-width:600px){ .hd-gallery{grid-template-columns:repeat(2,1fr);} }
+.from-the-day{margin:28px 0 8px;}
+.from-the-day-gallery{display:flex;flex-wrap:wrap;gap:8px;}
+.from-the-day-gallery .hd-gallery-item{width:calc(20% - 6.4px);}
+.from-the-day-gallery .hd-gallery-item img{height:130px;}
+@media (max-width:760px){ .from-the-day-gallery .hd-gallery-item{width:calc(33.333% - 5.34px);} }
+@media (max-width:600px){ .from-the-day-gallery .hd-gallery-item{width:calc(50% - 4px);} }
+.from-the-day-empty{width:100%;box-sizing:border-box;text-align:center;font-style:italic;color:var(--ink-soft);font-size:13.5px;padding:26px 16px;opacity:.85;border:1px dashed var(--line);border-radius:6px;background:rgba(0,0,0,.015);}
 .hotel-dossier .ih-credit{font-family:'Karla',sans-serif;font-size:8.5px;color:var(--ink-soft);display:block;margin:-8px 0 12px;}
 .hotel-dossier h5{font-family:'Karla',sans-serif;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent);margin:16px 0 6px;}
 .hotel-dossier p{margin:0 0 8px;font-size:14.5px;line-height:1.55;}
@@ -1067,7 +1074,13 @@ html{scroll-behavior:smooth;}
       <h5>Practical Notes</h5>
       <p>About a 6–10 minute walk from Paddington station (Circle, Hammersmith &amp; City, Bakerloo lines). No alcohol is served anywhere on the menu, and there's a prayer space on site. If we go, it's worth booking same-day once we know how the afternoon is running, rather than walking in unannounced.</p>
       <div class="dress-box"><strong>What to wear — </strong>Smart casual, upgraded: a collared shirt or blouse with tailored trousers or a dress, and — given it's the first night of the trip and worth a good group photo — a sport coat or blazer for Jamey and Jayden rather than just an open collar. Clean, non-athletic shoes throughout.</div>
-    </div><img src="https://foreunder.github.io/conrad-family-album/book-images/section_quirks.png" alt="Quirks and Random Facts" style="width:100%;height:auto;display:block;border-radius:4px;margin:24px 0 12px;">
+    </div><div class="from-the-day">
+      <h2 class="section-h">From the Day</h2>
+      <div class="from-the-day-gallery" data-chapter="01">
+        <p class="from-the-day-empty">&mdash; this space is waiting for the photos only we can take &mdash;</p>
+      </div>
+    </div>
+<img src="https://foreunder.github.io/conrad-family-album/book-images/section_quirks.png" alt="Quirks and Random Facts" style="width:100%;height:auto;display:block;border-radius:4px;margin:24px 0 12px;">
         <ul class="quirks"><li>Heathrow's first postwar terminals were converted military tents along Bath Road — arrivals crossed wooden walkways over mud to reach the aircraft.</li>
 <li>Flying west to east, jet-stream tailwinds regularly shave 60–90 minutes off the same flight run in reverse.</li>
 <li>Alcock and Brown's 1919 crossing carried no radio contact for most of the flight — for stretches, no one on land knew if they were alive.</li>

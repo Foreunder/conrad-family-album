@@ -84,6 +84,7 @@ DAYS = [
         dict(time="Afternoon", title="West along the South Bank", address="South Bank, London", status="—", detail="Walk or bus."),
         dict(time="3:00 PM", title="The Library at County Hall — Afternoon Tea", address="County Hall, Westminster Bridge Rd, London SE1 7PB", conf="No confirmation # on file", status="BOOKED", detail="Sport coat. Patrick and Dana Noone invited to join."),
         dict(time="Evening (OPTIONAL)", title="London Eye at sunset", address="Riverside Building, County Hall, Westminster Bridge Rd, London SE1 7PB", status="OPTIONAL", detail="Not booked — sunset flights sell out, so book ahead if pursuing this."),
+        dict(time="Evening (OPTIONAL)", title="adidas Flagship Store London", address="425 Oxford St, London W1C 2PG", status="OPTIONAL", detail="Patrick & Dana Noone invited. Also on the plan for Sept 18 on the way to Wembley — this is a second, together chance to see it."),
     ]),
     dict(date="Friday, September 18", items=[
         dict(time="Morning", title="Harrods Christmas Shop (4th floor)", address="87–135 Brompton Rd, London SW1X 7XL", status="—", detail=""),

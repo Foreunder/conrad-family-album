@@ -87,6 +87,7 @@ DAYS = [
     ]),
     dict(date="Friday, September 18", items=[
         dict(time="Morning", title="Harrods Christmas Shop (4th floor)", address="87–135 Brompton Rd, London SW1X 7XL", status="—", detail=""),
+        dict(time="~12:00–12:30 PM", title="adidas Flagship Store London", address="425 Oxford St, London W1C 2PG", status="OPTIONAL", detail="Official Union Jack Classic gear takeover — on the way through, not a special trip. ASU's Adidas Pep Rally (band, spirit squad, Sparky) runs 2:30–4:30 PM at the same store; not staying for it."),
         dict(time="Midday", title="Check out — Novotel London Paddington", address="3 Kingdom St, London W2 6BD", status="—", detail=""),
         dict(time="Midday", title="Tube to Wembley (Bakerloo or Metropolitan/Jubilee)", address="—", status="—", detail=""),
         dict(time="Midday", title="Check into Novotel London Wembley", address="Fulton Rd, Wembley HA9 0TF", conf="Booking PSBLGCBX", status="BOOKED", detail=""),

@@ -616,6 +616,12 @@ body{background:#d8c89d;}
 .stop>*+*{margin-left:14px;}.toc-plain>*+*{margin-left:10px;}
 .reason-item>*+*{margin-left:8px;}.mag-grid>*+*{margin-left:34px;}
 .item-history>*+*{margin-left:18px;}}
+/* Universal (non-print-only) break-avoidance: the PDF generator used for this book doesn't
+   support switching to print media, so the @media print rules above never apply during PDF
+   export. These duplicate rules apply unconditionally so page breaks stay clean regardless. */
+.approved-map,.verified-plan,.family-thread,.reason-item,.item-history,.hotel-dossier,
+.top-vitals,.quote-card,.bday-story,.history,.stop,.daily-verse,.mag-grid,.hd-gallery-item,
+.owe-card,.from-the-day{break-inside:avoid;page-break-inside:avoid;}
 .floating-toc{position:fixed;bottom:22px;right:16px;z-index:999;width:52px;height:52px;border-radius:50%;background:#11365d;color:#f3e9d2;display:flex;align-items:center;justify-content:center;font-size:22px;text-decoration:none;box-shadow:0 4px 14px rgba(0,0,0,0.35);border:2px solid #a97d27;opacity:.92;cursor:pointer;}
 .floating-toc:active{opacity:1;transform:scale(0.95);}
 @media print{.floating-toc{display:none;}.quick-jump-overlay{display:none;}}

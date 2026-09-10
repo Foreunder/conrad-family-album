@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#11365d">
+<title>Conrad Trip — Expenses</title>
+<style>
+  :root{--navy:#11365d;--gold:#a97d27;--card:#fffaf0;--ink:#2a1f10;--line:#d8c69a;}
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Karla,sans-serif;background:#f3ead7;color:var(--ink);padding-bottom:60px;}
+  header{background:var(--navy);color:#fff;padding:22px 20px 18px;text-align:center;position:sticky;top:0;z-index:10;box-shadow:0 4px 10px rgba(0,0,0,.15);}
+  header h1{margin:0;font-size:20px;letter-spacing:.03em;}
+  header p{margin:4px 0 0;font-size:12px;opacity:.85;}
+  main{max-width:720px;margin:0 auto;padding:16px;}
+  table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:8px;overflow:hidden;font-size:13.5px;}
+  th{background:var(--navy);color:#fff;text-align:left;padding:8px 10px;font-size:11px;text-transform:uppercase;letter-spacing:.05em;}
+  td{padding:9px 10px;border-top:1px solid var(--line);vertical-align:top;}
+  td.amt{text-align:right;white-space:nowrap;font-weight:600;}
+  tr:last-child td{font-weight:700;background:#fff5da;}
+  .note{font-size:11px;color:#8a7550;margin-top:6px;}
+</style>
+</head>
+<body>
+<header>
+  <h1>Trip Expenses</h1>
+  <p>Jamey &amp; Kayla · London &amp; Scotland 2026</p>
+</header>
+<main>
+  <table>
+    <tr><th>Date</th><th>Item</th><th>Card</th><th class="amt">Amount</th></tr>
+    <tr>
+      <td>Sept 10</td>
+      <td>Waymo — Sky Harbor Airport to coffee shop near Jayden's (5959 N Granite Reef Rd); meeting Jamey's parents briefly before heading back to the airport</td>
+      <td>Visa ...1492</td>
+      <td class="amt">$27.73</td>
+    </tr>
+    <tr>
+      <td colspan="3">Total</td>
+      <td class="amt">$27.73</td>
+    </tr>
+  </table>
+  <p class="note">Jamey &amp; Kayla only — not shared trip costs. Updated as receipts come in.</p>
+</main>
+</body>
+</html>

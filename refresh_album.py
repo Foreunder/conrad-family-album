@@ -1,4 +1,4 @@
-import os, io, json, base64, subprocess, sys
+import os, io, json, base64, subprocess, sys, hashlib
 from datetime import datetime, timezone, timedelta
 try:
     from zoneinfo import ZoneInfo
@@ -530,9 +530,15 @@ def main():
     files = list_photos(service)
     cache = json.load(open(CACHE_PATH)) if os.path.exists(CACHE_PATH) else {}
     photos_by_day = {d["key"]: [] for d in DAYS}
+    seen_hashes = {}  # sha256 -> first file id that had it, for exact-duplicate skipping
 
     for f in files:
         raw = download_file(service, f["id"])
+        content_hash = hashlib.sha256(raw).hexdigest()
+        if content_hash in seen_hashes:
+            print(f"Skipping {f['name']} ({f['id']}) — exact duplicate of {seen_hashes[content_hash]}")
+            continue
+        seen_hashes[content_hash] = f["name"]
         date_obj, lat, lon, date_is_upload_only = extract_exif(raw, f["name"], drive_file=f)
         full_src, thumb_src = to_web_image(raw, f["name"], f["id"])
         if full_src is None:

@@ -560,6 +560,15 @@ def main():
     for k in photos_by_day:
         photos_by_day[k].sort(key=lambda p: p["date"] or "9999")
 
+    # Stage the photo files ourselves. The workflow's own `git add` only lists
+    # index.html and the two cache files (it predates this folder existing),
+    # so without this step every image written above gets thrown away the
+    # moment this run ends — the page would reference photos that were never
+    # actually saved to the repo. Staging here means they get swept into
+    # whatever commit the workflow makes next, regardless of that list.
+    if os.path.isdir(ALBUM_IMAGE_DIR):
+        subprocess.run(["git", "add", ALBUM_IMAGE_DIR], check=False)
+
     json.dump(cache, open(CACHE_PATH, "w"))
     reactions = fetch_reactions()
     voters = fetch_voters()

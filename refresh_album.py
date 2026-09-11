@@ -226,25 +226,35 @@ def extract_exif(raw_bytes, filename, drive_file=None):
 
     return date_obj, lat, lon, date_is_upload_only
 
-def to_web_image(raw_bytes, filename):
+ALBUM_IMAGE_DIR = os.path.join("book-images", "album")
+
+def to_web_image(raw_bytes, filename, photo_id):
+    """Resizes the photo and writes full/thumb JPEGs to book-images/album/,
+    returning their relative paths. Photos are served as real files rather
+    than embedded as base64 so index.html stays a normal page size instead
+    of growing by ~1-2MB per photo forever."""
     try:
         img = Image.open(io.BytesIO(raw_bytes))
         img = ImageOps.exif_transpose(img)
         img = img.convert("RGB")
 
+        os.makedirs(ALBUM_IMAGE_DIR, exist_ok=True)
+
         full = img.copy()
         full.thumbnail((1600, 1600))
-        out_full = io.BytesIO()
-        full.save(out_full, format="JPEG", quality=82)
+        full_name = f"{photo_id}_full.jpg"
+        full_path = os.path.join(ALBUM_IMAGE_DIR, full_name)
+        full.save(full_path, format="JPEG", quality=82)
 
         thumb = img.copy()
         thumb.thumbnail((600, 600))
-        out_thumb = io.BytesIO()
-        thumb.save(out_thumb, format="JPEG", quality=82)
+        thumb_name = f"{photo_id}_thumb.jpg"
+        thumb_path = os.path.join(ALBUM_IMAGE_DIR, thumb_name)
+        thumb.save(thumb_path, format="JPEG", quality=82)
 
         return (
-            base64.b64encode(out_full.getvalue()).decode("ascii"),
-            base64.b64encode(out_thumb.getvalue()).decode("ascii"),
+            f"book-images/album/{full_name}",
+            f"book-images/album/{thumb_name}",
         )
     except Exception:
         return None, None
@@ -292,11 +302,14 @@ def build_html(photos_by_day, reactions, voters, build_time_str, next_update_str
             return f'<div class="trophy-card">{header}<div class="trophy-empty">No votes yet</div></div>'
         names = voters.get(photo["id"], {}).get(kind, [])
         names_html = f'<div class="trophy-count">{esc(", ".join(names))}</div>' if names else ""
+        thumb_src = photo.get('thumb_src') or photo.get('full_src')
+        full_src = photo.get('full_src') or thumb_src
         return f'''<div class="trophy-card">{header}
-<img class="photo-img" src="data:image/jpeg;base64,{photo.get('b64_thumb') or photo['b64']}" data-full="data:image/jpeg;base64,{photo['b64']}" alt="">
+<img class="photo-img" src="{IMG_BASE_URL}/{thumb_src}" data-full="{IMG_BASE_URL}/{full_src}" alt="">
 <div class="trophy-count">{count} vote{'s' if count != 1 else ''}</div>{names_html}</div>'''
 
     IMG_BASE = "https://foreunder.github.io/conrad-family-album/book-images"
+    IMG_BASE_URL = "https://foreunder.github.io/conrad-family-album"
     trophies_html = f'''<div class="trophies">{trophy_html("Most loved", IMG_BASE + "/category_most_loved.png", top_heart, heart_count, "heart")}{trophy_html("Funniest", IMG_BASE + "/category_funniest.png", top_laugh, laugh_count, "laugh")}{trophy_html("Yikes", IMG_BASE + "/category_yikes.png", top_down, down_count, "thumbsdown")}</div>'''
 
     for d in DAYS:
@@ -316,7 +329,9 @@ def build_html(photos_by_day, reactions, voters, build_time_str, next_update_str
             if laugh_names: reactor_bits.append(f"&#128514; {esc(', '.join(laugh_names))}")
             if down_names: reactor_bits.append(f"&#128078; {esc(', '.join(down_names))}")
             reactors_html = f'<div class="reactors">{" &middot; ".join(reactor_bits)}</div>' if reactor_bits else ""
-            cards.append(f'''<div class="photo{needs}" data-photo-id="{esc(p['id'])}">{flag}<img src="data:image/jpeg;base64,{p.get('b64_thumb') or p['b64']}" data-full="data:image/jpeg;base64,{p['b64']}" alt="">
+            p_thumb_src = p.get('thumb_src') or p.get('full_src')
+            p_full_src = p.get('full_src') or p_thumb_src
+            cards.append(f'''<div class="photo{needs}" data-photo-id="{esc(p['id'])}">{flag}<img src="{IMG_BASE_URL}/{p_thumb_src}" data-full="{IMG_BASE_URL}/{p_full_src}" alt="">
 <div class="reactions">
 <button class="react-btn" data-reaction="heart" title="{names_attr(heart_names)}">&#10084;&#65039; <span class="rc">{heart_n}</span></button>
 <button class="react-btn" data-reaction="laugh" title="{names_attr(laugh_names)}">&#128514; <span class="rc">{laugh_n}</span></button>
@@ -519,8 +534,8 @@ def main():
     for f in files:
         raw = download_file(service, f["id"])
         date_obj, lat, lon, date_is_upload_only = extract_exif(raw, f["name"], drive_file=f)
-        b64, b64_thumb = to_web_image(raw, f["name"])
-        if b64 is None:
+        full_src, thumb_src = to_web_image(raw, f["name"], f["id"])
+        if full_src is None:
             continue
         day_key = "00"
         if date_obj and not date_is_upload_only:
@@ -540,7 +555,7 @@ def main():
             when = date_obj.strftime("Added %a, %b %-d")
         else:
             when = date_obj.strftime("%a, %-I:%M %p")
-        photos_by_day[day_key].append({"id": f["id"], "b64": b64, "b64_thumb": b64_thumb, "loc": loc, "when": when, "date": date_obj.isoformat() if date_obj else ""})
+        photos_by_day[day_key].append({"id": f["id"], "full_src": full_src, "thumb_src": thumb_src, "loc": loc, "when": when, "date": date_obj.isoformat() if date_obj else ""})
 
     for k in photos_by_day:
         photos_by_day[k].sort(key=lambda p: p["date"] or "9999")

@@ -228,15 +228,38 @@ def extract_exif(raw_bytes, filename, drive_file=None):
 
 ALBUM_IMAGE_DIR = os.path.join("book-images", "album")
 
+def compute_dhash(img):
+    """Difference hash: a lightweight perceptual fingerprint (64 bits) used
+    to catch near-duplicate burst/Live Photo frames that exact byte hashing
+    can't, since each frame is a genuinely different file. Resizes to a tiny
+    9x8 grayscale grid and encodes whether each pixel is brighter than its
+    right neighbor -- visually similar images produce hashes that differ in
+    only a handful of bits, even though the underlying bytes are unrelated."""
+    small = img.convert("L").resize((9, 8), Image.LANCZOS)
+    pixels = list(small.getdata())
+    bits = 0
+    for row in range(8):
+        for col in range(8):
+            bits <<= 1
+            if pixels[row * 9 + col] > pixels[row * 9 + col + 1]:
+                bits |= 1
+    return bits
+
+def hamming_distance(a, b):
+    return bin(a ^ b).count("1")
+
 def to_web_image(raw_bytes, filename, photo_id):
     """Resizes the photo and writes full/thumb JPEGs to book-images/album/,
-    returning their relative paths. Photos are served as real files rather
-    than embedded as base64 so index.html stays a normal page size instead
-    of growing by ~1-2MB per photo forever."""
+    returning their relative paths plus a perceptual hash for burst-shot
+    detection. Photos are served as real files rather than embedded as
+    base64 so index.html stays a normal page size instead of growing by
+    ~1-2MB per photo forever."""
     try:
         img = Image.open(io.BytesIO(raw_bytes))
         img = ImageOps.exif_transpose(img)
         img = img.convert("RGB")
+
+        phash = compute_dhash(img)
 
         os.makedirs(ALBUM_IMAGE_DIR, exist_ok=True)
 
@@ -255,9 +278,10 @@ def to_web_image(raw_bytes, filename, photo_id):
         return (
             f"book-images/album/{full_name}",
             f"book-images/album/{thumb_name}",
+            phash,
         )
     except Exception:
-        return None, None
+        return None, None, None
 
 def reverse_geocode(lat, lon, cache):
     key = f"{lat:.3f},{lon:.3f}"
@@ -531,6 +555,9 @@ def main():
     cache = json.load(open(CACHE_PATH)) if os.path.exists(CACHE_PATH) else {}
     photos_by_day = {d["key"]: [] for d in DAYS}
     seen_hashes = {}  # sha256 -> first file id that had it, for exact-duplicate skipping
+    kept_bursts = []  # (datetime, dhash) for photos already kept this run, for near-duplicate burst skipping
+    BURST_WINDOW_SECONDS = 120
+    BURST_HAMMING_THRESHOLD = 10  # out of 64 bits; lower = stricter match
 
     for f in files:
         raw = download_file(service, f["id"])
@@ -540,9 +567,20 @@ def main():
             continue
         seen_hashes[content_hash] = f["name"]
         date_obj, lat, lon, date_is_upload_only = extract_exif(raw, f["name"], drive_file=f)
-        full_src, thumb_src = to_web_image(raw, f["name"], f["id"])
+        full_src, thumb_src, phash = to_web_image(raw, f["name"], f["id"])
         if full_src is None:
             continue
+        if date_obj is not None and phash is not None:
+            is_burst_duplicate = False
+            for kept_date, kept_hash in kept_bursts:
+                if abs((date_obj - kept_date).total_seconds()) <= BURST_WINDOW_SECONDS \
+                        and hamming_distance(phash, kept_hash) <= BURST_HAMMING_THRESHOLD:
+                    is_burst_duplicate = True
+                    break
+            if is_burst_duplicate:
+                print(f"Skipping {f['name']} ({f['id']}) — near-duplicate burst shot")
+                continue
+            kept_bursts.append((date_obj, phash))
         day_key = "00"
         if date_obj and not date_is_upload_only:
             iso = date_obj.strftime("%Y-%m-%d")

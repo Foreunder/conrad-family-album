@@ -22,7 +22,7 @@ DAYS = [
         dict(time="Early Afternoon", title="Check in — Novotel London Paddington", address="3 Kingdom St, London W2 6BD", conf="Booking PSBLGLNW", status="BOOKED", detail="Two rooms, right at the station. Request early check-in; Sky Garden bags can be left at the front desk if rooms aren't ready."),
         dict(time="Afternoon", title="Hyde Park & Kensington Gardens", address="Hyde Park, London W2", status="—", detail="An easy, unstructured stroll to work off the flight."),
         dict(time="2:45 PM", title="Sky Garden", address="1 Sky Garden Walk, 20 Fenchurch St, London EC3M 8AF", conf="Free timed-entry — no conf # issued; bring photo ID", status="BOOKED", detail="Free skyline views."),
-        dict(time="Evening", title="Dinner near Paddington", address="Possible option: Meet Bros Paddington, 29–31 Craven Rd, London W2 3BX (020 7723 7101)", status="TODO", detail="Asian-Fusion halal steakhouse, short walk from the hotel. Not booked — one option under consideration."),
+        dict(time="5:30 PM", title="Dinner — Meet Bros Paddington", address="29–31 Craven Rd, London W2 3BX (020 7723 7101)", conf="Reservation 5PPRV436DWNJ", status="BOOKED", detail="Asian-Fusion halal steakhouse, short walk from the hotel. Table for 4."),
     ]),
     dict(date="Saturday, September 12 — Kealey's Birthday", items=[
         dict(time="Morning", title="Coffee, then the Tube toward Liverpool Street", address="Harrisons Coffee, 3 Spring Street, London W2 3RA", status="—", detail="Circle/Hammersmith & City or the Elizabeth line toward Bishopsgate."),

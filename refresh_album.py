@@ -598,7 +598,7 @@ def main():
         elif date_is_upload_only:
             when = date_obj.strftime("Added %a, %b %-d")
         else:
-            when = date_obj.strftime("%a, %-I:%M %p")
+            when = date_obj.strftime("%a, %b %-d, %-I:%M %p")
         photos_by_day[day_key].append({"id": f["id"], "full_src": full_src, "thumb_src": thumb_src, "loc": loc, "when": when, "date": date_obj.isoformat() if date_obj else ""})
 
     for k in photos_by_day:
@@ -629,3 +629,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

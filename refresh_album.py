@@ -486,7 +486,7 @@ def build_html(photos_by_day, reactions, voters, build_time_str, next_update_str
 <p class="day-tag">{esc(TAGS.get(key,''))}</p>
 <div class="photo-grid">{"".join(cards)}</div>{empty}</div>''')
         rail.append(f'''<a class="{rail_class}" data-key="{key}"{rail_attr} href="#day-{key}"><span class="num">{esc(d['roman'])}</span><div class="stack"><div class="lbl">{esc(d['railTitle'])}</div><div class="rdate">{esc(d['short'])}</div></div></a>''')
-        mobile.append(f'<a data-key="{key}" href="#day-{key}">{esc(d["roman"])}</a>')
+        mobile.append(f'<a data-key="{key}" href="#day-{key}">{esc(d["roman"])} &middot; {esc(d["short"])}</a>')
 
     style = open("style_block.html").read()
 
@@ -515,6 +515,7 @@ def build_html(photos_by_day, reactions, voters, build_time_str, next_update_str
 <div class="hero"><div class="eyebrow">A Conrad family journey</div><h1>Blessed With This Time Together</h1>
 <p>Eleven days chasing golf balls across Scotland, celebrating Kealey turning 25 in London, and watching ASU play Kansas at Wembley &mdash; because apparently that's a thing that happens now. Every photo below came from someone's actual camera roll.</p>
 <div class="divider"></div><div class="dates">Sept 10 &ndash; 21, 2026</div>
+<div style="margin-top:10px;"><a href="https://foreunder.github.io/conrad-family-album/book/" style="color:inherit;text-decoration:underline;font-size:13px;">Read the Book</a><span style="margin:0 8px;opacity:.5;">&middot;</span><a href="https://foreunder.github.io/conrad-family-album/site-map/" style="color:inherit;text-decoration:underline;font-size:13px;">See every page on the site</a></div>
 <div class="updated-stamp">Updated {build_time_str} &middot; next update around {next_update_str}</div></div>
 {trophies_html}
 <div class="mobile-nav">{"".join(mobile)}</div>

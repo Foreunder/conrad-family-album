@@ -162,6 +162,23 @@ def list_photos(service):
             break
     return results
 
+def list_videos(service):
+    """Same folder, video files only. Uses videoMediaMetadata (Drive's own
+    parsed duration/dimensions) since exifread doesn't read video containers."""
+    results = []
+    page_token = None
+    while True:
+        resp = service.files().list(
+            q=f"'{DRIVE_FOLDER_ID}' in parents and mimeType contains 'video/' and trashed=false",
+            fields="nextPageToken, files(id, name, mimeType, videoMediaMetadata, modifiedTime)",
+            pageToken=page_token, pageSize=1000
+        ).execute()
+        results.extend(resp.get("files", []))
+        page_token = resp.get("nextPageToken")
+        if not page_token:
+            break
+    return results
+
 def download_file(service, file_id):
     request = service.files().get_media(fileId=file_id)
     buf = io.BytesIO()
@@ -226,7 +243,94 @@ def extract_exif(raw_bytes, filename, drive_file=None):
 
     return date_obj, lat, lon, date_is_upload_only
 
+def extract_video_date(filepath, drive_file):
+    """Videos don't carry EXIF; pull creation_time from the container via
+    ffprobe first (iPhone MOV/MP4 both set this), falling back to Drive's
+    upload time like photos do."""
+    date_obj, date_is_upload_only = None, False
+    try:
+        out = subprocess.run(
+            ["ffprobe", "-v", "quiet", "-print_format", "json", "-show_format", filepath],
+            capture_output=True, text=True, timeout=30
+        )
+        meta = json.loads(out.stdout)
+        creation_time = meta.get("format", {}).get("tags", {}).get("creation_time")
+        if creation_time:
+            date_obj = datetime.strptime(creation_time[:19], "%Y-%m-%dT%H:%M:%S")
+    except Exception:
+        pass
+    if date_obj is None and drive_file:
+        modified = drive_file.get("modifiedTime")
+        if modified:
+            try:
+                date_obj = datetime.strptime(modified[:19], "%Y-%m-%dT%H:%M:%S")
+                date_is_upload_only = True
+            except Exception:
+                pass
+    return date_obj, date_is_upload_only
+
 ALBUM_IMAGE_DIR = os.path.join("book-images", "album")
+ALBUM_VIDEO_DIR = os.path.join("book-images", "album")
+MAX_VIDEO_MB = 40  # keep well under GitHub's 100MB hard limit and 50MB warning
+
+def to_web_video(raw_bytes, filename, video_id):
+    """Writes the raw video to a temp file, re-encodes it to a size-capped
+    web-friendly MP4 (H.264/AAC, capped bitrate), and extracts a poster
+    frame at the 1-second mark for the gallery grid and lightbox."""
+    os.makedirs(ALBUM_VIDEO_DIR, exist_ok=True)
+    ext = os.path.splitext(filename)[1] or ".mov"
+    tmp_in = f"/tmp/{video_id}_in{ext}"
+    with open(tmp_in, "wb") as f:
+        f.write(raw_bytes)
+
+    video_name = f"{video_id}.mp4"
+    video_path = os.path.join(ALBUM_VIDEO_DIR, video_name)
+    poster_name = f"{video_id}_poster.jpg"
+    poster_path = os.path.join(ALBUM_VIDEO_DIR, poster_name)
+
+    try:
+        # Re-encode: 720p cap, capped bitrate so a handful of clips doesn't
+        # blow up repo size or page load; audio kept but light.
+        subprocess.run([
+            "ffmpeg", "-y", "-i", tmp_in,
+            "-vf", "scale='min(1280,iw)':-2",
+            "-c:v", "libx264", "-preset", "veryfast", "-crf", "26",
+            "-maxrate", "2M", "-bufsize", "4M",
+            "-c:a", "aac", "-b:a", "96k",
+            "-movflags", "+faststart",
+            video_path
+        ], check=True, capture_output=True, timeout=600)
+
+        size_mb = os.path.getsize(video_path) / (1024 * 1024)
+        if size_mb > MAX_VIDEO_MB:
+            print(f"WARNING: {filename} encoded to {size_mb:.1f}MB, over the {MAX_VIDEO_MB}MB cap — re-encoding smaller")
+            subprocess.run([
+                "ffmpeg", "-y", "-i", tmp_in,
+                "-vf", "scale='min(854,iw)':-2",
+                "-c:v", "libx264", "-preset", "veryfast", "-crf", "30",
+                "-maxrate", "1M", "-bufsize", "2M",
+                "-c:a", "aac", "-b:a", "64k",
+                "-movflags", "+faststart",
+                video_path
+            ], check=True, capture_output=True, timeout=600)
+
+        # Poster frame at 1s (falls back to 0s for very short clips)
+        subprocess.run([
+            "ffmpeg", "-y", "-ss", "1", "-i", video_path, "-frames:v", "1", poster_path
+        ], capture_output=True, timeout=60)
+        if not os.path.exists(poster_path):
+            subprocess.run([
+                "ffmpeg", "-y", "-ss", "0", "-i", video_path, "-frames:v", "1", poster_path
+            ], capture_output=True, timeout=60)
+
+        # ffprobe path used by extract_video_date runs against the re-encoded file
+        return f"book-images/album/{video_name}", f"book-images/album/{poster_name}", video_path
+    except Exception as e:
+        print(f"Video conversion FAILED for {filename} ({video_id}): {e}")
+        return None, None, None
+    finally:
+        if os.path.exists(tmp_in):
+            os.remove(tmp_in)
 
 def compute_dhash(img):
     """Difference hash: a lightweight perceptual fingerprint (64 bits) used
@@ -328,8 +432,9 @@ def build_html(photos_by_day, reactions, voters, build_time_str, next_update_str
         names_html = f'<div class="trophy-count">{esc(", ".join(names))}</div>' if names else ""
         thumb_src = photo.get('thumb_src') or photo.get('full_src')
         full_src = photo.get('full_src') or thumb_src
+        video_attr = ' data-video="1"' if photo.get('type') == 'video' else ''
         return f'''<div class="trophy-card">{header}
-<img class="photo-img" src="{IMG_BASE_URL}/{thumb_src}" data-full="{IMG_BASE_URL}/{full_src}" alt="">
+<img class="photo-img" src="{IMG_BASE_URL}/{thumb_src}" data-full="{IMG_BASE_URL}/{full_src}"{video_attr} alt="">
 <div class="trophy-count">{count} vote{'s' if count != 1 else ''}</div>{names_html}</div>'''
 
     IMG_BASE = "https://foreunder.github.io/conrad-family-album/book-images"
@@ -355,7 +460,12 @@ def build_html(photos_by_day, reactions, voters, build_time_str, next_update_str
             reactors_html = f'<div class="reactors">{" &middot; ".join(reactor_bits)}</div>' if reactor_bits else ""
             p_thumb_src = p.get('thumb_src') or p.get('full_src')
             p_full_src = p.get('full_src') or p_thumb_src
-            cards.append(f'''<div class="photo{needs}" data-photo-id="{esc(p['id'])}">{flag}<img src="{IMG_BASE_URL}/{p_thumb_src}" data-full="{IMG_BASE_URL}/{p_full_src}" alt="">
+            is_video = p.get('type') == 'video'
+            if is_video:
+                media_html = f'<img src="{IMG_BASE_URL}/{p_thumb_src}" data-full="{IMG_BASE_URL}/{p_full_src}" data-video="1" alt=""><div class="play-badge">&#9658;</div>'
+            else:
+                media_html = f'<img src="{IMG_BASE_URL}/{p_thumb_src}" data-full="{IMG_BASE_URL}/{p_full_src}" alt="">'
+            cards.append(f'''<div class="photo{needs}" data-photo-id="{esc(p['id'])}">{flag}{media_html}
 <div class="reactions">
 <button class="react-btn" data-reaction="heart" title="{names_attr(heart_names)}">&#10084;&#65039; <span class="rc">{heart_n}</span></button>
 <button class="react-btn" data-reaction="laugh" title="{names_attr(laugh_names)}">&#128514; <span class="rc">{laugh_n}</span></button>
@@ -412,7 +522,7 @@ def build_html(photos_by_day, reactions, voters, build_time_str, next_update_str
 <div class="lightbox-overlay" id="lightbox"><button class="lightbox-close" id="lightboxClose" aria-label="Close">&times;</button>
 <button class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="Previous photo">&#8249;</button>
 <button class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="Next photo">&#8250;</button>
-<div class="lightbox-content"><img id="lightboxImg" src="" alt=""><div class="lightbox-cap"><div class="loc" id="lightboxLoc"></div><div class="time" id="lightboxTime"></div></div></div></div>
+<div class="lightbox-content"><img id="lightboxImg" src="" alt=""><video id="lightboxVideo" controls playsinline style="display:none;max-width:100%;max-height:80vh;"></video><div class="lightbox-cap"><div class="loc" id="lightboxLoc"></div><div class="time" id="lightboxTime"></div></div></div></div>
 <div class="footer-strip"><span>Made by the Conrads, one blister at a time</span><span>London &amp; Scotland &middot; September 2026</span></div>
 <script>
 const observer = new IntersectionObserver((entries) => {{
@@ -425,14 +535,26 @@ const observer = new IntersectionObserver((entries) => {{
   }});
 }}, {{ rootMargin: '-40% 0px -55% 0px' }});
 document.querySelectorAll('.day').forEach(el => observer.observe(el));
-const lightbox = document.getElementById('lightbox'), lbImg = document.getElementById('lightboxImg'), lbLoc = document.getElementById('lightboxLoc'), lbTime = document.getElementById('lightboxTime');
+const lightbox = document.getElementById('lightbox'), lbImg = document.getElementById('lightboxImg'), lbVideo = document.getElementById('lightboxVideo'), lbLoc = document.getElementById('lightboxLoc'), lbTime = document.getElementById('lightboxTime');
+function showLightboxMedia(img){{
+  if (img.dataset.video === '1'){{
+    lbImg.style.display = 'none';
+    lbVideo.style.display = 'block';
+    lbVideo.src = img.dataset.full || img.src;
+    lbVideo.load();
+  }} else {{
+    lbVideo.pause(); lbVideo.removeAttribute('src'); lbVideo.style.display = 'none';
+    lbImg.style.display = 'block';
+    lbImg.src = img.dataset.full || img.src;
+  }}
+}}
 let currentCard = null;
 function openLightbox(card){{ currentCard = card; const img = card.querySelector('img'), loc = card.querySelector('.cap .loc'), tm = card.querySelector('.cap .time');
-  lbImg.src = img.dataset.full || img.src; lbLoc.textContent = loc ? loc.textContent : ''; lbTime.textContent = tm ? tm.textContent : ''; lightbox.classList.add('open'); document.body.style.overflow = 'hidden'; }}
-function closeLightbox(){{ lightbox.classList.remove('open'); currentCard = null; document.body.style.overflow = ''; lbImg.style.transform=''; lbImg.style.opacity=''; }}
+  showLightboxMedia(img); lbLoc.textContent = loc ? loc.textContent : ''; lbTime.textContent = tm ? tm.textContent : ''; lightbox.classList.add('open'); document.body.style.overflow = 'hidden'; }}
+function closeLightbox(){{ lightbox.classList.remove('open'); currentCard = null; document.body.style.overflow = ''; lbImg.style.transform=''; lbImg.style.opacity=''; lbVideo.pause(); }}
 function navigateLightbox(dir){{ if (!currentCard) return; const sib = Array.from(currentCard.parentElement.querySelectorAll('.photo')); const idx = sib.indexOf(currentCard); if (idx===-1) return; openLightbox(sib[(idx+dir+sib.length)%sib.length]); }}
 document.querySelectorAll('.photo img').forEach(img => img.addEventListener('click', () => openLightbox(img.closest('.photo'))));
-document.querySelectorAll('.trophy-card .photo-img').forEach(img => {{ img.style.cursor = 'pointer'; img.addEventListener('click', () => {{ lbImg.src = img.dataset.full || img.src; lbLoc.textContent = ''; lbTime.textContent = ''; lightbox.classList.add('open'); document.body.style.overflow = 'hidden'; }}); }});
+document.querySelectorAll('.trophy-card .photo-img').forEach(img => {{ img.style.cursor = 'pointer'; img.addEventListener('click', () => {{ showLightboxMedia(img); lbLoc.textContent = ''; lbTime.textContent = ''; lightbox.classList.add('open'); document.body.style.overflow = 'hidden'; }}); }});
 document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
 document.getElementById('lightboxImg').addEventListener('click', closeLightbox);
 document.getElementById('lightboxPrev').addEventListener('click', () => navigateLightbox(-1));
@@ -552,6 +674,7 @@ if (manualRefreshBtn) {{
 def main():
     service = get_drive_service()
     files = list_photos(service)
+    video_files = list_videos(service)
     cache = json.load(open(CACHE_PATH)) if os.path.exists(CACHE_PATH) else {}
     photos_by_day = {d["key"]: [] for d in DAYS}
     seen_hashes = {}  # sha256 -> first file id that had it, for exact-duplicate skipping
@@ -599,7 +722,37 @@ def main():
             when = date_obj.strftime("Added %a, %b %-d")
         else:
             when = date_obj.strftime("%a, %b %-d, %-I:%M %p")
-        photos_by_day[day_key].append({"id": f["id"], "full_src": full_src, "thumb_src": thumb_src, "loc": loc, "when": when, "date": date_obj.isoformat() if date_obj else ""})
+        photos_by_day[day_key].append({"id": f["id"], "type": "photo", "full_src": full_src, "thumb_src": thumb_src, "loc": loc, "when": when, "date": date_obj.isoformat() if date_obj else ""})
+
+    for f in video_files:
+        raw = download_file(service, f["id"])
+        content_hash = hashlib.sha256(raw).hexdigest()
+        if content_hash in seen_hashes:
+            print(f"Skipping {f['name']} ({f['id']}) — exact duplicate of {seen_hashes[content_hash]}")
+            continue
+        seen_hashes[content_hash] = f["name"]
+
+        video_src, poster_src, video_path = to_web_video(raw, f["name"], f["id"])
+        if video_src is None:
+            continue
+        date_obj, date_is_upload_only = extract_video_date(video_path, f)
+
+        day_key = "00"
+        if date_obj and not date_is_upload_only:
+            iso = date_obj.strftime("%Y-%m-%d")
+            if iso in date_to_day:
+                day_key = date_to_day[iso]
+            elif PRE_TRIP_WINDOW_START <= iso < TRIP_START:
+                day_key = "PRE"
+        loc = "Location unknown" if day_key != "00" else "No location data"
+        if date_obj is None:
+            when = "Date unknown"
+        elif date_is_upload_only:
+            when = date_obj.strftime("Added %a, %b %-d")
+        else:
+            when = date_obj.strftime("%a, %b %-d, %-I:%M %p")
+
+        photos_by_day[day_key].append({"id": f["id"], "type": "video", "full_src": video_src, "thumb_src": poster_src, "loc": loc, "when": when, "date": date_obj.isoformat() if date_obj else ""})
 
     for k in photos_by_day:
         photos_by_day[k].sort(key=lambda p: p["date"] or "9999")

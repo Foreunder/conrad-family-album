@@ -525,16 +525,37 @@ def build_html(photos_by_day, reactions, voters, build_time_str, next_update_str
 <div class="lightbox-content"><img id="lightboxImg" src="" alt=""><video id="lightboxVideo" controls playsinline style="display:none;max-width:100%;max-height:80vh;"></video><div class="lightbox-cap"><div class="loc" id="lightboxLoc"></div><div class="time" id="lightboxTime"></div></div></div></div>
 <div class="footer-strip"><span>Made by the Conrads, one blister at a time</span><span>London &amp; Scotland &middot; September 2026</span></div>
 <script>
-const observer = new IntersectionObserver((entries) => {{
-  entries.forEach(entry => {{
-    if (!entry.isIntersecting) return;
-    const key = entry.target.getAttribute('data-key');
-    document.querySelectorAll('.rail-item, .mobile-nav a').forEach(el => el.classList.toggle('active', el.getAttribute('data-key') === key));
-    const activeChip = document.querySelector('.mobile-nav a.active');
-    if (activeChip) activeChip.scrollIntoView({{ behavior: 'smooth', inline: 'center', block: 'nearest' }});
+// Each chapter is its own folder: exactly one .day section is shown at a
+// time, picked from the rail/mobile nav, instead of one long page you have
+// to scroll through to reach newer photos.
+function showDay(key, opts){{
+  opts = opts || {{}};
+  document.querySelectorAll('.day').forEach(el => el.classList.toggle('active', el.getAttribute('data-key') === key));
+  document.querySelectorAll('.rail-item, .mobile-nav a').forEach(el => el.classList.toggle('active', el.getAttribute('data-key') === key));
+  const activeChip = document.querySelector('.mobile-nav a.active');
+  if (activeChip) activeChip.scrollIntoView({{ behavior: 'smooth', inline: 'center', block: 'nearest' }});
+  if (!opts.skipHash) history.replaceState(null, '', '#day-' + key);
+  if (!opts.skipScroll) window.scrollTo({{ top: document.querySelector('.layout').offsetTop - 10, behavior: 'smooth' }});
+}}
+document.querySelectorAll('.rail-item, .mobile-nav a').forEach(el => {{
+  el.addEventListener('click', (e) => {{
+    e.preventDefault();
+    showDay(el.getAttribute('data-key'));
   }});
-}}, {{ rootMargin: '-40% 0px -55% 0px' }});
-document.querySelectorAll('.day').forEach(el => observer.observe(el));
+}});
+// Land on whichever chapter the URL points to, else the most recent
+// chapter that actually has photos in it -- new photos should never be
+// more than one tap away.
+(function initialDay(){{
+  const hashKey = (location.hash || '').replace('#day-', '');
+  const dayEls = Array.from(document.querySelectorAll('.day'));
+  let target = dayEls.find(el => el.getAttribute('data-key') === hashKey);
+  if (!target){{
+    const withPhotos = dayEls.filter(el => el.querySelector('.photo'));
+    target = withPhotos.length ? withPhotos[withPhotos.length - 1] : dayEls[dayEls.length - 1];
+  }}
+  if (target) showDay(target.getAttribute('data-key'), {{ skipScroll: true }});
+}})();
 const lightbox = document.getElementById('lightbox'), lbImg = document.getElementById('lightboxImg'), lbVideo = document.getElementById('lightboxVideo'), lbLoc = document.getElementById('lightboxLoc'), lbTime = document.getElementById('lightboxTime');
 function showLightboxMedia(img){{
   if (img.dataset.video === '1'){{

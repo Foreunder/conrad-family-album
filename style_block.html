@@ -53,7 +53,8 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:'Inter',sans-ser
 .thread{flex-shrink:0;width:2px;background:linear-gradient(180deg,transparent,var(--gold) 8%,var(--gold) 92%,transparent);margin:60px 0;align-self:stretch;opacity:.45;}
 
 .days{flex:1;padding:60px 40px 60px 48px;max-width:760px;min-width:0;}
-.day{padding-bottom:100px;}
+.day{padding-bottom:100px;display:none;}
+.day.active{display:block;}
 .day[data-accent]{border-left:3px solid var(--chapter-accent);padding-left:20px;margin-left:-20px;}
 .day[data-accent] .chapter-eyebrow{color:var(--chapter-accent);}
 .day[data-accent] .day-title{color:var(--chapter-accent);}

@@ -58,7 +58,8 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:'Inter',sans-ser
 .thread{flex-shrink:0;width:2px;background:linear-gradient(180deg,transparent,var(--gold) 8%,var(--gold) 92%,transparent);margin:60px 0;align-self:stretch;opacity:.45;}
 
 .days{flex:1;padding:60px 40px 60px 48px;max-width:760px;min-width:0;}
-.day{padding-bottom:100px;}
+.day{padding-bottom:100px;display:none;}
+.day.active{display:block;}
 .day[data-accent]{border-left:3px solid var(--chapter-accent);padding-left:20px;margin-left:-20px;}
 .day[data-accent] .chapter-eyebrow{color:var(--chapter-accent);}
 .day[data-accent] .day-title{color:var(--chapter-accent);}
@@ -185,7 +186,7 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:'Inter',sans-ser
 <div class="hero"><div class="eyebrow">A Conrad family journey</div><h1>Blessed With This Time Together</h1>
 <p>Eleven days chasing golf balls across Scotland, celebrating Kealey turning 25 in London, and watching ASU play Kansas at Wembley &mdash; because apparently that's a thing that happens now. Every photo below came from someone's actual camera roll.</p>
 <div class="divider"></div><div class="dates">Sept 10 &ndash; 21, 2026</div>
-<div class="updated-stamp">Updated Sep 12, 2026 · 8:32 AM CT &middot; next update around 8:45 AM CT</div></div>
+<div class="updated-stamp">Updated Sep 12, 2026 · 8:48 AM CT &middot; next update around 9:00 AM CT</div></div>
 <div class="trophies"><div class="trophy-card"><img class="trophy-header" src="https://foreunder.github.io/conrad-family-album/book-images/category_most_loved.png" alt="Most loved">
 <img class="photo-img" src="https://foreunder.github.io/conrad-family-album/book-images/album/1IEGe4cYwpYn-FJ1uVOkx1k5giTJK68xL_thumb.jpg" data-full="https://foreunder.github.io/conrad-family-album/book-images/album/1IEGe4cYwpYn-FJ1uVOkx1k5giTJK68xL_full.jpg" alt="">
 <div class="trophy-count">1 vote</div><div class="trophy-count">Jamey</div></div><div class="trophy-card"><img class="trophy-header" src="https://foreunder.github.io/conrad-family-album/book-images/category_funniest.png" alt="Funniest">
@@ -937,16 +938,37 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:'Inter',sans-ser
 <div class="lightbox-content"><img id="lightboxImg" src="" alt=""><video id="lightboxVideo" controls playsinline style="display:none;max-width:100%;max-height:80vh;"></video><div class="lightbox-cap"><div class="loc" id="lightboxLoc"></div><div class="time" id="lightboxTime"></div></div></div></div>
 <div class="footer-strip"><span>Made by the Conrads, one blister at a time</span><span>London &amp; Scotland &middot; September 2026</span></div>
 <script>
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (!entry.isIntersecting) return;
-    const key = entry.target.getAttribute('data-key');
-    document.querySelectorAll('.rail-item, .mobile-nav a').forEach(el => el.classList.toggle('active', el.getAttribute('data-key') === key));
-    const activeChip = document.querySelector('.mobile-nav a.active');
-    if (activeChip) activeChip.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+// Each chapter is its own folder: exactly one .day section is shown at a
+// time, picked from the rail/mobile nav, instead of one long page you have
+// to scroll through to reach newer photos.
+function showDay(key, opts){
+  opts = opts || {};
+  document.querySelectorAll('.day').forEach(el => el.classList.toggle('active', el.getAttribute('data-key') === key));
+  document.querySelectorAll('.rail-item, .mobile-nav a').forEach(el => el.classList.toggle('active', el.getAttribute('data-key') === key));
+  const activeChip = document.querySelector('.mobile-nav a.active');
+  if (activeChip) activeChip.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+  if (!opts.skipHash) history.replaceState(null, '', '#day-' + key);
+  if (!opts.skipScroll) window.scrollTo({ top: document.querySelector('.layout').offsetTop - 10, behavior: 'smooth' });
+}
+document.querySelectorAll('.rail-item, .mobile-nav a').forEach(el => {
+  el.addEventListener('click', (e) => {
+    e.preventDefault();
+    showDay(el.getAttribute('data-key'));
   });
-}, { rootMargin: '-40% 0px -55% 0px' });
-document.querySelectorAll('.day').forEach(el => observer.observe(el));
+});
+// Land on whichever chapter the URL points to, else the most recent
+// chapter that actually has photos in it -- new photos should never be
+// more than one tap away.
+(function initialDay(){
+  const hashKey = (location.hash || '').replace('#day-', '');
+  const dayEls = Array.from(document.querySelectorAll('.day'));
+  let target = dayEls.find(el => el.getAttribute('data-key') === hashKey);
+  if (!target){
+    const withPhotos = dayEls.filter(el => el.querySelector('.photo'));
+    target = withPhotos.length ? withPhotos[withPhotos.length - 1] : dayEls[dayEls.length - 1];
+  }
+  if (target) showDay(target.getAttribute('data-key'), { skipScroll: true });
+})();
 const lightbox = document.getElementById('lightbox'), lbImg = document.getElementById('lightboxImg'), lbVideo = document.getElementById('lightboxVideo'), lbLoc = document.getElementById('lightboxLoc'), lbTime = document.getElementById('lightboxTime');
 function showLightboxMedia(img){
   if (img.dataset.video === '1'){

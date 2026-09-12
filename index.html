@@ -80,6 +80,7 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:'Inter',sans-ser
 
 .photo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;}
 .photo{position:relative;border-radius:4px;overflow:hidden;background:var(--panel);cursor:zoom-in;aspect-ratio:4/3;border:1px solid var(--line);}
+.play-badge{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:44px;height:44px;border-radius:50%;background:rgba(10,10,11,0.55);color:#fff;display:flex;align-items:center;justify-content:center;font-size:16px;pointer-events:none;backdrop-filter:blur(2px);}
 .photo.needs-sort{aspect-ratio:auto;cursor:default;}
 .photo.needs-sort img{aspect-ratio:4/3;cursor:zoom-in;}
 .photo img{width:100%;height:100%;object-fit:cover;object-position:center 20%;display:block;}
@@ -184,7 +185,7 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:'Inter',sans-ser
 <div class="hero"><div class="eyebrow">A Conrad family journey</div><h1>Blessed With This Time Together</h1>
 <p>Eleven days chasing golf balls across Scotland, celebrating Kealey turning 25 in London, and watching ASU play Kansas at Wembley &mdash; because apparently that's a thing that happens now. Every photo below came from someone's actual camera roll.</p>
 <div class="divider"></div><div class="dates">Sept 10 &ndash; 21, 2026</div>
-<div class="updated-stamp">Updated Sep 12, 2026 · 5:47 AM CT &middot; next update around 6:00 AM CT</div></div>
+<div class="updated-stamp">Updated Sep 12, 2026 · 6:02 AM CT &middot; next update around 6:15 AM CT</div></div>
 <div class="trophies"><div class="trophy-card"><img class="trophy-header" src="https://foreunder.github.io/conrad-family-album/book-images/category_most_loved.png" alt="Most loved">
 <img class="photo-img" src="https://foreunder.github.io/conrad-family-album/book-images/album/1IEGe4cYwpYn-FJ1uVOkx1k5giTJK68xL_thumb.jpg" data-full="https://foreunder.github.io/conrad-family-album/book-images/album/1IEGe4cYwpYn-FJ1uVOkx1k5giTJK68xL_full.jpg" alt="">
 <div class="trophy-count">1 vote</div><div class="trophy-count">Jamey</div></div><div class="trophy-card"><img class="trophy-header" src="https://foreunder.github.io/conrad-family-album/book-images/category_funniest.png" alt="Funniest">
@@ -933,7 +934,7 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:'Inter',sans-ser
 <div class="lightbox-overlay" id="lightbox"><button class="lightbox-close" id="lightboxClose" aria-label="Close">&times;</button>
 <button class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="Previous photo">&#8249;</button>
 <button class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="Next photo">&#8250;</button>
-<div class="lightbox-content"><img id="lightboxImg" src="" alt=""><div class="lightbox-cap"><div class="loc" id="lightboxLoc"></div><div class="time" id="lightboxTime"></div></div></div></div>
+<div class="lightbox-content"><img id="lightboxImg" src="" alt=""><video id="lightboxVideo" controls playsinline style="display:none;max-width:100%;max-height:80vh;"></video><div class="lightbox-cap"><div class="loc" id="lightboxLoc"></div><div class="time" id="lightboxTime"></div></div></div></div>
 <div class="footer-strip"><span>Made by the Conrads, one blister at a time</span><span>London &amp; Scotland &middot; September 2026</span></div>
 <script>
 const observer = new IntersectionObserver((entries) => {
@@ -946,14 +947,26 @@ const observer = new IntersectionObserver((entries) => {
   });
 }, { rootMargin: '-40% 0px -55% 0px' });
 document.querySelectorAll('.day').forEach(el => observer.observe(el));
-const lightbox = document.getElementById('lightbox'), lbImg = document.getElementById('lightboxImg'), lbLoc = document.getElementById('lightboxLoc'), lbTime = document.getElementById('lightboxTime');
+const lightbox = document.getElementById('lightbox'), lbImg = document.getElementById('lightboxImg'), lbVideo = document.getElementById('lightboxVideo'), lbLoc = document.getElementById('lightboxLoc'), lbTime = document.getElementById('lightboxTime');
+function showLightboxMedia(img){
+  if (img.dataset.video === '1'){
+    lbImg.style.display = 'none';
+    lbVideo.style.display = 'block';
+    lbVideo.src = img.dataset.full || img.src;
+    lbVideo.load();
+  } else {
+    lbVideo.pause(); lbVideo.removeAttribute('src'); lbVideo.style.display = 'none';
+    lbImg.style.display = 'block';
+    lbImg.src = img.dataset.full || img.src;
+  }
+}
 let currentCard = null;
 function openLightbox(card){ currentCard = card; const img = card.querySelector('img'), loc = card.querySelector('.cap .loc'), tm = card.querySelector('.cap .time');
-  lbImg.src = img.dataset.full || img.src; lbLoc.textContent = loc ? loc.textContent : ''; lbTime.textContent = tm ? tm.textContent : ''; lightbox.classList.add('open'); document.body.style.overflow = 'hidden'; }
-function closeLightbox(){ lightbox.classList.remove('open'); currentCard = null; document.body.style.overflow = ''; lbImg.style.transform=''; lbImg.style.opacity=''; }
+  showLightboxMedia(img); lbLoc.textContent = loc ? loc.textContent : ''; lbTime.textContent = tm ? tm.textContent : ''; lightbox.classList.add('open'); document.body.style.overflow = 'hidden'; }
+function closeLightbox(){ lightbox.classList.remove('open'); currentCard = null; document.body.style.overflow = ''; lbImg.style.transform=''; lbImg.style.opacity=''; lbVideo.pause(); }
 function navigateLightbox(dir){ if (!currentCard) return; const sib = Array.from(currentCard.parentElement.querySelectorAll('.photo')); const idx = sib.indexOf(currentCard); if (idx===-1) return; openLightbox(sib[(idx+dir+sib.length)%sib.length]); }
 document.querySelectorAll('.photo img').forEach(img => img.addEventListener('click', () => openLightbox(img.closest('.photo'))));
-document.querySelectorAll('.trophy-card .photo-img').forEach(img => { img.style.cursor = 'pointer'; img.addEventListener('click', () => { lbImg.src = img.dataset.full || img.src; lbLoc.textContent = ''; lbTime.textContent = ''; lightbox.classList.add('open'); document.body.style.overflow = 'hidden'; }); });
+document.querySelectorAll('.trophy-card .photo-img').forEach(img => { img.style.cursor = 'pointer'; img.addEventListener('click', () => { showLightboxMedia(img); lbLoc.textContent = ''; lbTime.textContent = ''; lightbox.classList.add('open'); document.body.style.overflow = 'hidden'; }); });
 document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
 document.getElementById('lightboxImg').addEventListener('click', closeLightbox);
 document.getElementById('lightboxPrev').addEventListener('click', () => navigateLightbox(-1));

@@ -519,6 +519,7 @@ def build_html(photos_by_day, reactions, voters, build_time_str, next_update_str
 <div class="updated-stamp">Updated {build_time_str} &middot; next update around {next_update_str}</div></div>
 {trophies_html}
 <div class="mobile-nav">{"".join(mobile)}</div>
+<div id="chapterProgress" class="chapter-progress"></div>
 <div class="layout"><div class="rail">{"".join(rail)}</div><div class="thread"></div><div class="days">{"".join(days_out)}</div></div>
 <div class="lightbox-overlay" id="lightbox"><button class="lightbox-close" id="lightboxClose" aria-label="Close">&times;</button>
 <button class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="Previous photo">&#8249;</button>
@@ -529,14 +530,26 @@ def build_html(photos_by_day, reactions, voters, build_time_str, next_update_str
 // Each chapter is its own folder: exactly one .day section is shown at a
 // time, picked from the rail/mobile nav, instead of one long page you have
 // to scroll through to reach newer photos.
+const TRIP_CHAPTER_KEYS = {json.dumps([d["key"] for d in DAYS if d["key"] not in ("PRE","00")])};
+function updateProgress(key){{
+  const el = document.getElementById('chapterProgress');
+  if (!el) return;
+  const idx = TRIP_CHAPTER_KEYS.indexOf(key);
+  el.textContent = idx === -1 ? '' : ('Day ' + (idx + 1) + ' of ' + TRIP_CHAPTER_KEYS.length);
+}}
 function showDay(key, opts){{
   opts = opts || {{}};
   document.querySelectorAll('.day').forEach(el => el.classList.toggle('active', el.getAttribute('data-key') === key));
   document.querySelectorAll('.rail-item, .mobile-nav a').forEach(el => el.classList.toggle('active', el.getAttribute('data-key') === key));
-  const activeChip = document.querySelector('.mobile-nav a.active');
-  if (activeChip) activeChip.scrollIntoView({{ behavior: 'smooth', inline: 'center', block: 'nearest' }});
+  updateProgress(key);
   if (!opts.skipHash) history.replaceState(null, '', '#day-' + key);
   if (!opts.skipScroll) window.scrollTo({{ top: document.querySelector('.layout').offsetTop - 10, behavior: 'smooth' }});
+  // Cosmetic nicety, kept last and defensive so it can never block the state
+  // updates above (active chapter, progress text, URL hash, page scroll).
+  try {{
+    const activeChip = document.querySelector('.mobile-nav a.active');
+    if (activeChip && activeChip.scrollIntoView) activeChip.scrollIntoView({{ behavior: 'smooth', inline: 'center', block: 'nearest' }});
+  }} catch (err) {{ /* non-critical */ }}
 }}
 document.querySelectorAll('.rail-item, .mobile-nav a').forEach(el => {{
   el.addEventListener('click', (e) => {{
@@ -556,6 +569,35 @@ document.querySelectorAll('.rail-item, .mobile-nav a').forEach(el => {{
     target = withPhotos.length ? withPhotos[withPhotos.length - 1] : dayEls[dayEls.length - 1];
   }}
   if (target) showDay(target.getAttribute('data-key'), {{ skipScroll: true }});
+}})();
+// Swipe left/right between chapters on touch devices, so flipping through
+// days feels like turning pages instead of always reaching for the nav bar.
+// Ignored while the lightbox is open, or when the gesture is more vertical
+// (a normal scroll) than horizontal, so it never fights page scrolling or
+// photo viewing.
+(function enableSwipeNav(){{
+  const daysContainer = document.querySelector('.days');
+  if (!daysContainer) return;
+  let startX = 0, startY = 0, tracking = false;
+  daysContainer.addEventListener('touchstart', (e) => {{
+    if (lightbox.classList.contains('open') || e.touches.length !== 1) {{ tracking = false; return; }}
+    startX = e.touches[0].clientX;
+    startY = e.touches[0].clientY;
+    tracking = true;
+  }}, {{ passive: true }});
+  daysContainer.addEventListener('touchend', (e) => {{
+    if (!tracking) return;
+    tracking = false;
+    const dx = e.changedTouches[0].clientX - startX;
+    const dy = e.changedTouches[0].clientY - startY;
+    if (Math.abs(dx) < 60 || Math.abs(dx) < Math.abs(dy) * 1.5) return;
+    const dayEls = Array.from(document.querySelectorAll('.day'));
+    const activeIdx = dayEls.findIndex(el => el.classList.contains('active'));
+    if (activeIdx === -1) return;
+    const nextIdx = dx < 0 ? activeIdx + 1 : activeIdx - 1;
+    if (nextIdx < 0 || nextIdx >= dayEls.length) return;
+    showDay(dayEls[nextIdx].getAttribute('data-key'));
+  }}, {{ passive: true }});
 }})();
 const lightbox = document.getElementById('lightbox'), lbImg = document.getElementById('lightboxImg'), lbVideo = document.getElementById('lightboxVideo'), lbLoc = document.getElementById('lightboxLoc'), lbTime = document.getElementById('lightboxTime');
 function showLightboxMedia(img){{

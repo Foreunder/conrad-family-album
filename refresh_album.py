@@ -293,6 +293,7 @@ def to_web_video(raw_bytes, filename, video_id):
         # blow up repo size or page load; audio kept but light.
         subprocess.run([
             "ffmpeg", "-y", "-i", tmp_in,
+            "-map_metadata", "0",
             "-vf", "scale='min(1280,iw)':-2",
             "-c:v", "libx264", "-preset", "veryfast", "-crf", "26",
             "-maxrate", "2M", "-bufsize", "4M",
@@ -306,6 +307,7 @@ def to_web_video(raw_bytes, filename, video_id):
             print(f"WARNING: {filename} encoded to {size_mb:.1f}MB, over the {MAX_VIDEO_MB}MB cap — re-encoding smaller")
             subprocess.run([
                 "ffmpeg", "-y", "-i", tmp_in,
+                "-map_metadata", "0",
                 "-vf", "scale='min(854,iw)':-2",
                 "-c:v", "libx264", "-preset", "veryfast", "-crf", "30",
                 "-maxrate", "1M", "-bufsize", "2M",

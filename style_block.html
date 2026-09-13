@@ -97,6 +97,8 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:'Inter',sans-ser
 #whoModal input.who-input{flex:1;background:var(--bg);border:1px solid var(--gold);color:var(--ink);border-radius:5px;padding:9px 10px;font-size:14px;font-family:'Inter',sans-serif;}
 #whoModal .who-go{background:var(--gold);color:var(--bg);border:none;border-radius:5px;padding:0 14px;font-weight:bold;cursor:pointer;font-family:'Inter',sans-serif;}
 .photo .unsorted-flag{position:absolute;top:8px;left:8px;z-index:2;background:var(--gold);color:#1c1d1f;font-size:10px;padding:3px 8px;border-radius:3px;font-weight:600;}
+.photo .new-flag{position:absolute;bottom:8px;left:8px;z-index:2;background:#2e7d4f;color:#fff;font-size:10px;padding:3px 8px;border-radius:3px;font-weight:600;letter-spacing:.5px;}
+.new-photos-banner{max-width:1080px;margin:0 auto;padding:10px 24px;text-align:center;font-size:13px;color:#2e7d4f;background:rgba(46,125,79,.1);border:1px solid rgba(46,125,79,.35);border-radius:4px;}
 .photo select.reassign{position:absolute;top:8px;right:8px;z-index:2;font-size:10px;background:rgba(0,0,0,.6);color:#fff;border:1px solid rgba(255,255,255,.25);border-radius:3px;padding:3px 4px;max-width:110px;}
 .unsorted-bar{grid-column:1/-1;background:var(--panel);border:1px solid var(--gold);border-radius:4px;padding:12px 14px;font-size:12px;color:var(--ink-soft);margin-bottom:4px;display:none;}
 .unsorted-bar.show{display:block;}
@@ -117,6 +119,7 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:'Inter',sans-ser
   .photo .cap,.photo .reactions:not(.lightbox-reactions){display:none;}
   .photo::after{display:none;}
   .photo .unsorted-flag{font-size:8px;padding:2px 5px;top:3px;left:3px;}
+  .photo .new-flag{font-size:8px;padding:2px 5px;bottom:3px;left:3px;}
   .play-badge{width:28px;height:28px;font-size:11px;}
 }
 

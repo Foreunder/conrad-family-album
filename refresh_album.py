@@ -153,7 +153,7 @@ def list_photos(service):
     while True:
         resp = service.files().list(
             q=f"'{DRIVE_FOLDER_ID}' in parents and mimeType contains 'image/' and trashed=false",
-            fields="nextPageToken, files(id, name, mimeType, imageMediaMetadata, modifiedTime)",
+            fields="nextPageToken, files(id, name, mimeType, imageMediaMetadata, modifiedTime, createdTime)",
             pageToken=page_token, pageSize=1000
         ).execute()
         results.extend(resp.get("files", []))
@@ -170,7 +170,7 @@ def list_videos(service):
     while True:
         resp = service.files().list(
             q=f"'{DRIVE_FOLDER_ID}' in parents and mimeType contains 'video/' and trashed=false",
-            fields="nextPageToken, files(id, name, mimeType, videoMediaMetadata, modifiedTime)",
+            fields="nextPageToken, files(id, name, mimeType, videoMediaMetadata, modifiedTime, createdTime)",
             pageToken=page_token, pageSize=1000
         ).execute()
         results.extend(resp.get("files", []))
@@ -467,7 +467,7 @@ def build_html(photos_by_day, reactions, voters, build_time_str, next_update_str
                 media_html = f'<img src="{IMG_BASE_URL}/{p_thumb_src}" data-full="{IMG_BASE_URL}/{p_full_src}" data-video="1" alt=""><div class="play-badge">&#9658;</div>'
             else:
                 media_html = f'<img src="{IMG_BASE_URL}/{p_thumb_src}" data-full="{IMG_BASE_URL}/{p_full_src}" alt="">'
-            cards.append(f'''<div class="photo{needs}" data-photo-id="{esc(p['id'])}">{flag}{media_html}
+            cards.append(f'''<div class="photo{needs}" data-photo-id="{esc(p['id'])}" data-added="{esc(p.get('date_added',''))}">{flag}{media_html}
 <div class="reactions">
 <button class="react-btn" data-reaction="heart" title="{names_attr(heart_names)}">&#10084;&#65039; <span class="rc">{heart_n}</span></button>
 <button class="react-btn" data-reaction="laugh" title="{names_attr(laugh_names)}">&#128514; <span class="rc">{laugh_n}</span></button>
@@ -604,6 +604,53 @@ document.querySelectorAll('.rail-item, .mobile-nav a').forEach(el => {{
     if (nextIdx < 0 || nextIdx >= dayEls.length) return;
     showDay(dayEls[nextIdx].getAttribute('data-key'));
   }}, {{ passive: true }});
+}})();
+// Flag and surface anything added since this visitor's last visit. Compares
+// each card's actual Drive upload time (not its photo-capture date, which
+// could be old even for a freshly-uploaded photo) against a timestamp
+// stored in this browser. First-ever visit intentionally flags nothing --
+// there's no prior visit to compare against, so treating the whole album
+// as "new" would be meaningless noise.
+(function trackNewPhotos(){{
+  const STORAGE_KEY = 'albumLastVisit';
+  const lastVisit = localStorage.getItem(STORAGE_KEY);
+  const now = new Date().toISOString();
+  if (!lastVisit) {{
+    localStorage.setItem(STORAGE_KEY, now);
+    return;
+  }}
+  let newCount = 0;
+  document.querySelectorAll('.photo-grid').forEach(grid => {{
+    const newCards = [], oldCards = [];
+    Array.from(grid.querySelectorAll('.photo')).forEach(card => {{
+      const added = card.getAttribute('data-added');
+      if (added && added > lastVisit) {{
+        card.classList.add('is-new');
+        const badge = document.createElement('div');
+        badge.className = 'new-flag';
+        badge.textContent = 'NEW';
+        card.appendChild(badge);
+        newCards.push(card);
+        newCount++;
+      }} else {{
+        oldCards.push(card);
+      }}
+    }});
+    if (newCards.length) {{
+      const frag = document.createDocumentFragment();
+      newCards.forEach(c => frag.appendChild(c));
+      oldCards.forEach(c => frag.appendChild(c));
+      grid.appendChild(frag);
+    }}
+  }});
+  if (newCount > 0) {{
+    const banner = document.createElement('div');
+    banner.className = 'new-photos-banner';
+    banner.textContent = newCount + (newCount === 1 ? ' new photo' : ' new photos') + ' since your last visit';
+    const layout = document.querySelector('.layout');
+    if (layout && layout.parentElement) layout.parentElement.insertBefore(banner, layout);
+  }}
+  localStorage.setItem(STORAGE_KEY, now);
 }})();
 const lightbox = document.getElementById('lightbox'), lbImg = document.getElementById('lightboxImg'), lbVideo = document.getElementById('lightboxVideo'), lbLoc = document.getElementById('lightboxLoc'), lbTime = document.getElementById('lightboxTime');
 function showLightboxMedia(img){{
@@ -814,7 +861,7 @@ def main():
             when = date_obj.strftime("Added %a, %b %-d")
         else:
             when = date_obj.strftime("%a, %b %-d, %-I:%M %p")
-        photos_by_day[day_key].append({"id": f["id"], "type": "photo", "full_src": full_src, "thumb_src": thumb_src, "loc": loc, "when": when, "date": date_obj.isoformat() if date_obj else ""})
+        photos_by_day[day_key].append({"id": f["id"], "type": "photo", "full_src": full_src, "thumb_src": thumb_src, "loc": loc, "when": when, "date": date_obj.isoformat() if date_obj else "", "date_added": f.get("createdTime", "")})
 
     for f in video_files:
         raw = download_file(service, f["id"])
@@ -844,7 +891,7 @@ def main():
         else:
             when = date_obj.strftime("%a, %b %-d, %-I:%M %p")
 
-        photos_by_day[day_key].append({"id": f["id"], "type": "video", "full_src": video_src, "thumb_src": poster_src, "loc": loc, "when": when, "date": date_obj.isoformat() if date_obj else ""})
+        photos_by_day[day_key].append({"id": f["id"], "type": "video", "full_src": video_src, "thumb_src": poster_src, "loc": loc, "when": when, "date": date_obj.isoformat() if date_obj else "", "date_added": f.get("createdTime", "")})
 
     for k in photos_by_day:
         photos_by_day[k].sort(key=lambda p: p["date"] or "9999")

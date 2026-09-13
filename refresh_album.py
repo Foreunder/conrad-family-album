@@ -526,7 +526,11 @@ def build_html(photos_by_day, reactions, voters, build_time_str, next_update_str
 <div class="lightbox-overlay" id="lightbox"><button class="lightbox-close" id="lightboxClose" aria-label="Close">&times;</button>
 <button class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="Previous photo">&#8249;</button>
 <button class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="Next photo">&#8250;</button>
-<div class="lightbox-content"><img id="lightboxImg" src="" alt=""><video id="lightboxVideo" controls playsinline style="display:none;max-width:100%;max-height:80vh;"></video><div class="lightbox-cap"><div class="loc" id="lightboxLoc"></div><div class="time" id="lightboxTime"></div></div></div></div>
+<div class="lightbox-content"><img id="lightboxImg" src="" alt=""><video id="lightboxVideo" controls playsinline style="display:none;max-width:100%;max-height:80vh;"></video><div class="lightbox-cap"><div class="loc" id="lightboxLoc"></div><div class="time" id="lightboxTime"></div><div class="reactions lightbox-reactions" id="lightboxReactions">
+<button class="react-btn" data-reaction="heart">&#10084;&#65039; <span class="rc">0</span></button>
+<button class="react-btn" data-reaction="laugh">&#128514; <span class="rc">0</span></button>
+<button class="react-btn" data-reaction="thumbsdown">&#128078; <span class="rc">0</span></button>
+</div></div></div></div>
 <div class="footer-strip"><span>Made by the Conrads, one blister at a time</span><span>London &amp; Scotland &middot; September 2026</span></div>
 <script>
 // Each chapter is its own folder: exactly one .day section is shown at a
@@ -615,8 +619,19 @@ function showLightboxMedia(img){{
   }}
 }}
 let currentCard = null;
+function syncLightboxReactions(card){{
+  const lbButtons = document.querySelectorAll('#lightboxReactions .react-btn');
+  const cardButtons = card.querySelectorAll('.reactions:not(.lightbox-reactions) .react-btn');
+  lbButtons.forEach(lbBtn => {{
+    const reaction = lbBtn.getAttribute('data-reaction');
+    const cardBtn = Array.from(cardButtons).find(b => b.getAttribute('data-reaction') === reaction);
+    if (!cardBtn) return;
+    lbBtn.querySelector('.rc').textContent = cardBtn.querySelector('.rc').textContent;
+    lbBtn.classList.toggle('voted', cardBtn.classList.contains('voted'));
+  }});
+}}
 function openLightbox(card){{ currentCard = card; const img = card.querySelector('img'), loc = card.querySelector('.cap .loc'), tm = card.querySelector('.cap .time');
-  showLightboxMedia(img); lbLoc.textContent = loc ? loc.textContent : ''; lbTime.textContent = tm ? tm.textContent : ''; lightbox.classList.add('open'); document.body.style.overflow = 'hidden'; }}
+  showLightboxMedia(img); lbLoc.textContent = loc ? loc.textContent : ''; lbTime.textContent = tm ? tm.textContent : ''; syncLightboxReactions(card); lightbox.classList.add('open'); document.body.style.overflow = 'hidden'; }}
 function closeLightbox(){{ lightbox.classList.remove('open'); currentCard = null; document.body.style.overflow = ''; lbImg.style.transform=''; lbImg.style.opacity=''; lbVideo.pause(); }}
 function navigateLightbox(dir){{ if (!currentCard) return; const sib = Array.from(currentCard.parentElement.querySelectorAll('.photo')); const idx = sib.indexOf(currentCard); if (idx===-1) return; openLightbox(sib[(idx+dir+sib.length)%sib.length]); }}
 document.querySelectorAll('.photo img').forEach(img => img.addEventListener('click', () => openLightbox(img.closest('.photo'))));
@@ -695,12 +710,23 @@ document.querySelectorAll('.react-btn').forEach(btn => {{
   btn.addEventListener('click', (e) => {{
     e.stopPropagation();
     if (!REACTIONS_ENDPOINT) return;
-    const card = btn.closest('.photo');
+    const fromLightbox = !!btn.closest('#lightboxReactions');
+    const card = fromLightbox ? currentCard : btn.closest('.photo');
+    if (!card) return;
     const photoId = card.getAttribute('data-photo-id');
     const reaction = btn.getAttribute('data-reaction');
     const countEl = btn.querySelector('.rc');
     countEl.textContent = parseInt(countEl.textContent, 10) + 1;
     btn.classList.add('voted');
+    // Keep the card and lightbox reaction counts in sync with each other,
+    // since a click on either one only updates itself by default.
+    const mirrorSelector = fromLightbox ? '.reactions:not(.lightbox-reactions) .react-btn' : '#lightboxReactions .react-btn';
+    const mirrorRoot = fromLightbox ? card : document;
+    const mirrorBtn = Array.from(mirrorRoot.querySelectorAll(mirrorSelector)).find(b => b.getAttribute('data-reaction') === reaction);
+    if (mirrorBtn) {{
+      mirrorBtn.querySelector('.rc').textContent = countEl.textContent;
+      mirrorBtn.classList.add('voted');
+    }}
     if (!getVoterName()) {{
       pendingReaction = {{ photoId, reaction }};
       whoModal.classList.add('show');

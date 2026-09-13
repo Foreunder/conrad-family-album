@@ -475,6 +475,14 @@ def build_html(photos_by_day, reactions, voters, build_time_str, next_update_str
 </div>
 <div class="cap"><div class="loc">{esc(p['loc'])}</div><div class="time">{esc(p['when'])}</div>{reactors_html}</div></div>''')
         empty = '<div class="day-empty">Nobody\'s added a photo here yet &mdash; get on that.</div>' if not photos else ""
+        video_n = sum(1 for p in photos if p.get('type') == 'video')
+        photo_n = len(photos) - video_n
+        if not photos:
+            photo_count_html = ""
+        elif video_n:
+            photo_count_html = f'<p class="photo-count">{photo_n} photo{"s" if photo_n != 1 else ""}, {video_n} video{"s" if video_n != 1 else ""}</p>'
+        else:
+            photo_count_html = f'<p class="photo-count">{photo_n} photo{"s" if photo_n != 1 else ""}</p>'
         is_asu = key in ASU_DAYS
         accent = DAY_ACCENTS.get(key)
         day_class = "day asu" if is_asu else "day"
@@ -486,6 +494,7 @@ def build_html(photos_by_day, reactions, voters, build_time_str, next_update_str
 <div class="chapter-date-row"><span class="chapter-eyebrow">{esc(eyebrow)}</span><span class="day-label">{esc(d['date'])}</span></div>
 <h2 class="day-title">{title_html}</h2>
 <p class="day-tag">{esc(TAGS.get(key,''))}</p>
+{photo_count_html}
 <div class="photo-grid">{"".join(cards)}</div>{empty}</div>''')
         rail.append(f'''<a class="{rail_class}" data-key="{key}"{rail_attr} href="#day-{key}"><span class="num">{esc(d['roman'])}</span><div class="stack"><div class="lbl">{esc(d['railTitle'])}</div><div class="rdate">{esc(d['short'])}</div></div></a>''')
         mobile.append(f'<a data-key="{key}" href="#day-{key}">{esc(d["roman"])} &middot; {esc(d["short"])}</a>')

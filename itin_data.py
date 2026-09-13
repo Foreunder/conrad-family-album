@@ -46,7 +46,7 @@ DAYS = [
         dict(time="Afternoon", title="Thames walk east toward Tower Bridge", address="South Bank / Thames path", status="—", detail=""),
         dict(time="Afternoon (OPTIONAL)", title="Thames Speedboat", address="Departs Tower Pier, London EC3N 4EH", status="OPTIONAL", detail="Not booked. Runs hourly; book ahead with a buffer before the 6:45 PM dinner if pursuing."),
         dict(time="Afternoon", title="Tower Bridge — optional interior tour", address="Tower Bridge Rd, London SE1 2UP", status="TODO", detail="Worth touring inside if there's time; not yet booked."),
-        dict(time="6:45 PM", title="Aqua Shard — Sunday Roast", address="Level 31, 31 St Thomas St, London SE1 9RY", conf="No confirmation # on file", status="BOOKED", detail="Sport coat evening."),
+        dict(time="6:45 PM", title="Aqua Shard — Sunday Roast", address="Level 31, 31 St Thomas St, London SE1 9RY", conf="No confirmation # on file", status="BOOKED", detail="Sport coat evening. Getting there from the hotel: Bakerloo line from Paddington to Baker Street, change to the Jubilee line to London Bridge (one change, ~20-25 min on the train), then a 2-3 min walk to The Shard. ~35-40 min door to door; leave by 6:00 PM. Getting back: reverse the route — Jubilee line from London Bridge to Baker Street, change to Bakerloo to Paddington, same ~35-40 min."),
     ]),
     dict(date="Monday, September 14", items=[
         dict(time="~6:00 AM", title="Pre-booked car to King's Cross", address="Novotel Paddington → King's Cross Station, Euston Rd, London N1 9AL", status="TODO — BOOK BY SEPT 13", detail="Book an Uber XL (or Bolt XL) the night before via the app's 'reserve' feature. Recommended over the Tube for 4 people plus luggage this early."),

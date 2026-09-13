@@ -113,6 +113,17 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:'Inter',sans-ser
 .reactions button:hover{background:rgba(0,0,0,.75);}
 .reactions button:active{transform:scale(0.92);}
 .reactions button.voted{background:var(--gold);color:var(--bg);border-color:var(--gold);}
+.lightbox-reactions{position:static;justify-content:center;margin-top:10px;}
+.lightbox-reactions button{font-size:14px;padding:6px 12px;}
+
+@media (max-width:700px){
+  .photo-grid{grid-template-columns:repeat(3,1fr);gap:4px;}
+  .photo{border-radius:2px;border-width:0;}
+  .photo .cap,.photo .reactions:not(.lightbox-reactions){display:none;}
+  .photo::after{display:none;}
+  .photo .unsorted-flag{font-size:8px;padding:2px 5px;top:3px;left:3px;}
+  .play-badge{width:28px;height:28px;font-size:11px;}
+}
 
 .trophies{max-width:1080px;margin:0 auto 20px;padding:0 24px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;}
 .trophy-card{background:var(--panel);border:1px solid var(--gold);border-radius:6px;overflow:hidden;}
@@ -188,7 +199,7 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:'Inter',sans-ser
 <p>Eleven days chasing golf balls across Scotland, celebrating Kealey turning 25 in London, and watching ASU play Kansas at Wembley &mdash; because apparently that's a thing that happens now. Every photo below came from someone's actual camera roll.</p>
 <div class="divider"></div><div class="dates">Sept 10 &ndash; 21, 2026</div>
 <div style="margin-top:10px;"><a href="https://foreunder.github.io/conrad-family-album/book/" style="color:inherit;text-decoration:underline;font-size:13px;">Read the Book</a></div>
-<div class="updated-stamp">Updated Sep 12, 2026 · 10:35 PM CT &middot; next update around 10:45 PM CT</div></div>
+<div class="updated-stamp">Updated Sep 12, 2026 · 10:50 PM CT &middot; next update around 11:00 PM CT</div></div>
 <div class="trophies"><div class="trophy-card"><img class="trophy-header" src="https://foreunder.github.io/conrad-family-album/book-images/category_most_loved.png" alt="Most loved">
 <img class="photo-img" src="https://foreunder.github.io/conrad-family-album/book-images/album/1IEGe4cYwpYn-FJ1uVOkx1k5giTJK68xL_thumb.jpg" data-full="https://foreunder.github.io/conrad-family-album/book-images/album/1IEGe4cYwpYn-FJ1uVOkx1k5giTJK68xL_full.jpg" alt="">
 <div class="trophy-count">1 vote</div><div class="trophy-count">Jamey</div></div><div class="trophy-card"><img class="trophy-header" src="https://foreunder.github.io/conrad-family-album/book-images/category_funniest.png" alt="Funniest">
@@ -708,7 +719,13 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:'Inter',sans-ser
 <button class="react-btn" data-reaction="laugh" title="">&#128514; <span class="rc">0</span></button>
 <button class="react-btn" data-reaction="thumbsdown" title="">&#128078; <span class="rc">0</span></button>
 </div>
-<div class="cap"><div class="loc">Westway, City of Westminster</div><div class="time">Sat, Sep 12, 8:54 AM</div></div></div><div class="photo" data-photo-id="1-x8g5Gf9DDcYKzvxmJatPpqtBXVlcP6D"><img src="https://foreunder.github.io/conrad-family-album/book-images/album/1-x8g5Gf9DDcYKzvxmJatPpqtBXVlcP6D_thumb.jpg" data-full="https://foreunder.github.io/conrad-family-album/book-images/album/1-x8g5Gf9DDcYKzvxmJatPpqtBXVlcP6D_full.jpg" alt="">
+<div class="cap"><div class="loc">Westway, City of Westminster</div><div class="time">Sat, Sep 12, 8:54 AM</div></div></div><div class="photo" data-photo-id="1T7AiLv1ZKRHmzVB6LmoKaw6DHPAHBP8N"><img src="https://foreunder.github.io/conrad-family-album/book-images/album/1T7AiLv1ZKRHmzVB6LmoKaw6DHPAHBP8N_poster.jpg" data-full="https://foreunder.github.io/conrad-family-album/book-images/album/1T7AiLv1ZKRHmzVB6LmoKaw6DHPAHBP8N.mp4" data-video="1" alt=""><div class="play-badge">&#9658;</div>
+<div class="reactions">
+<button class="react-btn" data-reaction="heart" title="">&#10084;&#65039; <span class="rc">0</span></button>
+<button class="react-btn" data-reaction="laugh" title="">&#128514; <span class="rc">0</span></button>
+<button class="react-btn" data-reaction="thumbsdown" title="">&#128078; <span class="rc">0</span></button>
+</div>
+<div class="cap"><div class="loc">Location unknown</div><div class="time">Sat, Sep 12, 9:16 AM</div></div></div><div class="photo" data-photo-id="1-x8g5Gf9DDcYKzvxmJatPpqtBXVlcP6D"><img src="https://foreunder.github.io/conrad-family-album/book-images/album/1-x8g5Gf9DDcYKzvxmJatPpqtBXVlcP6D_thumb.jpg" data-full="https://foreunder.github.io/conrad-family-album/book-images/album/1-x8g5Gf9DDcYKzvxmJatPpqtBXVlcP6D_full.jpg" alt="">
 <div class="reactions">
 <button class="react-btn" data-reaction="heart" title="">&#10084;&#65039; <span class="rc">0</span></button>
 <button class="react-btn" data-reaction="laugh" title="">&#128514; <span class="rc">0</span></button>
@@ -822,7 +839,13 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:'Inter',sans-ser
 <button class="react-btn" data-reaction="laugh" title="">&#128514; <span class="rc">0</span></button>
 <button class="react-btn" data-reaction="thumbsdown" title="">&#128078; <span class="rc">0</span></button>
 </div>
-<div class="cap"><div class="loc">Camomile Street, City of London</div><div class="time">Sat, Sep 12, 10:42 AM</div></div></div><div class="photo" data-photo-id="1IHp6Lji6Hac-ju36-jeFq_LEguwAzmq5"><img src="https://foreunder.github.io/conrad-family-album/book-images/album/1IHp6Lji6Hac-ju36-jeFq_LEguwAzmq5_thumb.jpg" data-full="https://foreunder.github.io/conrad-family-album/book-images/album/1IHp6Lji6Hac-ju36-jeFq_LEguwAzmq5_full.jpg" alt="">
+<div class="cap"><div class="loc">Camomile Street, City of London</div><div class="time">Sat, Sep 12, 10:42 AM</div></div></div><div class="photo" data-photo-id="1locPQG3b70miGD_hn9Luf6LPtfn1jYjh"><img src="https://foreunder.github.io/conrad-family-album/book-images/album/1locPQG3b70miGD_hn9Luf6LPtfn1jYjh_poster.jpg" data-full="https://foreunder.github.io/conrad-family-album/book-images/album/1locPQG3b70miGD_hn9Luf6LPtfn1jYjh.mp4" data-video="1" alt=""><div class="play-badge">&#9658;</div>
+<div class="reactions">
+<button class="react-btn" data-reaction="heart" title="">&#10084;&#65039; <span class="rc">0</span></button>
+<button class="react-btn" data-reaction="laugh" title="">&#128514; <span class="rc">0</span></button>
+<button class="react-btn" data-reaction="thumbsdown" title="">&#128078; <span class="rc">0</span></button>
+</div>
+<div class="cap"><div class="loc">Location unknown</div><div class="time">Sat, Sep 12, 10:42 AM</div></div></div><div class="photo" data-photo-id="1IHp6Lji6Hac-ju36-jeFq_LEguwAzmq5"><img src="https://foreunder.github.io/conrad-family-album/book-images/album/1IHp6Lji6Hac-ju36-jeFq_LEguwAzmq5_thumb.jpg" data-full="https://foreunder.github.io/conrad-family-album/book-images/album/1IHp6Lji6Hac-ju36-jeFq_LEguwAzmq5_full.jpg" alt="">
 <div class="reactions">
 <button class="react-btn" data-reaction="heart" title="">&#10084;&#65039; <span class="rc">0</span></button>
 <button class="react-btn" data-reaction="laugh" title="">&#128514; <span class="rc">0</span></button>
@@ -996,7 +1019,13 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:'Inter',sans-ser
 <button class="react-btn" data-reaction="laugh" title="">&#128514; <span class="rc">0</span></button>
 <button class="react-btn" data-reaction="thumbsdown" title="">&#128078; <span class="rc">0</span></button>
 </div>
-<div class="cap"><div class="loc">Oxendon Street, City of Westminster</div><div class="time">Sat, Sep 12, 2:25 PM</div></div></div><div class="photo" data-photo-id="1tIAtMztgLGBLVURLBC98RFuX5Sl-5XdT"><img src="https://foreunder.github.io/conrad-family-album/book-images/album/1tIAtMztgLGBLVURLBC98RFuX5Sl-5XdT_thumb.jpg" data-full="https://foreunder.github.io/conrad-family-album/book-images/album/1tIAtMztgLGBLVURLBC98RFuX5Sl-5XdT_full.jpg" alt="">
+<div class="cap"><div class="loc">Oxendon Street, City of Westminster</div><div class="time">Sat, Sep 12, 2:25 PM</div></div></div><div class="photo" data-photo-id="16FxJYKhSNGOZbC3y7gJavgne1rxp7aZa"><img src="https://foreunder.github.io/conrad-family-album/book-images/album/16FxJYKhSNGOZbC3y7gJavgne1rxp7aZa_poster.jpg" data-full="https://foreunder.github.io/conrad-family-album/book-images/album/16FxJYKhSNGOZbC3y7gJavgne1rxp7aZa.mp4" data-video="1" alt=""><div class="play-badge">&#9658;</div>
+<div class="reactions">
+<button class="react-btn" data-reaction="heart" title="">&#10084;&#65039; <span class="rc">0</span></button>
+<button class="react-btn" data-reaction="laugh" title="">&#128514; <span class="rc">0</span></button>
+<button class="react-btn" data-reaction="thumbsdown" title="">&#128078; <span class="rc">0</span></button>
+</div>
+<div class="cap"><div class="loc">Location unknown</div><div class="time">Sat, Sep 12, 4:26 PM</div></div></div><div class="photo" data-photo-id="1tIAtMztgLGBLVURLBC98RFuX5Sl-5XdT"><img src="https://foreunder.github.io/conrad-family-album/book-images/album/1tIAtMztgLGBLVURLBC98RFuX5Sl-5XdT_thumb.jpg" data-full="https://foreunder.github.io/conrad-family-album/book-images/album/1tIAtMztgLGBLVURLBC98RFuX5Sl-5XdT_full.jpg" alt="">
 <div class="reactions">
 <button class="react-btn" data-reaction="heart" title="">&#10084;&#65039; <span class="rc">0</span></button>
 <button class="react-btn" data-reaction="laugh" title="">&#128514; <span class="rc">0</span></button>
@@ -1318,29 +1347,15 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:'Inter',sans-ser
 <button class="react-btn" data-reaction="laugh" title="">&#128514; <span class="rc">0</span></button>
 <button class="react-btn" data-reaction="thumbsdown" title="">&#128078; <span class="rc">0</span></button>
 </div>
-<div class="cap"><div class="loc">North 132nd Street, Omaha</div><div class="time">Added Wed, Aug 26</div></div></div><div class="photo needs-sort" data-photo-id="16FxJYKhSNGOZbC3y7gJavgne1rxp7aZa"><div class="unsorted-flag">Needs sorting</div><img src="https://foreunder.github.io/conrad-family-album/book-images/album/16FxJYKhSNGOZbC3y7gJavgne1rxp7aZa_poster.jpg" data-full="https://foreunder.github.io/conrad-family-album/book-images/album/16FxJYKhSNGOZbC3y7gJavgne1rxp7aZa.mp4" data-video="1" alt=""><div class="play-badge">&#9658;</div>
-<div class="reactions">
-<button class="react-btn" data-reaction="heart" title="">&#10084;&#65039; <span class="rc">0</span></button>
-<button class="react-btn" data-reaction="laugh" title="">&#128514; <span class="rc">0</span></button>
-<button class="react-btn" data-reaction="thumbsdown" title="">&#128078; <span class="rc">0</span></button>
-</div>
-<div class="cap"><div class="loc">No location data</div><div class="time">Added Sat, Sep 12</div></div></div><div class="photo needs-sort" data-photo-id="1T7AiLv1ZKRHmzVB6LmoKaw6DHPAHBP8N"><div class="unsorted-flag">Needs sorting</div><img src="https://foreunder.github.io/conrad-family-album/book-images/album/1T7AiLv1ZKRHmzVB6LmoKaw6DHPAHBP8N_poster.jpg" data-full="https://foreunder.github.io/conrad-family-album/book-images/album/1T7AiLv1ZKRHmzVB6LmoKaw6DHPAHBP8N.mp4" data-video="1" alt=""><div class="play-badge">&#9658;</div>
-<div class="reactions">
-<button class="react-btn" data-reaction="heart" title="">&#10084;&#65039; <span class="rc">0</span></button>
-<button class="react-btn" data-reaction="laugh" title="">&#128514; <span class="rc">0</span></button>
-<button class="react-btn" data-reaction="thumbsdown" title="">&#128078; <span class="rc">0</span></button>
-</div>
-<div class="cap"><div class="loc">No location data</div><div class="time">Added Sat, Sep 12</div></div></div><div class="photo needs-sort" data-photo-id="1locPQG3b70miGD_hn9Luf6LPtfn1jYjh"><div class="unsorted-flag">Needs sorting</div><img src="https://foreunder.github.io/conrad-family-album/book-images/album/1locPQG3b70miGD_hn9Luf6LPtfn1jYjh_poster.jpg" data-full="https://foreunder.github.io/conrad-family-album/book-images/album/1locPQG3b70miGD_hn9Luf6LPtfn1jYjh.mp4" data-video="1" alt=""><div class="play-badge">&#9658;</div>
-<div class="reactions">
-<button class="react-btn" data-reaction="heart" title="">&#10084;&#65039; <span class="rc">0</span></button>
-<button class="react-btn" data-reaction="laugh" title="">&#128514; <span class="rc">0</span></button>
-<button class="react-btn" data-reaction="thumbsdown" title="">&#128078; <span class="rc">0</span></button>
-</div>
-<div class="cap"><div class="loc">No location data</div><div class="time">Added Sat, Sep 12</div></div></div></div></div></div></div>
+<div class="cap"><div class="loc">North 132nd Street, Omaha</div><div class="time">Added Wed, Aug 26</div></div></div></div></div></div></div>
 <div class="lightbox-overlay" id="lightbox"><button class="lightbox-close" id="lightboxClose" aria-label="Close">&times;</button>
 <button class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="Previous photo">&#8249;</button>
 <button class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="Next photo">&#8250;</button>
-<div class="lightbox-content"><img id="lightboxImg" src="" alt=""><video id="lightboxVideo" controls playsinline style="display:none;max-width:100%;max-height:80vh;"></video><div class="lightbox-cap"><div class="loc" id="lightboxLoc"></div><div class="time" id="lightboxTime"></div></div></div></div>
+<div class="lightbox-content"><img id="lightboxImg" src="" alt=""><video id="lightboxVideo" controls playsinline style="display:none;max-width:100%;max-height:80vh;"></video><div class="lightbox-cap"><div class="loc" id="lightboxLoc"></div><div class="time" id="lightboxTime"></div><div class="reactions lightbox-reactions" id="lightboxReactions">
+<button class="react-btn" data-reaction="heart">&#10084;&#65039; <span class="rc">0</span></button>
+<button class="react-btn" data-reaction="laugh">&#128514; <span class="rc">0</span></button>
+<button class="react-btn" data-reaction="thumbsdown">&#128078; <span class="rc">0</span></button>
+</div></div></div></div>
 <div class="footer-strip"><span>Made by the Conrads, one blister at a time</span><span>London &amp; Scotland &middot; September 2026</span></div>
 <script>
 // Each chapter is its own folder: exactly one .day section is shown at a
@@ -1429,8 +1444,19 @@ function showLightboxMedia(img){
   }
 }
 let currentCard = null;
+function syncLightboxReactions(card){
+  const lbButtons = document.querySelectorAll('#lightboxReactions .react-btn');
+  const cardButtons = card.querySelectorAll('.reactions:not(.lightbox-reactions) .react-btn');
+  lbButtons.forEach(lbBtn => {
+    const reaction = lbBtn.getAttribute('data-reaction');
+    const cardBtn = Array.from(cardButtons).find(b => b.getAttribute('data-reaction') === reaction);
+    if (!cardBtn) return;
+    lbBtn.querySelector('.rc').textContent = cardBtn.querySelector('.rc').textContent;
+    lbBtn.classList.toggle('voted', cardBtn.classList.contains('voted'));
+  });
+}
 function openLightbox(card){ currentCard = card; const img = card.querySelector('img'), loc = card.querySelector('.cap .loc'), tm = card.querySelector('.cap .time');
-  showLightboxMedia(img); lbLoc.textContent = loc ? loc.textContent : ''; lbTime.textContent = tm ? tm.textContent : ''; lightbox.classList.add('open'); document.body.style.overflow = 'hidden'; }
+  showLightboxMedia(img); lbLoc.textContent = loc ? loc.textContent : ''; lbTime.textContent = tm ? tm.textContent : ''; syncLightboxReactions(card); lightbox.classList.add('open'); document.body.style.overflow = 'hidden'; }
 function closeLightbox(){ lightbox.classList.remove('open'); currentCard = null; document.body.style.overflow = ''; lbImg.style.transform=''; lbImg.style.opacity=''; lbVideo.pause(); }
 function navigateLightbox(dir){ if (!currentCard) return; const sib = Array.from(currentCard.parentElement.querySelectorAll('.photo')); const idx = sib.indexOf(currentCard); if (idx===-1) return; openLightbox(sib[(idx+dir+sib.length)%sib.length]); }
 document.querySelectorAll('.photo img').forEach(img => img.addEventListener('click', () => openLightbox(img.closest('.photo'))));
@@ -1509,12 +1535,23 @@ document.querySelectorAll('.react-btn').forEach(btn => {
   btn.addEventListener('click', (e) => {
     e.stopPropagation();
     if (!REACTIONS_ENDPOINT) return;
-    const card = btn.closest('.photo');
+    const fromLightbox = !!btn.closest('#lightboxReactions');
+    const card = fromLightbox ? currentCard : btn.closest('.photo');
+    if (!card) return;
     const photoId = card.getAttribute('data-photo-id');
     const reaction = btn.getAttribute('data-reaction');
     const countEl = btn.querySelector('.rc');
     countEl.textContent = parseInt(countEl.textContent, 10) + 1;
     btn.classList.add('voted');
+    // Keep the card and lightbox reaction counts in sync with each other,
+    // since a click on either one only updates itself by default.
+    const mirrorSelector = fromLightbox ? '.reactions:not(.lightbox-reactions) .react-btn' : '#lightboxReactions .react-btn';
+    const mirrorRoot = fromLightbox ? card : document;
+    const mirrorBtn = Array.from(mirrorRoot.querySelectorAll(mirrorSelector)).find(b => b.getAttribute('data-reaction') === reaction);
+    if (mirrorBtn) {
+      mirrorBtn.querySelector('.rc').textContent = countEl.textContent;
+      mirrorBtn.classList.add('voted');
+    }
     if (!getVoterName()) {
       pendingReaction = { photoId, reaction };
       whoModal.classList.add('show');

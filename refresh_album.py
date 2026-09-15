@@ -700,9 +700,12 @@ document.getElementById('lightboxNext').addEventListener('click', () => navigate
 lightbox.addEventListener('click', e => {{ if (e.target === lightbox) closeLightbox(); }});
 document.addEventListener('keydown', e => {{ if (!lightbox.classList.contains('open')) return; if (e.key==='Escape') closeLightbox(); else if (e.key==='ArrowLeft') navigateLightbox(-1); else if (e.key==='ArrowRight') navigateLightbox(1); }});
 let touchStartX = 0, touchStartY = 0, touchDeltaX = 0, touchDeltaY = 0, touching = false;
-lightbox.addEventListener('touchstart', e => {{ touching = true; touchStartX = e.touches[0].clientX; touchStartY = e.touches[0].clientY; touchDeltaX = 0; touchDeltaY = 0; }}, {{passive:true}});
+lightbox.addEventListener('touchstart', e => {{
+  if (e.touches.length > 1) {{ touching = false; return; }}
+  touching = true; touchStartX = e.touches[0].clientX; touchStartY = e.touches[0].clientY; touchDeltaX = 0; touchDeltaY = 0;
+}}, {{passive:true}});
 lightbox.addEventListener('touchmove', e => {{
-  if (!touching) return;
+  if (!touching || e.touches.length > 1) {{ touching = false; return; }}
   touchDeltaX = e.touches[0].clientX - touchStartX;
   touchDeltaY = e.touches[0].clientY - touchStartY;
   if (Math.abs(touchDeltaX) > Math.abs(touchDeltaY)) {{

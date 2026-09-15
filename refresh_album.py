@@ -153,7 +153,7 @@ def list_photos(service):
     while True:
         resp = service.files().list(
             q=f"'{DRIVE_FOLDER_ID}' in parents and mimeType contains 'image/' and trashed=false",
-            fields="nextPageToken, files(id, name, mimeType, imageMediaMetadata, modifiedTime, createdTime)",
+            fields="nextPageToken, files(id, name, mimeType, imageMediaMetadata, modifiedTime, createdTime, owners)",
             pageToken=page_token, pageSize=1000
         ).execute()
         results.extend(resp.get("files", []))
@@ -170,7 +170,7 @@ def list_videos(service):
     while True:
         resp = service.files().list(
             q=f"'{DRIVE_FOLDER_ID}' in parents and mimeType contains 'video/' and trashed=false",
-            fields="nextPageToken, files(id, name, mimeType, videoMediaMetadata, modifiedTime, createdTime)",
+            fields="nextPageToken, files(id, name, mimeType, videoMediaMetadata, modifiedTime, createdTime, owners)",
             pageToken=page_token, pageSize=1000
         ).execute()
         results.extend(resp.get("files", []))
@@ -467,13 +467,14 @@ def build_html(photos_by_day, reactions, voters, build_time_str, next_update_str
                 media_html = f'<img src="{IMG_BASE_URL}/{p_thumb_src}" data-full="{IMG_BASE_URL}/{p_full_src}" data-video="1" alt=""><div class="play-badge">&#9658;</div>'
             else:
                 media_html = f'<img src="{IMG_BASE_URL}/{p_thumb_src}" data-full="{IMG_BASE_URL}/{p_full_src}" alt="">'
+            uploader_html = f'<div class="uploader">Added by {esc(p.get("uploader",""))}</div>' if p.get('uploader') else ''
             cards.append(f'''<div class="photo{needs}" data-photo-id="{esc(p['id'])}" data-added="{esc(p.get('date_added',''))}">{flag}{media_html}
 <div class="reactions">
 <button class="react-btn" data-reaction="heart" title="{names_attr(heart_names)}">&#10084;&#65039; <span class="rc">{heart_n}</span></button>
 <button class="react-btn" data-reaction="laugh" title="{names_attr(laugh_names)}">&#128514; <span class="rc">{laugh_n}</span></button>
 <button class="react-btn" data-reaction="thumbsdown" title="{names_attr(down_names)}">&#128078; <span class="rc">{down_n}</span></button>
 </div>
-<div class="cap"><div class="loc">{esc(p['loc'])}</div><div class="time">{esc(p['when'])}</div>{reactors_html}</div></div>''')
+<div class="cap"><div class="loc">{esc(p['loc'])}</div><div class="time">{esc(p['when'])}</div>{uploader_html}{reactors_html}</div></div>''')
         empty = '<div class="day-empty">Nobody\'s added a photo here yet &mdash; get on that.</div>' if not photos else ""
         video_n = sum(1 for p in photos if p.get('type') == 'video')
         photo_n = len(photos) - video_n
@@ -535,7 +536,7 @@ def build_html(photos_by_day, reactions, voters, build_time_str, next_update_str
 <div class="lightbox-overlay" id="lightbox"><button class="lightbox-close" id="lightboxClose" aria-label="Close">&times;</button>
 <button class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="Previous photo">&#8249;</button>
 <button class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="Next photo">&#8250;</button>
-<div class="lightbox-content"><img id="lightboxImg" src="" alt=""><video id="lightboxVideo" controls playsinline style="display:none;max-width:100%;max-height:80vh;"></video><div class="lightbox-cap"><div class="loc" id="lightboxLoc"></div><div class="time" id="lightboxTime"></div><div class="reactions lightbox-reactions" id="lightboxReactions">
+<div class="lightbox-content"><img id="lightboxImg" src="" alt=""><video id="lightboxVideo" controls playsinline style="display:none;max-width:100%;max-height:80vh;"></video><div class="lightbox-cap"><div class="loc" id="lightboxLoc"></div><div class="time" id="lightboxTime"></div><div class="uploader" id="lightboxUploader"></div><div class="reactions lightbox-reactions" id="lightboxReactions">
 <button class="react-btn" data-reaction="heart">&#10084;&#65039; <span class="rc">0</span></button>
 <button class="react-btn" data-reaction="laugh">&#128514; <span class="rc">0</span></button>
 <button class="react-btn" data-reaction="thumbsdown">&#128078; <span class="rc">0</span></button>
@@ -661,7 +662,7 @@ document.querySelectorAll('.rail-item, .mobile-nav a').forEach(el => {{
   }}
   localStorage.setItem(STORAGE_KEY, now);
 }})();
-const lightbox = document.getElementById('lightbox'), lbImg = document.getElementById('lightboxImg'), lbVideo = document.getElementById('lightboxVideo'), lbLoc = document.getElementById('lightboxLoc'), lbTime = document.getElementById('lightboxTime');
+const lightbox = document.getElementById('lightbox'), lbImg = document.getElementById('lightboxImg'), lbVideo = document.getElementById('lightboxVideo'), lbLoc = document.getElementById('lightboxLoc'), lbTime = document.getElementById('lightboxTime'), lbUploader = document.getElementById('lightboxUploader');
 function showLightboxMedia(img){{
   if (img.dataset.video === '1'){{
     lbImg.style.display = 'none';
@@ -686,9 +687,9 @@ function syncLightboxReactions(card){{
     lbBtn.classList.toggle('voted', cardBtn.classList.contains('voted'));
   }});
 }}
-function openLightbox(card){{ currentCard = card; const img = card.querySelector('img'), loc = card.querySelector('.cap .loc'), tm = card.querySelector('.cap .time');
+function openLightbox(card){{ currentCard = card; const img = card.querySelector('img'), loc = card.querySelector('.cap .loc'), tm = card.querySelector('.cap .time'), up = card.querySelector('.cap .uploader');
   lbImg.style.transform=''; lbImg.style.opacity='';
-  showLightboxMedia(img); lbLoc.textContent = loc ? loc.textContent : ''; lbTime.textContent = tm ? tm.textContent : ''; syncLightboxReactions(card); lightbox.classList.add('open'); document.body.style.overflow = 'hidden'; }}
+  showLightboxMedia(img); lbLoc.textContent = loc ? loc.textContent : ''; lbTime.textContent = tm ? tm.textContent : ''; lbUploader.textContent = up ? up.textContent : ''; syncLightboxReactions(card); lightbox.classList.add('open'); document.body.style.overflow = 'hidden'; }}
 function closeLightbox(){{ lightbox.classList.remove('open'); currentCard = null; document.body.style.overflow = ''; lbImg.style.transform=''; lbImg.style.opacity=''; lbVideo.pause(); }}
 function navigateLightbox(dir){{ if (!currentCard) return; const sib = Array.from(currentCard.parentElement.querySelectorAll('.photo')); const idx = sib.indexOf(currentCard); if (idx===-1) return; openLightbox(sib[(idx+dir+sib.length)%sib.length]); }}
 document.querySelectorAll('.photo img').forEach(img => img.addEventListener('click', () => openLightbox(img.closest('.photo'))));
@@ -888,7 +889,7 @@ def main():
             when = date_obj.strftime("Added %a, %b %-d")
         else:
             when = date_obj.strftime("%a, %b %-d, %-I:%M %p")
-        photos_by_day[day_key].append({"id": f["id"], "type": "photo", "full_src": full_src, "thumb_src": thumb_src, "loc": loc, "when": when, "date": date_obj.isoformat() if date_obj else "", "date_added": f.get("createdTime", "")})
+        photos_by_day[day_key].append({"id": f["id"], "type": "photo", "full_src": full_src, "thumb_src": thumb_src, "loc": loc, "when": when, "date": date_obj.isoformat() if date_obj else "", "date_added": f.get("createdTime", ""), "uploader": (f.get("owners") or [{}])[0].get("displayName", "")})
 
     for f in video_files:
         raw = download_file(service, f["id"])
@@ -918,7 +919,7 @@ def main():
         else:
             when = date_obj.strftime("%a, %b %-d, %-I:%M %p")
 
-        photos_by_day[day_key].append({"id": f["id"], "type": "video", "full_src": video_src, "thumb_src": poster_src, "loc": loc, "when": when, "date": date_obj.isoformat() if date_obj else "", "date_added": f.get("createdTime", "")})
+        photos_by_day[day_key].append({"id": f["id"], "type": "video", "full_src": video_src, "thumb_src": poster_src, "loc": loc, "when": when, "date": date_obj.isoformat() if date_obj else "", "date_added": f.get("createdTime", ""), "uploader": (f.get("owners") or [{}])[0].get("displayName", "")})
 
     for k in photos_by_day:
         photos_by_day[k].sort(key=lambda p: p["date"] or "9999")

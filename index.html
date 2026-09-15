@@ -203,7 +203,7 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:'Inter',sans-ser
 <p>Eleven days chasing golf balls across Scotland, celebrating Kealey turning 25 in London, and watching ASU play Kansas at Wembley &mdash; because apparently that's a thing that happens now. Every photo below came from someone's actual camera roll.</p>
 <div class="divider"></div><div class="dates">Sept 10 &ndash; 21, 2026</div>
 <div style="margin-top:10px;"><a href="https://foreunder.github.io/conrad-family-album/book/" style="color:inherit;text-decoration:underline;font-size:13px;">Read the Book</a></div>
-<div class="updated-stamp">Updated Sep 15, 2026 · 2:17 PM CT &middot; next update around 2:30 PM CT</div></div>
+<div class="updated-stamp">Updated Sep 15, 2026 · 2:46 PM CT &middot; next update around 3:00 PM CT</div></div>
 <div class="trophies"><div class="trophy-card"><img class="trophy-header" src="https://foreunder.github.io/conrad-family-album/book-images/category_most_loved.png" alt="Most loved">
 <img class="photo-img" src="https://foreunder.github.io/conrad-family-album/book-images/album/1IEGe4cYwpYn-FJ1uVOkx1k5giTJK68xL_thumb.jpg" data-full="https://foreunder.github.io/conrad-family-album/book-images/album/1IEGe4cYwpYn-FJ1uVOkx1k5giTJK68xL_full.jpg" alt="">
 <div class="trophy-count">1 vote</div><div class="trophy-count">Jamey</div></div><div class="trophy-card"><img class="trophy-header" src="https://foreunder.github.io/conrad-family-album/book-images/category_funniest.png" alt="Funniest">
@@ -2823,9 +2823,12 @@ document.getElementById('lightboxNext').addEventListener('click', () => navigate
 lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
 document.addEventListener('keydown', e => { if (!lightbox.classList.contains('open')) return; if (e.key==='Escape') closeLightbox(); else if (e.key==='ArrowLeft') navigateLightbox(-1); else if (e.key==='ArrowRight') navigateLightbox(1); });
 let touchStartX = 0, touchStartY = 0, touchDeltaX = 0, touchDeltaY = 0, touching = false;
-lightbox.addEventListener('touchstart', e => { touching = true; touchStartX = e.touches[0].clientX; touchStartY = e.touches[0].clientY; touchDeltaX = 0; touchDeltaY = 0; }, {passive:true});
+lightbox.addEventListener('touchstart', e => {
+  if (e.touches.length > 1) { touching = false; return; }
+  touching = true; touchStartX = e.touches[0].clientX; touchStartY = e.touches[0].clientY; touchDeltaX = 0; touchDeltaY = 0;
+}, {passive:true});
 lightbox.addEventListener('touchmove', e => {
-  if (!touching) return;
+  if (!touching || e.touches.length > 1) { touching = false; return; }
   touchDeltaX = e.touches[0].clientX - touchStartX;
   touchDeltaY = e.touches[0].clientY - touchStartY;
   if (Math.abs(touchDeltaX) > Math.abs(touchDeltaY)) {

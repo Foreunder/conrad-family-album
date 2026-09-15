@@ -536,7 +536,7 @@ def build_html(photos_by_day, reactions, voters, build_time_str, next_update_str
 <div class="lightbox-overlay" id="lightbox"><button class="lightbox-close" id="lightboxClose" aria-label="Close">&times;</button>
 <button class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="Previous photo">&#8249;</button>
 <button class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="Next photo">&#8250;</button>
-<div class="lightbox-content"><img id="lightboxImg" src="" alt=""><video id="lightboxVideo" controls playsinline style="display:none;max-width:100%;max-height:80vh;"></video><div class="lightbox-cap"><div class="loc" id="lightboxLoc"></div><div class="time" id="lightboxTime"></div><div class="uploader" id="lightboxUploader"></div><div class="reactions lightbox-reactions" id="lightboxReactions">
+<div class="lightbox-content"><img id="lightboxImg" src="" alt=""><video id="lightboxVideo" controls playsinline style="display:none;max-width:100%;max-height:80vh;"></video><div class="lightbox-counter" id="lightboxCounter"></div><div class="lightbox-cap"><div class="loc" id="lightboxLoc"></div><div class="time" id="lightboxTime"></div><div class="uploader" id="lightboxUploader"></div><div class="reactions lightbox-reactions" id="lightboxReactions">
 <button class="react-btn" data-reaction="heart">&#10084;&#65039; <span class="rc">0</span></button>
 <button class="react-btn" data-reaction="laugh">&#128514; <span class="rc">0</span></button>
 <button class="react-btn" data-reaction="thumbsdown">&#128078; <span class="rc">0</span></button>
@@ -662,7 +662,7 @@ document.querySelectorAll('.rail-item, .mobile-nav a').forEach(el => {{
   }}
   localStorage.setItem(STORAGE_KEY, now);
 }})();
-const lightbox = document.getElementById('lightbox'), lbImg = document.getElementById('lightboxImg'), lbVideo = document.getElementById('lightboxVideo'), lbLoc = document.getElementById('lightboxLoc'), lbTime = document.getElementById('lightboxTime'), lbUploader = document.getElementById('lightboxUploader');
+const lightbox = document.getElementById('lightbox'), lbImg = document.getElementById('lightboxImg'), lbVideo = document.getElementById('lightboxVideo'), lbLoc = document.getElementById('lightboxLoc'), lbTime = document.getElementById('lightboxTime'), lbUploader = document.getElementById('lightboxUploader'), lbCounter = document.getElementById('lightboxCounter');
 function showLightboxMedia(img){{
   if (img.dataset.video === '1'){{
     lbImg.style.display = 'none';
@@ -689,6 +689,9 @@ function syncLightboxReactions(card){{
 }}
 function openLightbox(card){{ currentCard = card; const img = card.querySelector('img'), loc = card.querySelector('.cap .loc'), tm = card.querySelector('.cap .time'), up = card.querySelector('.cap .uploader');
   lbImg.style.transform=''; lbImg.style.opacity='';
+  const sib = Array.from(card.parentElement.querySelectorAll('.photo'));
+  const idx = sib.indexOf(card);
+  lbCounter.textContent = (idx!==-1 && sib.length>1) ? (idx+1) + ' of ' + sib.length : '';
   showLightboxMedia(img); lbLoc.textContent = loc ? loc.textContent : ''; lbTime.textContent = tm ? tm.textContent : ''; lbUploader.textContent = up ? up.textContent : ''; syncLightboxReactions(card); lightbox.classList.add('open'); document.body.style.overflow = 'hidden'; }}
 function closeLightbox(){{ lightbox.classList.remove('open'); currentCard = null; document.body.style.overflow = ''; lbImg.style.transform=''; lbImg.style.opacity=''; lbVideo.pause(); }}
 function navigateLightbox(dir){{ if (!currentCard) return; const sib = Array.from(currentCard.parentElement.querySelectorAll('.photo')); const idx = sib.indexOf(currentCard); if (idx===-1) return; openLightbox(sib[(idx+dir+sib.length)%sib.length]); }}

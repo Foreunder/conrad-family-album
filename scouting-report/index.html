@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ASU vs Kansas — Full Scouting Report</title>
+<style>
+:root {
+  --asu-maroon: #8C1D40;
+  --asu-gold: #FFC627;
+  --ku-blue: #0051BA;
+  --ku-crimson: #E8000D;
+  --bg: #f7f5f2;
+  --card-bg: #ffffff;
+  --text: #1a1a1a;
+  --muted: #5a5a5a;
+  --border: #e0ddd6;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #17181a;
+    --card-bg: #232427;
+    --text: #f0eeea;
+    --muted: #a8a5a0;
+    --border: #3a3b3e;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #17181a;
+  --card-bg: #232427;
+  --text: #f0eeea;
+  --muted: #a8a5a0;
+  --border: #3a3b3e;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  line-height: 1.55;
+}
+.hero {
+  background: linear-gradient(135deg, var(--asu-maroon) 0%, var(--asu-maroon) 48%, var(--ku-blue) 52%, var(--ku-blue) 100%);
+  color: #fff;
+  padding: 32px 20px 28px;
+  text-align: center;
+}
+.hero h1 {
+  margin: 0 0 6px;
+  font-size: clamp(22px, 5vw, 32px);
+  letter-spacing: 0.5px;
+}
+.hero .sub {
+  font-size: 14px;
+  opacity: 0.92;
+}
+.hero .teams {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  margin-top: 14px;
+  font-weight: 700;
+  font-size: clamp(16px, 4vw, 20px);
+}
+.hero .teams span.asu { color: var(--asu-gold); }
+.hero .teams span.ku { color: #fff; text-shadow: 0 0 6px rgba(255,255,255,0.4); }
+.wrap {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 18px 16px 60px;
+}
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 18px 20px;
+  margin-bottom: 18px;
+  overflow-x: auto;
+}
+.card h2 {
+  margin-top: 0;
+  font-size: 19px;
+  border-bottom: 3px solid var(--asu-gold);
+  padding-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.card h3 {
+  font-size: 15px;
+  margin-bottom: 6px;
+}
+.card h3.asu-h { color: var(--asu-maroon); }
+.card h3.ku-h { color: var(--ku-blue); }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .card h3.asu-h { color: #ff8fb3; }
+  :root:not([data-theme="light"]) .card h3.ku-h { color: #6fa8ff; }
+}
+:root[data-theme="dark"] .card h3.asu-h { color: #ff8fb3; }
+:root[data-theme="dark"] .card h3.ku-h { color: #6fa8ff; }
+table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 13.5px;
+  min-width: 420px;
+}
+th, td {
+  text-align: left;
+  padding: 7px 10px;
+  border-bottom: 1px solid var(--border);
+}
+th {
+  background: var(--asu-maroon);
+  color: #fff;
+  font-weight: 600;
+}
+tr:nth-child(even) td { background: rgba(140,29,64,0.04); }
+.tbl-scroll { overflow-x: auto; }
+.pill {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  margin-right: 6px;
+}
+.pill.asu { background: var(--asu-maroon); color: var(--asu-gold); }
+.pill.ku { background: var(--ku-blue); color: #fff; }
+.flag {
+  background: linear-gradient(90deg, rgba(255,198,39,0.15), transparent);
+  border-left: 4px solid var(--asu-gold);
+  padding: 10px 14px;
+  border-radius: 6px;
+  margin: 10px 0;
+  font-size: 14px;
+}
+.bottom-line {
+  background: linear-gradient(135deg, rgba(140,29,64,0.08), rgba(0,81,186,0.08));
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 18px 20px;
+}
+.updated {
+  text-align: center;
+  color: var(--muted);
+  font-size: 12px;
+  margin-top: -8px;
+  margin-bottom: 18px;
+}
+ul { padding-left: 20px; }
+li { margin-bottom: 4px; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>🏈 Union Jack Classic</h1>
+  <div class="sub">Wembley Stadium, London · Saturday, September 19, 2026 · 12:00 PM ET / 5:00 PM London</div>
+  <div class="teams">
+    <span class="asu">ARIZONA STATE</span>
+    <span>vs</span>
+    <span class="ku">KANSAS</span>
+  </div>
+</div>
+
+<div class="wrap">
+<div class="updated" id="updatedStamp">Last updated: initial report</div>
+
+<div class="card">
+  <h2>📋 Game Info</h2>
+  <div class="tbl-scroll">
+  <table>
+    <tr><td><b>Kickoff</b></td><td>12:00 PM ET / 5:00 PM London</td></tr>
+    <tr><td><b>Location</b></td><td>Wembley Stadium — first-ever college football game at this venue</td></tr>
+    <tr><td><b>TV</b></td><td>FS1</td></tr>
+    <tr><td><b>Weather</b></td><td>Low 70s, partly cloudy, light breeze — no factor</td></tr>
+    <tr><td><b>Records</b></td><td><span class="pill asu">ASU 1-1</span><span class="pill ku">KU 1-1</span> — both coming off losses to SEC teams</td></tr>
+  </table>
+  </div>
+</div>
+
+<div class="card">
+  <h2>📈 Line Movement</h2>
+  <div class="tbl-scroll">
+  <table>
+    <tr><th></th><th>Open (Tue)</th><th>Current</th><th>Move</th><th>% Move</th></tr>
+    <tr><td>Spread</td><td>ASU -5.5</td><td>ASU -6</td><td>0.5 pt</td><td>9.1% toward ASU</td></tr>
+    <tr><td>Total</td><td>50.5</td><td>52.5</td><td>+2 pts</td><td>—</td></tr>
+  </table>
+  </div>
+  <p style="font-size:13.5px;color:var(--muted);margin-bottom:4px;">Model confidence: ASU covers at 60.1%. Real but modest movement — didn't clear the Pick-5 threshold on its own.</p>
+  <p style="font-size:13.5px;"><b>Outside score predictions:</b></p>
+  <ul style="font-size:13.5px;">
+    <li>Speak of the Devils Podcast: ASU 34, Kansas 27</li>
+    <li>CFN model: ASU 30, Kansas 20</li>
+    <li>Dimers: ASU 28, Kansas 24</li>
+    <li>BetMGM: ASU 63.1% win probability</li>
+  </ul>
+</div>
+
+<div class="card">
+  <h2>✈️ Travel Storyline</h2>
+  <ul>
+    <li><b>ASU</b> flew straight to London immediately after Saturday night's loss at Texas A&M — zero recovery day.</li>
+    <li><b>Kansas</b> stayed home through Tuesday, practiced twice, then flew Tuesday afternoon — landed Wednesday with an extra buffer day.</li>
+    <li>Both teams ran only light "shake-out" practices this week, no full pads.</li>
+    <li>Kansas coach Lance Leipold consulted international travel specialists on sleep scheduling, referencing the Rams/49ers' opposite approaches before their Australia trip (early arrival worked better for SF; late arrival hurt LA).</li>
+  </ul>
+  <div class="flag">No injuries, suspensions, or depth-chart shakeups reported from either camp this week — clean build-up outside of the travel angle.</div>
+</div>
+
+<div class="card">
+  <h2>🎯 Quarterbacks</h2>
+  <h3 class="asu-h">Cutter Boley — ASU (Kentucky transfer, junior)</h3>
+  <div class="tbl-scroll">
+  <table>
+    <tr><th>Game</th><th>Comp/Att</th><th>Yds</th><th>TD</th><th>INT</th><th>Rush</th></tr>
+    <tr><td>Wk1 vs Morgan St (W 70-7)</td><td>21/27 (77.8%)</td><td>387</td><td>6</td><td>0</td><td>6/31</td></tr>
+    <tr><td>Wk2 at Texas A&M (L 20-48)</td><td>21/34 (61.8%)</td><td>254</td><td>2</td><td>2</td><td>6/31</td></tr>
+    <tr><td><b>Season</b></td><td><b>42/61 (68.9%)</b></td><td><b>641</b></td><td><b>8</b></td><td><b>2</b></td><td>—</td></tr>
+  </table>
+  </div>
+  <p style="font-size:13.5px;">Wk1: ASU-record passing debut. 14.3 yds/att led the nation that week. NFL QBR 158.3 (perfect). Big 12 Offensive Player of the Week. Adjusted completion % (85.2) led the Big 12, 11th nationally. TD rate (22.2%) = 7th-highest single game since 2000.</p>
+  <p style="font-size:13.5px;">2025 Kentucky stats (context): 198/301 (65.8%), 2,160 yds, 15 TD, 12 INT over 10 starts — turnover rate has always been a question.</p>
+  <div class="flag">Red flag: 4 total turnovers combined last week vs. A&M.</div>
+
+  <h3 class="ku-h">Isaiah Marshall — Kansas (redshirt sophomore)</h3>
+  <div class="tbl-scroll">
+  <table>
+    <tr><th>Game</th><th>Comp/Att</th><th>Yds</th><th>TD</th><th>INT</th><th>Rush</th></tr>
+    <tr><td>Wk1 vs LIU (W 51-6)</td><td>—</td><td>246</td><td>2</td><td>—</td><td>—</td></tr>
+    <tr><td>Wk2 vs Missouri (L 21-38)</td><td>13/30 (43.3%)</td><td>168</td><td>2</td><td>2</td><td>20/23</td></tr>
+  </table>
+  </div>
+  <p style="font-size:13.5px;">Completion rate and rushing production both collapsed vs. Power competition. Backup: Cole Ballard.</p>
+
+  <div class="bottom-line" style="margin-top:12px;padding:12px 16px;"><b>Verdict:</b> Boley's ceiling is far higher than Marshall's has shown; Boley's floor (61.8%, 2 INT) is close to Marshall's. This game likely hinges on which QB's floor shows up.</div>
+</div>
+
+<div class="card">
+  <h2>🏃 Running Backs</h2>
+  <h3 class="asu-h">Arizona State</h3>
+  <p style="font-size:13.5px;">RB1 Marquis Gillis (starter — physical, short-yardage back), Grayson Rigdon, David Avit. Kyson Brown also featured Wk1 (6 car, 80 yds, 1 TD). Team ran for 1,707 yds on 301 carries (5.7 YPC) last season — top-20 nationally. System uses 7 backs realistically.</p>
+  <h3 class="ku-h">Kansas</h3>
+  <p style="font-size:13.5px;">Co-starters Dylan Edwards / Yasin Willis. Edwards: 6 car, 39 yds Wk2 + 1 rec, 18 yds. Team rushing dropped from 277 yds (Wk1 vs LIU) to just 80 yds (Wk2 vs Missouri) — steep drop-off vs. real competition.</p>
+</div>
+
+<div class="card">
+  <h2>🎯 Wide Receivers / Tight Ends — the biggest mismatch in this game</h2>
+  <h3 class="asu-h">Arizona State — possibly the best WR corps in the Big 12</h3>
+  <div class="tbl-scroll">
+  <table>
+    <tr><th>Player</th><th>Wk1 Line</th></tr>
+    <tr><td>Reed Harris (WR)</td><td>6 rec, 137 yds, 2 TD</td></tr>
+    <tr><td>Omarion Miller (WR)</td><td>8 rec, 102 yds, 1 TD (game-high catches)</td></tr>
+    <tr><td>Grayson Rigdon (RB, as rec.)</td><td>2 rec, 110 yds, 2 TD</td></tr>
+  </table>
+  </div>
+  <p style="font-size:13.5px;">TE Khamari Anderson also starts. <b>3 separate 100-yard receivers in one game — first time at ASU since at least 1996.</b></p>
+
+  <h3 class="ku-h">Kansas</h3>
+  <div class="tbl-scroll">
+  <table>
+    <tr><th>Player</th><th>Line</th></tr>
+    <tr><td>Nik McMillan (WR)</td><td>Wk2: 2 rec, 52 yds, 1 TD (team's top performer that game)</td></tr>
+    <tr><td>Keaton Kubecka (WR)</td><td>Season: 4 rec, 46 yds</td></tr>
+    <tr><td>Carson Bruhn (TE)</td><td>Season: 3 rec, 55 yds</td></tr>
+    <tr><td>Emmanuel Henderson Jr.</td><td>3rd-Team All-Big 12</td></tr>
+  </table>
+  </div>
+  <p style="font-size:13.5px;">Kansas TEs had 9 receiving TDs last year — a real weapon if deployed. WR corps overall: modest early production.</p>
+
+  <div class="flag"><b>Secondary matchup underneath this:</b> Kansas CBs Jalen Todd and Austin Alexander are the acknowledged weak spot on that defense. Kansas allowed 20 receiving TDs last season (T-4th most in Big 12) and 13.4 YAC to WRs since 2024 (T-28th worst in FBS). ASU WRs have averaged 13.9 YAC since 2024 (T-35th best). <b>This is the #1 leverage point in the entire game.</b></p>
+  <p style="font-size:13.5px;margin-top:8px;">One partial counter for Kansas: ASU RBs average 34.5 receiving yds/game (T-29th) vs. Kansas defense allowing just 18.0 receiving yds/game to RBs (T-20th best) — this sub-matchup favors Kansas.</p></div>
+</div>
+
+<div class="card">
+  <h2>🧱 Offensive Line</h2>
+  <h3 class="asu-h">Arizona State</h3>
+  <p style="font-size:13.5px;">C Tana Alo-Tupuola, LG Maki Stewart, RT Jalen Klemm confirmed. LT: Luke Baklenko/Champ Westbrooks. RG: Wade Helton/Rob Lapuaho. More continuity overall than Kansas.</p>
+  <h3 class="ku-h">Kansas</h3>
+  <p style="font-size:13.5px;">Replacing 60% of last year's starts — only LT Calvin Clements (25 consecutive starts) and LG Amir Herring return. Real vulnerability vs. ASU's pass rush.</p>
+</div>
+
+<div class="card">
+  <h2>💥 Defensive Line / Pass Rush</h2>
+  <h3 class="asu-h">Arizona State</h3>
+  <p style="font-size:13.5px;">EDGE Emar'ion Winston/Roman Pitre (interchangeable), DE Ramar Williams (Julian Hugo reserve). Graded one of the best defenses in the Big 12 on paper.</p>
+  <div class="flag"><b>Signature stat:</b> held Texas A&M dual-threat QB Marcel Reed to under 20 rushing yards on 7 carries last week.</div>
+  <p style="font-size:13.5px;">Allowed 20+ yard completions on just 7.4% of attempts (2nd-best in Big 12). Covered at 8-2 (.800) last season when allowing fewer than 3 sacks.</p>
+  <h3 class="ku-h">Kansas</h3>
+  <p style="font-size:13.5px;">DE Leroy Harris III, Alex Bray. Unproven yet vs. a Power-conference O-line.</p>
+</div>
+
+<div class="card">
+  <h2>🛡️ Secondary / Linebackers</h2>
+  <h3 class="asu-h">Arizona State</h3>
+  <p style="font-size:13.5px;">DBs Adrian "Boogie" Wilson, Jessiah McGrew, Montana Warren. Considered the most unsettled group on ASU's depth chart.</p>
+  <h3 class="ku-h">Kansas</h3>
+  <p style="font-size:13.5px;">CB Jalen Todd (starter), CB Austin Alexander, HAWK Elijah Cannon (rookie, praised by Leipold), backup Khi Cummings-Coleman (Iowa State transfer). DC calls depth a strength — production says otherwise so far (see WR section).</p>
+</div>
+
+<div class="card">
+  <h2>🦵 Special Teams</h2>
+  <p style="font-size:13.5px;">Kansas punter <b>Finn Lappin</b> — 3rd-Team All-Big 12 last season. A real weapon in a field-position battle.</p>
+  <p style="font-size:13.5px;">ASU's punting game has been specifically flagged as a weakness in outside previews.</p>
+</div>
+
+<div class="card">
+  <h2>📊 Key Team Stats / Situational Trends</h2>
+  <div class="tbl-scroll">
+  <table>
+    <tr><th>Stat</th><th class="asu-h">ASU</th><th class="ku-h">Kansas</th></tr>
+    <tr><td>3rd down defense</td><td>22nd nationally (25.0% allowed)</td><td>—</td></tr>
+    <tr><td>3rd down offense</td><td>—</td><td>77th nationally (39.3%)</td></tr>
+    <tr><td>Red zone offense</td><td>100% (tied #1 nat'l)</td><td>100% (tied #1 nat'l)</td></tr>
+    <tr><td>Turnover margin</td><td><b>-4, ranked 133rd</b></td><td>—</td></tr>
+    <tr><td>Penalty yds/game</td><td>42.0 (37th, clean)</td><td>74.5 (118th, sloppy)</td></tr>
+    <tr><td>Explosive-play trend</td><td>10-1 (.909) last season</td><td>—</td></tr>
+    <tr><td>Turnover-neutral trend</td><td>—</td><td>4-1 (.800) last season</td></tr>
+    <tr><td>Interception-thrown trend</td><td>—</td><td>2-6 (.250) last season</td></tr>
+  </table>
+  </div>
+  <div class="flag" style="margin-top:12px;"><b>The swing stat:</b> ASU's -4 turnover margin is a genuine season-long problem (backed up by 4 giveaways last week alone). Kansas historically wins close-turnover games (4-1) but collapses when Marshall throws picks (2-6). Marshall has already thrown 2 INTs in his last outing. If turnovers stay even, history favors Kansas.</div>
+</div>
+
+<div class="bottom-line">
+  <h2 style="margin-top:0;border:none;padding:0;">🏆 Bottom Line</h2>
+  <p>ASU wins the tape on nearly every unit — better WR corps, better pass rush, more O-line continuity, better situational football (fewer penalties, elite explosive-play trend). The one stat working against them is real and significant: turnover margin. Kansas's best path to the upset is forcing ASU into turnovers and leaning on Finn Lappin's leg to win field position while its TE/receiving weapons find soft spots underneath.</p>
+  <p style="margin-bottom:0;"><b>No new injuries, suspensions, or depth-chart changes have surfaced from either team heading into kickoff.</b></p>
+</div>
+
+</div>
+</body>
+</html>

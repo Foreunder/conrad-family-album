@@ -13,119 +13,138 @@
   header{background:var(--navy);color:#fff;padding:22px 20px 18px;text-align:center;position:sticky;top:0;z-index:10;box-shadow:0 4px 10px rgba(0,0,0,.15);}
   header h1{margin:0;font-size:20px;letter-spacing:.03em;}
   header p{margin:4px 0 0;font-size:12px;opacity:.85;}
-  main{max-width:720px;margin:0 auto;padding:16px;}
-  table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:8px;overflow:hidden;font-size:13.5px;}
+  main{max-width:760px;margin:0 auto;padding:16px;}
+  .section{margin-bottom:24px;}
+  .section h2{font-size:14px;text-transform:uppercase;letter-spacing:.08em;color:var(--gold);border-bottom:2px solid var(--gold);padding-bottom:6px;margin:0 0 10px;}
+  .note{background:#fff5da;border:1px solid var(--line);border-radius:6px;padding:10px 14px;font-size:12.5px;line-height:1.5;margin-bottom:10px;}
+  table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:8px;overflow:hidden;font-size:13.5px;margin-bottom:8px;}
   th{background:var(--navy);color:#fff;text-align:left;padding:8px 10px;font-size:11px;text-transform:uppercase;letter-spacing:.05em;}
-  td{padding:9px 10px;border-top:1px solid var(--line);vertical-align:top;}
+  td{padding:8px 10px;border-top:1px solid var(--line);vertical-align:top;}
   td.amt{text-align:right;white-space:nowrap;font-weight:600;}
-  tr:last-child td{font-weight:700;background:#fff5da;}
-  .note{font-size:11px;color:#8a7550;margin-top:6px;}
+  tr.totalrow td{font-weight:700;background:#f5ead0;}
+  .grandtotal{background:var(--navy);color:#fff;border-radius:8px;padding:16px 20px;text-align:center;margin-top:10px;}
+  .grandtotal .amt{font-size:26px;font-weight:700;color:#ffd97a;}
+  .scrollwrap{overflow-x:auto;-webkit-overflow-scrolling:touch;}
 </style>
 </head>
 <body>
 <header>
-  <h1>Trip Expenses</h1>
-  <p>Jamey &amp; Kayla · London &amp; Scotland 2026</p>
+  <h1>Conrad Family Trip — Full Expenses</h1>
+  <p>London &amp; Scotland · September 2026</p>
 </header>
 <main>
-  <table>
-    <tr><th>Date</th><th>Item</th><th>Card</th><th class="amt">Amount</th></tr>
-    <tr>
-      <td>Sept 10</td>
-      <td>Waymo — Sky Harbor Airport to coffee shop near Jayden's (5959 N Granite Reef Rd); meeting Jamey's parents briefly before heading back to the airport</td>
-      <td>Southwest Card</td>
-      <td class="amt">$27.73</td>
-    </tr>
-    <tr>
-      <td>Sept 9</td>
-      <td>Uber</td>
-      <td>Southwest Card</td>
-      <td class="amt">$32.11</td>
-    </tr>
-    <tr>
-      <td>Sept 11</td>
-      <td>PayPal — The Summerhouse</td>
-      <td>Southwest Card</td>
-      <td class="amt">$165.66</td>
-    </tr>
-    <tr>
-      <td>Sept 11</td>
-      <td>PayPal — Black Sheep Co</td>
-      <td>Southwest Card</td>
-      <td class="amt">$14.76</td>
-    </tr>
-    <tr>
-      <td>Sept 11</td>
-      <td>TfL Travel Charge</td>
-      <td>Southwest Card</td>
-      <td class="amt">$20.98</td>
-    </tr>
-    <tr>
-      <td>Sept 11</td>
-      <td>Meet Bros</td>
-      <td>Southwest Card</td>
-      <td class="amt">$227.68</td>
-    </tr>
-    <tr>
-      <td>Sept 12</td>
-      <td>Leto Caffe</td>
-      <td>Southwest Card</td>
-      <td class="amt">$86.33</td>
-    </tr>
-    <tr>
-      <td>Sept 12</td>
-      <td>Blacklock</td>
-      <td>Southwest Card</td>
-      <td class="amt">$240.48</td>
-    </tr>
-    <tr>
-      <td>Sept 12</td>
-      <td>Leicester Arms</td>
-      <td>Southwest Card</td>
-      <td class="amt">$29.31</td>
-    </tr>
-    <tr>
-      <td>Sept 12</td>
-      <td>Duixo</td>
-      <td>Southwest Card</td>
-      <td class="amt">$33.85</td>
-    </tr>
-    <tr>
-      <td>Sept 12</td>
-      <td>Blank Street Coffee</td>
-      <td>Southwest Card</td>
-      <td class="amt">$12.18</td>
-    </tr>
-    <tr>
-      <td>Sept 16</td>
-      <td>Novotel London Paddington — Room 1, second stay</td>
-      <td>Southwest Card</td>
-      <td class="amt">$778.41</td>
-    </tr>
-    <tr>
-      <td>Sept 16</td>
-      <td>Novotel London Paddington — Room 2, second stay</td>
-      <td>Southwest Card</td>
-      <td class="amt">$778.41</td>
-    </tr>
-    <tr>
-      <td>Sept 18</td>
-      <td>Novotel London Wembley — Room 1 (Ref 1000000160)</td>
-      <td>Visa ...1492</td>
-      <td class="amt">$963.18</td>
-    </tr>
-    <tr>
-      <td>Sept 18</td>
-      <td>Novotel London Wembley — Room 2 (Ref 1000000161)</td>
-      <td>Visa ...1492</td>
-      <td class="amt">$963.18</td>
-    </tr>
-    <tr>
-      <td colspan="3">Total</td>
-      <td class="amt">$4,374.25</td>
-    </tr>
-  </table>
-  <p class="note">Jamey &amp; Kayla only — not shared trip costs. Updated as receipts come in.</p>
+
+  <div class="note">This is the complete spend for the trip, including meals and coffee — not just the costs split with Jayden and Kealey (see the separate Financial Breakdown page for what's actually owed). Dining is grouped by restaurant/venue so you can see where the money went. Jamey and Kayla are covering most of this; the kids are welcome to help out with any of it if they want, but nothing here is expected of them automatically.</div>
+
+  <div class="section">
+    <h2>Hotels</h2>
+    <div class="scrollwrap"><table>
+      <tr><th>Property</th><th class="amt">Amount</th></tr>
+      <tr><td>Novotel Paddington, Sept 11–14 (two rooms)</td><td class="amt">$1,893.02</td></tr>
+      <tr><td>Novotel Paddington, Sept 16–18 (two rooms)</td><td class="amt">$1,556.82</td></tr>
+      <tr><td>Novotel Wembley, Sept 18–20 (two rooms)</td><td class="amt">$1,926.36</td></tr>
+      <tr><td>Bonnie Badger, Sept 14</td><td class="amt">$699.66</td></tr>
+      <tr><td>Old Course Hotel, Sept 15 (room only)</td><td class="amt">$1,739.40</td></tr>
+      <tr class="totalrow"><td>Hotels Total</td><td class="amt">$7,815.26</td></tr>
+    </table></div>
+  </div>
+
+  <div class="section">
+    <h2>Dining &amp; Coffee — By Location</h2>
+    <div class="scrollwrap"><table>
+      <tr><th>Location</th><th class="amt">Amount</th></tr>
+      <tr><td>The Summerhouse (PayPal), Sept 11</td><td class="amt">$165.66</td></tr>
+      <tr><td>Black Sheep Co, Sept 11 / 16 / 17 (3 visits)</td><td class="amt">$28.73</td></tr>
+      <tr><td>Meet Bros, Sept 11</td><td class="amt">$227.68</td></tr>
+      <tr><td>Leto Caffe, Sept 12</td><td class="amt">$86.33</td></tr>
+      <tr><td>Blacklock, Sept 12</td><td class="amt">$240.48</td></tr>
+      <tr><td>Leicester Arms, Sept 12</td><td class="amt">$29.31</td></tr>
+      <tr><td>Duixo, Sept 12</td><td class="amt">$33.85</td></tr>
+      <tr><td>Blank Street Coffee, Sept 12</td><td class="amt">$12.18</td></tr>
+      <tr><td>Aqua Shard, Sept 12</td><td class="amt">$488.86</td></tr>
+      <tr><td>Buckingham Palace (snack), Sept 13</td><td class="amt">$6.23</td></tr>
+      <tr><td>St Stephens Tavern, Sept 13</td><td class="amt">$162.77</td></tr>
+      <tr><td>LS Colicci, St James's Park, Sept 13</td><td class="amt">$5.62</td></tr>
+      <tr><td>Jigger Inn, Sept 14</td><td class="amt">$149.71</td></tr>
+      <tr><td>Gullane Golf Club (snack), Sept 14</td><td class="amt">$4.54</td></tr>
+      <tr><td>The Tom Morris Bar &amp; Grill, Sept 15</td><td class="amt">$126.50</td></tr>
+      <tr><td>Clarets Cafe &amp; Brasserie, Sept 15</td><td class="amt">$40.98</td></tr>
+      <tr><td>Old Course Hotel dining — Swilcan Loft &amp; Road Hole Restaurant, Sept 15</td><td class="amt">$754.08</td></tr>
+      <tr><td>Fisher &amp; Donaldson, Sept 15</td><td class="amt">$18.49</td></tr>
+      <tr><td>Caffe Nero, Edinburgh Wave, Sept 15</td><td class="amt">$29.12</td></tr>
+      <tr><td>Moishe's Bagel, Sept 16</td><td class="amt">$3.51</td></tr>
+      <tr><td>Darcie and May Green, Sept 17</td><td class="amt">$19.57</td></tr>
+      <tr><td>Sainsbury's (snacks), Sept 17</td><td class="amt">$27.94</td></tr>
+      <tr><td>Heist Bank, Paddington, Sept 17</td><td class="amt">$138.80</td></tr>
+      <tr><td>Turnips Distributors, Sept 17</td><td class="amt">$6.41</td></tr>
+      <tr><td>Richard Bramble (SumUp), Sept 17</td><td class="amt">$33.75</td></tr>
+      <tr><td>ChangePlease, Sept 17</td><td class="amt">$8.10</td></tr>
+      <tr><td>Bread Ahead Wholesale, Sept 18</td><td class="amt">$5.23</td></tr>
+      <tr><td>Sixes Wembley — food &amp; drink, Sept 18</td><td class="amt">$190.01</td></tr>
+      <tr><td>Skeat, Sept 18 (2 visits)</td><td class="amt">$15.39</td></tr>
+      <tr><td>The White Horse, Wembley, Sept 18</td><td class="amt">$187.69</td></tr>
+      <tr><td>Co-op Group Food, Sept 18</td><td class="amt">$7.64</td></tr>
+      <tr class="totalrow"><td>Dining &amp; Coffee Total</td><td class="amt">$3,255.16</td></tr>
+    </table></div>
+  </div>
+
+  <div class="section">
+    <h2>Golf &amp; Green Fees</h2>
+    <div class="scrollwrap"><table>
+      <tr><th>Item</th><th class="amt">Amount</th></tr>
+      <tr><td>Gullane No. 2 green fees (3 players)</td><td class="amt">$390.00</td></tr>
+      <tr><td>Musselburgh green fees (4 players)</td><td class="amt">$446.75</td></tr>
+      <tr><td>Gullane club hire &amp; trolley rental (3 players)</td><td class="amt">$243.86</td></tr>
+      <tr class="totalrow"><td>Golf Total</td><td class="amt">$1,080.61</td></tr>
+    </table></div>
+  </div>
+
+  <div class="section">
+    <h2>Transport</h2>
+    <div class="scrollwrap"><table>
+      <tr><th>Item</th><th class="amt">Amount</th></tr>
+      <tr><td>Alamo Volvo XC90 rental, Sept 14–16</td><td class="amt">$225.20</td></tr>
+      <tr><td>Alamo rental car fuel, Musselburgh FS365</td><td class="amt">$172.53</td></tr>
+      <tr><td>Uber (5 rides, incl. Sept 14 Exec XXL to King's Cross)</td><td class="amt">$185.41</td></tr>
+      <tr><td>TfL travel charges (8 charges)</td><td class="amt">$94.91</td></tr>
+      <tr class="totalrow"><td>Transport Total</td><td class="amt">$678.05</td></tr>
+    </table></div>
+  </div>
+
+  <div class="section">
+    <h2>Shopping &amp; Personal</h2>
+    <div class="scrollwrap"><table>
+      <tr><th>Item</th><th class="amt">Amount</th></tr>
+      <tr><td>Adidas, Oxford Street</td><td class="amt">$207.87</td></tr>
+      <tr><td>Harrods</td><td class="amt">$26.69</td></tr>
+      <tr><td>St Andrews Links by Travi</td><td class="amt">$209.47</td></tr>
+      <tr><td>Fanatics Open Shop</td><td class="amt">$371.64</td></tr>
+      <tr><td>The Old Course Shop (3 visits)</td><td class="amt">$1,011.28</td></tr>
+      <tr><td>Jamey's shirt, Gullane pro shop</td><td class="amt">$108.38</td></tr>
+      <tr><td>LC Gullane Ltd</td><td class="amt">$10.02</td></tr>
+      <tr><td>Canva</td><td class="amt">$15.00</td></tr>
+      <tr class="totalrow"><td>Shopping &amp; Personal Total</td><td class="amt">$1,960.35</td></tr>
+    </table></div>
+  </div>
+
+  <div class="section">
+    <h2>Travel Fees</h2>
+    <div class="scrollwrap"><table>
+      <tr><th>Item</th><th class="amt">Amount</th></tr>
+      <tr><td>American Airlines inflight wifi</td><td class="amt">$32.00</td></tr>
+      <tr><td>Southwest bag fee, Sept 8 (Jamey &amp; Kayla only)</td><td class="amt">$35.00</td></tr>
+      <tr class="totalrow"><td>Travel Fees Total</td><td class="amt">$67.00</td></tr>
+    </table></div>
+  </div>
+
+  <div class="grandtotal">
+    <div style="font-size:12px;letter-spacing:.08em;text-transform:uppercase;opacity:.85;">Grand Total — Full Trip Spend</div>
+    <div class="amt">$14,856.43</div>
+  </div>
+
+  <div class="note" style="margin-top:16px;">Excluded from this page entirely: Amazon Marketplace charges dated after Sept 11, 2026 (tracked separately — see the Espresso Bar Setup page, since those are for the home coffee bar, not the trip) and anything clearly unrelated to the trip (Petco, Men's Wearhouse, Speedee Mar gas, Spotify, Amazon Prime/Prime Video — all pre-trip or ongoing personal subscriptions). Enterprise Rent A Car's large hold (-$900.51) is deposit activity, not additional rental cost, and isn't counted here. See the Financial Breakdown page for exactly how the rental car, its fuel, and the Gullane club hire &amp; trolley are split with the kids.</div>
+
 </main>
+<footer style="text-align:center;font-size:11px;color:#8a7550;padding:20px;">Conrad Family Trip · London &amp; Scotland 2026</footer>
 </body>
 </html>

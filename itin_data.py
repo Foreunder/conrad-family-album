@@ -97,6 +97,7 @@ DAYS = [
         dict(time="6:30–8:30 PM", title="The White Horse Wembley", address="Engineers Way, Wembley HA9 0DH (Wembley Park)", conf="Ref DMN-16959678684", status="BOOKED", detail="Conrad family only tonight (4 people) — cashless venue, order at the bar."),
     ]),
     dict(date="Saturday, September 19", items=[
+        dict(time="Morning", title="Paddy Power", address="Bridge Rd, Wembley HA9 9AG", status="—", detail="Closest betting shop to the Novotel Wembley — wagering whatever's left of the pounds on today's game before kickoff."),
         dict(time="Pregame", title="Feed the Yak", address="Wembley Park area — exact address to confirm", conf="No confirmation # on file", status="BOOKED", detail="6 people, incl. the Noones. Seating time still being finalized."),
         dict(time="60–90 min early", title="Arrive Wembley — security, seats", address="Wembley Stadium, Wembley HA9 0WS", status="—", detail="Doors and security lines move slowly on gameday — arrive early."),
         dict(time="5:00 PM", title="Kickoff — ASU vs. Kansas, Union Jack Classic", address="Wembley Stadium, Wembley HA9 0WS", conf="Order #38-35122/UK8 · Section 124, Row 14, Seats 48-51", status="BOOKED", detail="4 tickets, £825.85 total (incl. facility/service fees) — Christmas 2025 gift, already settled. Patrick and Dana Noone also attending."),
